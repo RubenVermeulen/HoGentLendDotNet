@@ -32,7 +32,7 @@ namespace HoGentLend.Models.DAL
             Console.WriteLine("setting the initializer");
             Database.SetInitializer<HoGentLendDbContext>(new HoGentLendDbInitializer());
         }
-        public static void init() { Create().Database.Initialize(true); }
+        public static void Init() { Create().Database.Initialize(true); }
     }
 
 }
