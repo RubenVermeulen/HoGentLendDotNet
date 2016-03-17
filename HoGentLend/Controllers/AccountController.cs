@@ -13,6 +13,7 @@ using HoGentLend.Models.DAL;
 
 namespace HoGentLend.Controllers
 {
+    //GET PRANKED BY BERKONKRVOS
     [Authorize]
     public class AccountController : Controller
     {
