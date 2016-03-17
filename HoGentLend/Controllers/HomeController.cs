@@ -15,7 +15,7 @@ namespace HoGentLend.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Your application description page. Some text";
 
             return View();
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using HoGentLend.Models.DAL;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(HoGentLend.Startup))]
