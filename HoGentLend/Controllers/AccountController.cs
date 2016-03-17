@@ -250,7 +250,7 @@ namespace HoGentLend.Controllers
 //    // If we got this far, something failed, redisplay form
 //    return View(model);
 //}
-
+//xd
 ////
 //// GET: /Account/ForgotPasswordConfirmation
 //[AllowAnonymous]
