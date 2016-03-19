@@ -3,19 +3,49 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
+using HoGentLend.Models.Domain;
 
 namespace HoGentLend.Models.DAL
 {
-    public class HoGentLendDbInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<HoGentLendDbContext>
+    public class HoGentLendDbInitializer : System.Data.Entity.DropCreateDatabaseAlways<HoGentLendContext>
     {
-        protected override void Seed(HoGentLendDbContext context)
+        protected override void Seed(HoGentLendContext context)
         {
             try
             {
                 // Hier zetten we database context initializatie
+                Groep d1 = new Groep {Name = "Kleuteronderwijs", IsLeerGebied = false};
+
+                List<Groep> doelgroepen = new List<Groep>();
+                doelgroepen.Add(d1);
+
+                Groep l1 = new Groep { Name = "Aardrijkskunde", IsLeerGebied = true};
+                Groep l2 = new Groep { Name = "Geografie", IsLeerGebied = true};
+
+                List<Groep> leergebieden = new List<Groep>();
+                leergebieden.Add(l1);
+                leergebieden.Add(l2);
+
+                Materiaal m1 = new Materiaal
+                {
+                    Name = "Wereldbol",
+                    Description = "Alle landen van de wereld in één handomdraai.",
+                    ArticleCode = "abc123",
+                    Price = 12.85,
+                    Amount = 10,
+                    AmountNotAvailable = 5,
+                    IsLendable = true,
+                    Location = "GSCHB4.021",
+                    Firma = new Firma { Name = "Goaty Enterprise", Email = "info@goatyenterprise.be"},
+                    DoelGroepen = doelgroepen,
+                    LeerGebieden = leergebieden
+
+                };
+
+                context.Materialen.Add(m1);
 
                 context.SaveChanges();
-                base.Seed(context);
+                //base.Seed(context);
             }
             catch (DbEntityValidationException e)
             {

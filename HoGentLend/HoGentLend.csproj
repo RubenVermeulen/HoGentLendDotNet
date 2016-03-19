@@ -186,6 +186,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogusController.cs" />
+    <Compile Include="Models\DAL\Mapper\FirmaMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\GroepMapper.cs" />
+    <Compile Include="Models\DAL\Mapper\MateriaalMapper.cs" />
     <Compile Include="Models\Domain\Firma.cs" />
     <Compile Include="Models\Domain\Groep.cs" />
     <Compile Include="Models\Domain\IGroepRepository.cs" />
@@ -263,11 +266,10 @@
     <Content Include="Views\_niet nodig\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\_niet nodig\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Catalogus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\DAL\Mappers\" />
-    <Folder Include="Views\Catalogus\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

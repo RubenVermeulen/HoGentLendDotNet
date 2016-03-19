@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,136 +8,58 @@ namespace HoGentLend.Models.Domain
 {
     public class Materiaal
     {
+        public long Id { get; private set; }
+
         public string Name
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+            get; set; }
 
         public string Description
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+            get; set; }
 
         public string ArticleCode
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+            get; set; }
 
         public double Price
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+            get; set; }
 
         public int Amount
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+            get; set; }
 
         public int AmountNotAvailable
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+            get; set; }
 
         public bool IsLendable
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+            get; set; }
 
-            set
-            {
-            }
-        }
+
+        public string Location
+        {
+            get; set; }
 
         public List<Groep> DoelGroepen
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
+            get; set;
         }
 
         public List<Groep> LeerGebieden
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
+            get; set;
         }
 
         public Firma Firma
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
+            get; set;
         }
 
         public byte[] FotoBytes
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+            get; set; }
     }
 }

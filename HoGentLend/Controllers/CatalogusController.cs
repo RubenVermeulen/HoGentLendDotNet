@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HoGentLend.Models.Domain;
 
 namespace HoGentLend.Controllers
 {
     public class CatalogusController : Controller
     {
-        private IMateriaalRepository _materiaalRepository;
+        private IMateriaalRepository materiaalRepository;
 
         public IMateriaalRepository MateriaalRepository
         {

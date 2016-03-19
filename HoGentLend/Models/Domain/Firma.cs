@@ -7,28 +7,10 @@ namespace HoGentLend.Models.Domain
 {
     public class Firma
     {
-        public string Name
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
+        public long Id { get; set; }
 
-            set
-            {
-            }
-        }
+        public string Name { get; set; }
 
-        public string Email
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+        public string Email { get; set; }
     }
 }

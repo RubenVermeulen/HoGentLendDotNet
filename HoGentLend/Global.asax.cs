@@ -18,7 +18,7 @@ namespace HoGentLend
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            HoGentLendDbContext.Init();
+            HoGentLendContext.Init();
         }
     }
 }

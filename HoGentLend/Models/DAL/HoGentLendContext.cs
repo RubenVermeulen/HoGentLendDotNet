@@ -6,15 +6,17 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using HoGentLend.Models.Domain;
 
 namespace HoGentLend.Models.DAL
 {
-    public class HoGentLendDbContext : IdentityDbContext<ApplicationUser>
+    public class HoGentLendContext : IdentityDbContext<ApplicationUser>
     {
-        public HoGentLendDbContext() : base("HoGentLend")
+        public HoGentLendContext() : base("HoGentLend")
         { }
 
-        // hier komen de DbSet's
+        // DbSets
+        public DbSet<Materiaal> Materialen { get; set; } 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -22,16 +24,17 @@ namespace HoGentLend.Models.DAL
             modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public static HoGentLendDbContext Create()
+        public static HoGentLendContext Create()
         {
-            return DependencyResolver.Current.GetService<HoGentLendDbContext>();
+            return DependencyResolver.Current.GetService<HoGentLendContext>();
         }
 
-        static HoGentLendDbContext()
+        static HoGentLendContext()
         {
             Console.WriteLine("setting the initializer");
-            Database.SetInitializer<HoGentLendDbContext>(new HoGentLendDbInitializer());
+            Database.SetInitializer<HoGentLendContext>(new HoGentLendDbInitializer());
         }
+
         public static void Init() { Create().Database.Initialize(true); }
     }
 

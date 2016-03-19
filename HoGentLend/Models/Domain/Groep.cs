@@ -7,28 +7,14 @@ namespace HoGentLend.Models.Domain
 {
     public class Groep
     {
+        public long Id { get; set; }
+
         public string Name
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+            get; set; }
 
         public bool IsLeerGebied
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
+            get; set; }
     }
 }
