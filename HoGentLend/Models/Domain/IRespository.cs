@@ -7,7 +7,7 @@ namespace HoGentLend.Models.Domain
 {
     public interface IRepository<EntityType, IdType>
     {
-        void FindBy(IdType id);
+        EntityType FindBy(IdType id);
 
         IQueryable<EntityType> FindAll();
 

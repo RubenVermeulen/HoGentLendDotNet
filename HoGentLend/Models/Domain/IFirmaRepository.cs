@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HoGentLend.Models.Domain
 {
-    public interface IGebruikerRepsitory : IRepository<Gebruiker, string>
+    interface IFirmaRepository : IRepository<Firma, string>
     {
     }
 }
