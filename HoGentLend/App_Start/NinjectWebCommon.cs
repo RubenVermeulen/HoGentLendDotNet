@@ -1,3 +1,6 @@
+using HoGentLend.Models.DAL;
+using HoGentLend.Models.Domain;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(HoGentLend.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(HoGentLend.App_Start.NinjectWebCommon), "Stop")]
 
@@ -61,6 +64,9 @@ namespace HoGentLend.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IMateriaalRepository>().To<MateriaalRepository>().InRequestScope();
+            kernel.Bind<IGroepRepository>().To<GroepRepository>().InRequestScope();
+            kernel.Bind<IFirmaRepository>().To<FirmaRepository>().InRequestScope();
         }        
     }
 }

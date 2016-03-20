@@ -12,54 +12,54 @@ namespace HoGentLend.Models.Domain
 
         public string Name
         {
-            get; private set; }
+            get; set; }
 
         public string Description
         {
-            get; private set; }
+            get; set; }
 
         public string ArticleCode
         {
-            get; private set; }
+            get; set; }
 
         public double Price
         {
-            get; private set; }
+            get; set; }
 
         public int Amount
         {
-            get; private set; }
+            get; set; }
 
         public int AmountNotAvailable
         {
-            get; private set; }
+            get; set; }
 
         public bool IsLendable
         {
-            get; private set; }
+            get; set; }
 
 
         public string Location
         {
-            get; private set; }
+            get; set; }
 
         public List<Groep> DoelGroepen
         {
-            get; private set;
+            get; set;
         }
 
         public List<Groep> LeerGebieden
         {
-            get; private set;
+            get; set;
         }
 
         public Firma Firma
         {
-            get; private set;
+            get; set;
         }
 
         public byte[] FotoBytes
         {
-            get; private set; }
+            get; set; }
     }
 }

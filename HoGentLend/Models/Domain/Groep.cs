@@ -11,10 +11,10 @@ namespace HoGentLend.Models.Domain
 
         public string Name
         {
-            get; private set; }
+            get; set; }
 
         public bool IsLeerGebied
         {
-            get; private set; }
+            get; set; }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HoGentLend.Models.Domain;
+using HoGentLend.ViewModels;
 
 namespace HoGentLend.Controllers
 {
@@ -11,22 +13,25 @@ namespace HoGentLend.Controllers
     {
         private IMateriaalRepository materiaalRepository;
 
-        public IMateriaalRepository MateriaalRepository
+        public CatalogusController(IMateriaalRepository materiaalRepository)
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
+            this.materiaalRepository = materiaalRepository;
         }
 
         // GET: Catalogus
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<MateriaalViewModel> materialen = materiaalRepository.FindAll()
+                .Include(m => m.Firma)
+                .Include(m => m.DoelGroepen)
+                .Include(m => m.LeerGebieden)
+                .ToList()
+                .Select(m => new MateriaalViewModel(m));
+
+            // If lector return all materialen
+
+            // If student return only available, in stock materialen
+            return View(materialen);
         }
 
         // POST
