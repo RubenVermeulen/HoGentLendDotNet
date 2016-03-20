@@ -58,7 +58,7 @@ namespace HoGentLend.Models.Domain
             get; set;
         }
 
-        public byte[] FotoBytes
+        public byte[] PhotoBytes
         {
             get; set; }
     }

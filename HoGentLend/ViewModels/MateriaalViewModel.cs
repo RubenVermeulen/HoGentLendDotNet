@@ -28,7 +28,7 @@ namespace HoGentLend.ViewModels
             LeerGebieden = m.LeerGebieden.OfType<string>().ToList();
             FirmaName = m.Firma.Name;
             FirmaEmail = m.Firma.Email;
-            FotoBytes = m.FotoBytes;
+            PhotoBase64 = (m.PhotoBytes != null) ? Convert.ToBase64String(m.PhotoBytes) : null;
         }
 
         public long Id { get; private set; }
@@ -67,6 +67,6 @@ namespace HoGentLend.ViewModels
         [DisplayName("E-mailadres firma")]
         public string FirmaEmail { get; private set; }
 
-        public byte[] FotoBytes { get; private set; }
+        public string PhotoBase64 { get; private set; }
     }
 }

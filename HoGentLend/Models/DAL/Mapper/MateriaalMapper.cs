@@ -64,7 +64,7 @@ namespace HoGentLend.Models.DAL.Mapper
                 .IsOptional()
                 .HasMaxLength(255);
 
-            Property(m => m.FotoBytes)
+            Property(m => m.PhotoBytes)
                 .HasColumnName("FOTOBYTES")
                 .HasColumnType("image")
                 .IsOptional();

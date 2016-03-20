@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using HoGentLend.Models.Domain;
 
@@ -19,12 +22,14 @@ namespace HoGentLend.Models.DAL
                 List<Groep> doelgroepen = new List<Groep>();
                 doelgroepen.Add(d1);
 
-                Groep l1 = new Groep { Name = "Aardrijkskunde", IsLeerGebied = true};
-                Groep l2 = new Groep { Name = "Geografie", IsLeerGebied = true};
+                List<Groep> leergebiedenSet1 = new List<Groep>();
+                leergebiedenSet1.Add(new Groep { Name = "Aardrijkskunde", IsLeerGebied = true });
+                leergebiedenSet1.Add(new Groep { Name = "Geografie", IsLeerGebied = true });
 
-                List<Groep> leergebieden = new List<Groep>();
-                leergebieden.Add(l1);
-                leergebieden.Add(l2);
+                List<Groep> leergebiedenSet2 = new List<Groep>();
+                leergebiedenSet1.Add(new Groep { Name = "Wiskunde", IsLeerGebied = true });
+
+                Firma f1 = new Firma {Name = "Goaty Enterprise", Email = "info@goatyenterprise.be"};
 
                 Materiaal m1 = new Materiaal
                 {
@@ -36,13 +41,46 @@ namespace HoGentLend.Models.DAL
                     AmountNotAvailable = 5,
                     IsLendable = true,
                     Location = "GSCHB4.021",
-                    Firma = new Firma { Name = "Goaty Enterprise", Email = "info@goatyenterprise.be"},
+                    Firma = f1,
                     DoelGroepen = doelgroepen,
-                    LeerGebieden = leergebieden
+                    LeerGebieden = leergebiedenSet1,
+                    PhotoBytes = new WebClient().DownloadData("https://www.dezwerver.nl/media/cache/e3/88/e38825e2d8175a72d9d346193f983983.jpg")
+                };
 
+                Materiaal m2 = new Materiaal
+                {
+                    Name = "Rekenmachine",
+                    Description = "Reken er op los met deze grafische rekenmachine.",
+                    ArticleCode = "abc456",
+                    Price = 19.99,
+                    Amount = 4,
+                    AmountNotAvailable = 0,
+                    IsLendable = true,
+                    Location = "GSCHB4.021",
+                    Firma = f1,
+                    DoelGroepen = doelgroepen,
+                    LeerGebieden = leergebiedenSet2,
+                    PhotoBytes = new WebClient().DownloadData("http://www.epacking.eu/Docs/Images/Groups/1/Product_2012329991k222k87k491_rekenmachine.jpg")
+                };
+
+                Materiaal m3 = new Materiaal
+                {
+                    Name = "Kleurpotloden",
+                    Description = "Alle kleuren van de regenboog.",
+                    ArticleCode = "abc789",
+                    Price = 29.99,
+                    Amount = 10,
+                    AmountNotAvailable = 0,
+                    IsLendable = false,
+                    Location = "GSCHB4.021",
+                    Firma = f1,
+                    DoelGroepen = doelgroepen,
+                    LeerGebieden = leergebiedenSet2,
                 };
 
                 context.Materialen.Add(m1);
+                context.Materialen.Add(m2);
+                context.Materialen.Add(m3);
 
                 context.SaveChanges();
                 //base.Seed(context);
