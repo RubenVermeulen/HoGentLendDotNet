@@ -57,7 +57,7 @@ namespace HoGentLend.ViewModels
         [DisplayName("Locatie")]
         public string Location { get; private set; }
 
-        public List<String> DoelGroepen { get; private set; }
+        public List<string> DoelGroepen { get; private set; }
 
         public List<string> LeerGebieden { get; private set; }
 
