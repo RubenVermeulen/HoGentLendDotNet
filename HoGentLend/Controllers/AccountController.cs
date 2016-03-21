@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HoGentLend.ViewModels;
 using HoGentLend.Models.DAL;
+using HoGentLend.Models.Domain;
 
 namespace HoGentLend.Controllers
 {
@@ -19,6 +20,7 @@ namespace HoGentLend.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IGebruikerRepository gebruikerRepo;
 
         public AccountController()
         {
@@ -52,6 +54,11 @@ namespace HoGentLend.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        public AccountController(IGebruikerRepository gebruikerRepo)
+        {
+            this.gebruikerRepo = gebruikerRepo;
         }
 
         //
@@ -115,7 +122,11 @@ namespace HoGentLend.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
                     
+
+
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

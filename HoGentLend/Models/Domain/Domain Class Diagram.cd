@@ -3,14 +3,14 @@
   <Class Name="HoGentLend.Models.Domain.Gebruiker">
     <Position X="4" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAACAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAg=</HashCode>
+      <HashCode>AAACAEAAACAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HoGentLend.Models.Domain.Materiaal">
     <Position X="0.75" Y="5.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAQAgAAAAgAIACASAAAAAAAAEABAAAACAAQA=</HashCode>
+      <HashCode>AAACAAAAAQAgAAACAAIACASAAAAAAAAEABAAAACAAQA=</HashCode>
       <FileName>Models\Domain\Materiaal.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -39,7 +39,7 @@
     <Position X="0.5" Y="0.5" Width="3" />
     <TypeIdentifier>
       <HashCode>gAIAAAAAAAAAAAgAAAAQAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Domain\IRespository.cs</FileName>
+      <FileName>Models\Domain\IRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="HoGentLend.Models.Domain.IMateriaalRepository">
@@ -54,6 +54,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Models\Domain\IGroepRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HoGentLend.Models.Domain.IGebruikerRepository">
+    <Position X="8" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\IGebruikerRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
