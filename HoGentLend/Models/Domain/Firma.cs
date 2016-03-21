@@ -10,7 +10,6 @@ namespace HoGentLend.Models.Domain
         public long Id { get; private set; }
 
         public string Name { get; set; }
-
         public string Email { get; set; }
     }
 }
