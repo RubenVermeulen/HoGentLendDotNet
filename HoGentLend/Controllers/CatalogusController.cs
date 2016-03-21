@@ -11,17 +11,29 @@ namespace HoGentLend.Controllers
 {
     public class CatalogusController : Controller
     {
-        private IMateriaalRepository materiaalRepository;
+        private IMateriaalRepository _materiaalRepository;
+
+        public IMateriaalRepository MateriaalRepository
+        {
+            get
+            {
+                return _materiaalRepository ?? HttpContext.GetOwinContext().Get<IMateriaalRepository>();
+            }
+            private set
+            {
+                _materiaalRepository = value;
+            }
+        }
 
         public CatalogusController(IMateriaalRepository materiaalRepository)
         {
-            this.materiaalRepository = materiaalRepository;
+            MateriaalRepository = materiaalRepository;
         }
 
         // GET: Catalogus
         public ActionResult Index()
         {
-            IEnumerable<MateriaalViewModel> materialen = materiaalRepository.FindAll()
+            IEnumerable<MateriaalViewModel> materialen = MateriaalRepository.FindAll()
                 .Include(m => m.Firma)
                 .Include(m => m.DoelGroepen)
                 .Include(m => m.LeerGebieden)
