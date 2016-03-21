@@ -204,6 +204,7 @@
     <Compile Include="Models\Domain\Gebruiker.cs" />
     <Compile Include="Models\Domain\IMateriaalRepository.cs" />
     <Compile Include="Models\Domain\IRepository.cs" />
+    <Compile Include="Models\Domain\HoGentApi.cs" />
     <Compile Include="ViewModels\MateriaalViewModel.cs" />
     <Compile Include="Views\_niet nodig\ManageController.cs" />
     <Compile Include="Global.asax.cs">
