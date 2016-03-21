@@ -186,6 +186,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogusController.cs" />
+    <Compile Include="Models\DAL\Repository.cs" />
     <Compile Include="Models\DAL\FirmaRepository.cs" />
     <Compile Include="Models\DAL\GroepRepository.cs" />
     <Compile Include="Models\DAL\Mapper\FirmaMapper.cs" />
@@ -199,7 +200,7 @@
     <Compile Include="Models\Domain\Materiaal.cs" />
     <Compile Include="Models\Domain\Gebruiker.cs" />
     <Compile Include="Models\Domain\IMateriaalRepository.cs" />
-    <Compile Include="Models\Domain\IRespository.cs" />
+    <Compile Include="Models\Domain\IRepository.cs" />
     <Compile Include="ViewModels\MateriaalViewModel.cs" />
     <Compile Include="Views\_niet nodig\ManageController.cs" />
     <Compile Include="Global.asax.cs">
