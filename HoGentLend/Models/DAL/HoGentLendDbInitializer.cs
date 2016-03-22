@@ -27,7 +27,7 @@ namespace HoGentLend.Models.DAL
                 leergebiedenSet1.Add(new Groep { Name = "Geografie", IsLeerGebied = true });
 
                 List<Groep> leergebiedenSet2 = new List<Groep>();
-                leergebiedenSet1.Add(new Groep { Name = "Wiskunde", IsLeerGebied = true });
+                leergebiedenSet2.Add(new Groep { Name = "Wiskunde", IsLeerGebied = true });
 
                 Firma f1 = new Firma {Name = "Goaty Enterprise", Email = "info@goatyenterprise.be"};
 
@@ -42,8 +42,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "GSCHB4.021",
                     Firma = f1,
-                    DoelGroepen = doelgroepen,
-                    LeerGebieden = leergebiedenSet1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet1,
                     PhotoBytes = new WebClient().DownloadData("https://www.dezwerver.nl/media/cache/e3/88/e38825e2d8175a72d9d346193f983983.jpg")
                 };
 
@@ -58,8 +58,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "GSCHB4.021",
                     Firma = f1,
-                    DoelGroepen = doelgroepen,
-                    LeerGebieden = leergebiedenSet2,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
                     PhotoBytes = new WebClient().DownloadData("http://www.epacking.eu/Docs/Images/Groups/1/Product_2012329991k222k87k491_rekenmachine.jpg")
                 };
 
@@ -74,8 +74,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = false,
                     Location = "GSCHB4.021",
                     Firma = f1,
-                    DoelGroepen = doelgroepen,
-                    LeerGebieden = leergebiedenSet2,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
                 };
 
                 context.Materialen.Add(m1);

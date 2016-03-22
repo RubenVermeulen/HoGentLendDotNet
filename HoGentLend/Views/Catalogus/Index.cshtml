@@ -34,6 +34,12 @@
             @Html.DisplayNameFor(model => model.Location)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Doelgroepen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Leergebieden)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FirmaName)
         </th>
         <th>
@@ -78,6 +84,20 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @foreach (string doelgroep in item.Doelgroepen)
+            {
+                @doelgroep
+                <br/>
+            }
+        </td>
+        <td>
+            @foreach (string leergebied in item.Leergebieden)
+            {
+                @leergebied
+                <br />
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirmaName)

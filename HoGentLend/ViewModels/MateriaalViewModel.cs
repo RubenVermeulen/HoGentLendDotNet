@@ -24,8 +24,8 @@ namespace HoGentLend.ViewModels
             AmountNotAvailable = m.AmountNotAvailable;
             IsLendable = m.IsLendable;
             Location = m.Location;
-            DoelGroepen = m.DoelGroepen.OfType<string>().ToList();
-            LeerGebieden = m.LeerGebieden.OfType<string>().ToList();
+            Doelgroepen = m.Doelgroepen.Select(d => d.Name).ToList();
+            Leergebieden = m.Leergebieden.Select(l => l.Name).ToList();
             FirmaName = m.Firma.Name;
             FirmaEmail = m.Firma.Email;
             PhotoBase64 = (m.PhotoBytes != null) ? Convert.ToBase64String(m.PhotoBytes) : null;
@@ -57,9 +57,11 @@ namespace HoGentLend.ViewModels
         [DisplayName("Locatie")]
         public string Location { get; private set; }
 
-        public List<string> DoelGroepen { get; private set; }
+        [DisplayName("Doelgroepen")]
+        public List<string> Doelgroepen { get; private set; }
 
-        public List<string> LeerGebieden { get; private set; }
+        [DisplayName("Leergebieden")]
+        public List<string> Leergebieden { get; private set; }
 
         [DisplayName("Naam firma")]
         public string FirmaName { get; private set; }

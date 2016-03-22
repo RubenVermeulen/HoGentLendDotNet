@@ -7,40 +7,13 @@ using HoGentLend.Models.Domain;
 
 namespace HoGentLend.Models.DAL
 {
-    public class MateriaalRepository : IMateriaalRepository
+    public class MateriaalRepository : Repository<Materiaal, string>, IMateriaalRepository
     {
         private HoGentLendContext ctx;
         private DbSet<Materiaal> materialen;
 
-        public MateriaalRepository(HoGentLendContext ctx)
+        public MateriaalRepository(HoGentLendContext ctx) : base (ctx.Materialen, ctx)
         {
-            this.ctx = ctx;
-            this.materialen = ctx.Materialen;
-        }
-         
-        public Materiaal FindBy(string id)
-        {
-            return materialen.Find(id);
-        }
-
-        public IQueryable<Materiaal> FindAll()
-        {
-            return materialen;
-        }
-
-        public void Add(Materiaal entity)
-        {
-            materialen.Add(entity);
-        }
-
-        public void Delete(Materiaal entity)
-        {
-            materialen.Remove(entity);
-        }
-
-        public void SaveChanges()
-        {
-            ctx.SaveChanges();
         }
     }
 }

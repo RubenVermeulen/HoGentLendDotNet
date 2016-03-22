@@ -64,9 +64,8 @@ namespace HoGentLend.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-        //    kernel.Bind<IMateriaalRepository>().To<MateriaalRepository>().InRequestScope(); todo errors
+            kernel.Bind<IMateriaalRepository>().To<MateriaalRepository>().InRequestScope();
             kernel.Bind<IGroepRepository>().To<GroepRepository>().InRequestScope();
-            //kernel.Bind<IFirmaRepository>().To<FirmaRepository>().InRequestScope(); todo errors
             kernel.Bind<IGebruikerRepository>().To<GebruikerRepository>().InRequestScope();
         }        
     }

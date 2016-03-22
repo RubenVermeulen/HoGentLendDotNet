@@ -23,8 +23,8 @@ namespace HoGentLend.Controllers
         {
             IEnumerable<MateriaalViewModel> materialen = materiaalRepository.FindAll()
                 .Include(m => m.Firma)
-                .Include(m => m.DoelGroepen)
-                .Include(m => m.LeerGebieden)
+                .Include(m => m.Doelgroepen)
+                .Include(m => m.Leergebieden)
                 .ToList()
                 .OrderBy(m => m.Name)
                 .Select(m => new MateriaalViewModel(m));

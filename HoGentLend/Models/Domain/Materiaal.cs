@@ -18,8 +18,8 @@ namespace HoGentLend.Models.Domain
         public int AmountNotAvailable { get; set; }
         public bool IsLendable { get; set; }
         public string Location { get; set; }
-        public List<Groep> DoelGroepen { get; set; }
-        public List<Groep> LeerGebieden { get; set; }
+        public List<Groep> Doelgroepen { get; set; }
+        public List<Groep> Leergebieden { get; set; }
         public Firma Firma { get; set; }
         public byte[] PhotoBytes { get; set; }
     }

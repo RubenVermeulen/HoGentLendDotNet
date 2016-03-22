@@ -189,7 +189,6 @@
     <Compile Include="Models\DAL\GebruikerRepository.cs" />
     <Compile Include="Models\DAL\Mapper\GebruikerMapper.cs" />
     <Compile Include="Models\DAL\Repository.cs" />
-    <Compile Include="Models\DAL\FirmaRepository.cs" />
     <Compile Include="Models\DAL\GroepRepository.cs" />
     <Compile Include="Models\DAL\Mapper\FirmaMapper.cs" />
     <Compile Include="Models\DAL\Mapper\GroepMapper.cs" />
@@ -197,7 +196,6 @@
     <Compile Include="Models\DAL\MateriaalRepository.cs" />
     <Compile Include="Models\Domain\Firma.cs" />
     <Compile Include="Models\Domain\Groep.cs" />
-    <Compile Include="Models\Domain\IFirmaRepository.cs" />
     <Compile Include="Models\Domain\IGebruikerRepository.cs" />
     <Compile Include="Models\Domain\IGroepRepository.cs" />
     <Compile Include="Models\Domain\Materiaal.cs" />

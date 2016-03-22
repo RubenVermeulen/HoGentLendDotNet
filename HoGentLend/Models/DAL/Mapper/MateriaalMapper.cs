@@ -70,7 +70,7 @@ namespace HoGentLend.Models.DAL.Mapper
                 .IsOptional();
 
             // Relationships
-            HasMany(m => m.DoelGroepen)
+            HasMany(m => m.Doelgroepen)
                 .WithMany()
                 .Map(m =>
                 {
@@ -80,7 +80,7 @@ namespace HoGentLend.Models.DAL.Mapper
                 }
                 );
 
-            HasMany(m => m.LeerGebieden)
+            HasMany(m => m.Leergebieden)
                 .WithMany()
                 .Map(m =>
                 {
