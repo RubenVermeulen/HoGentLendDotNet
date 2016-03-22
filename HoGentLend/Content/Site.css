@@ -43,10 +43,21 @@ textarea {
 }
 
 #catalog .catalog-item .catalog-img {
-
+    position: relative;
     height: 100px;
     background: url("Images/default-placeholder.png") no-repeat center;
     background-size: contain;
+}
+
+#catalog .catalog-item .catalog-img a {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    background: rgba(0,0,0,.8) url("Images/enlarge-icon.png") no-repeat center;
+    background-size: 55%;
+
 }
 
 #catalog .catalog-item h4 {

@@ -10,11 +10,13 @@
                         <!-- IMAGE -->
                         @if (item.PhotoBase64 != null)
                         {
-                            <div class="catalog-img col-xs-4" style="background-image: url(data:image/png;base64,@item.PhotoBase64)"></div>
+                            <div class="catalog-img col-xs-4" style="background-image: url(data:image/png;base64,@item.PhotoBase64)">
+                                <a href="data:image/png;base64,@item.PhotoBase64" data-lightbox="@item.Name"></a>
+                            </div>
                         }
                         else
                         {
-                            <div class="catalog-img col-xs-4" ></div>
+                            <div class="catalog-img col-xs-4"></div>
                         }
                             
                     <div class="col-xs-8">

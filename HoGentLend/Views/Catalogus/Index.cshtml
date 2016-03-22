@@ -4,6 +4,16 @@
     ViewBag.Title = "Catalogus";
 }
 
+@section stylesheets
+{
+    <link href="~/Content/lightbox.css" rel="stylesheet" />
+}
+
 <h2>Catalogus</h2>
 
 @Html.Partial("_MateriaalList")
+
+@section scripts
+{
+    <script src="~/Scripts/lightbox.js"></script>
+}
