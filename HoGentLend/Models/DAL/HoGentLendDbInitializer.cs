@@ -56,7 +56,7 @@ namespace HoGentLend.Models.DAL
                     Amount = 4,
                     AmountNotAvailable = 0,
                     IsLendable = true,
-                    Location = "GSCHB4.021",
+                    Location = "GSCHB 4.021",
                     Firma = f1,
                     Doelgroepen = doelgroepen,
                     Leergebieden = leergebiedenSet2,
@@ -72,15 +72,49 @@ namespace HoGentLend.Models.DAL
                     Amount = 10,
                     AmountNotAvailable = 0,
                     IsLendable = false,
-                    Location = "GSCHB4.021",
+                    Location = "GSCHB 4.021",
                     Firma = f1,
                     Doelgroepen = doelgroepen,
                     Leergebieden = leergebiedenSet2,
                 };
 
+                Materiaal m4 = new Materiaal
+                {
+                    Name = "Voetbal",
+                    Description = "Voetballen voor in het larger onderwijs.",
+                    ArticleCode = "abc147",
+                    Price = 25.99,
+                    Amount = 15,
+                    AmountNotAvailable = 3,
+                    IsLendable = false,
+                    Location = "GSCHB 4.021",
+                    Firma = f1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
+                    PhotoBytes = new WebClient().DownloadData("http://hobby.blogo.nl/files/2007/11/hoe-voetbal-surprise-maken-680x703.jpg"),
+                };
+
+                Materiaal m5 = new Materiaal
+                {
+                    Name = "Basketbal",
+                    Description = "Basketballen voor in het larger onderwijs.",
+                    ArticleCode = "abc258",
+                    Price = 25.99,
+                    Amount = 12,
+                    AmountNotAvailable = 3,
+                    IsLendable = true,
+                    Location = "GSCHB 4.021",
+                    Firma = f1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
+                    PhotoBytes = new WebClient().DownloadData("https://sportbay.nl/static/files/4/88/488/Basketbal_Nike_Dominate_7.jpg"),
+                };
+
                 context.Materialen.Add(m1);
                 context.Materialen.Add(m2);
                 context.Materialen.Add(m3);
+                context.Materialen.Add(m4);
+                context.Materialen.Add(m5);
 
                 context.SaveChanges();
                 //base.Seed(context);

@@ -22,3 +22,39 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Catalog */
+
+#catalog .catalog-item {
+    margin-bottom: 15px;
+    padding-left: 0;
+    padding: 10px;
+    border: 1px solid #eeeeee;
+    box-shadow: #000 1px 1px 5px -4px;
+    transition: 0.1s background linear;
+}
+
+#catalog .catalog-item:hover {
+    background: #eeeeee;
+}
+
+#catalog .catalog-item .row {
+    margin: 0;
+}
+
+#catalog .catalog-item .catalog-img {
+
+    height: 100px;
+    background: url("Images/default-placeholder.png") no-repeat center;
+    background-size: contain;
+}
+
+#catalog .catalog-item h4 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+#catalog .catalog-item ul {
+    padding: 0;
+    list-style: none;
+}

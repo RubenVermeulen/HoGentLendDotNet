@@ -1,0 +1,142 @@
+﻿@model IEnumerable<HoGentLend.ViewModels.MateriaalViewModel>
+
+<div id="catalog" class="row">
+    @foreach (var item in Model)
+    {
+
+        <div class="col-md-4">
+            <div class="catalog-item col-md-12">
+                <div class="row">          
+                        <!-- IMAGE -->
+                        @if (item.PhotoBase64 != null)
+                        {
+                            <div class="catalog-img col-xs-4" style="background-image: url(data:image/png;base64,@item.PhotoBase64)"></div>
+                        }
+                        else
+                        {
+                            <div class="catalog-img col-xs-4" ></div>
+                        }
+                            
+                    <div class="col-xs-8">
+                        <h4>@item.Name</h4>
+                        <ul>
+                            <li>@(item.Amount - item.AmountNotAvailable) beschikbaar</li>
+                            <li>@String.Format("{0:C}", @item.Price)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+@*<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArticleCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AmountNotAvailable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsLendable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Doelgroepen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Leergebieden)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirmaName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirmaEmail)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @if (item.PhotoBase64 != null)
+                {
+                    <img src="data:image/png;base64,@item.PhotoBase64" alt="@item.Name" width="50" />
+                }
+                else
+                {
+                    <img src="~/Content/Images/default-placeholder.png" alt="Default image" width="80" />
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArticleCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountNotAvailable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsLendable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @foreach (string doelgroep in item.Doelgroepen)
+                {
+                    @doelgroep
+                    <br />
+                }
+            </td>
+            <td>
+                @foreach (string leergebied in item.Leergebieden)
+                {
+                    @leergebied
+                    <br />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirmaName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirmaEmail)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>*@
+
+
