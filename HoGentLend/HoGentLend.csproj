@@ -284,6 +284,7 @@
     <Content Include="Views\Catalogus\Index.cshtml" />
     <Content Include="Views\Catalogus\_MateriaalList.cshtml" />
     <Content Include="Views\Catalogus\Detail.cshtml" />
+    <Content Include="Views\Catalogus\_PartialFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
