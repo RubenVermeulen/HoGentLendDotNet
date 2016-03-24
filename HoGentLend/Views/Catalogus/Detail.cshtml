@@ -29,15 +29,31 @@
         <p>
             <strong>@Html.DisplayNameFor(model => model.Description)</strong>
         </p>
-        <p class="description">@Html.DisplayFor(model => model.Description)</p>
+        <p class="description">
+            @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                @Html.DisplayFor(model => model.Description)
+            }
+            else
+            {
+                @("Geen beschrijving")
+            }
+        </p>
 
         @* Location *@
         <p>
             <strong>@Html.DisplayNameFor(model => model.Location)</strong>
         </p>
-        <p>@Html.DisplayFor(model => model.Location)</p>
-
-        <hr/>
+        <p>
+            @if (!string.IsNullOrEmpty(Model.Location))
+            {
+                @Html.DisplayFor(model => model.Location)
+            }
+            else
+            {
+                @("Geen locatie")
+            }
+        </p>
 
         @* Doelgroepen *@
         <p>
@@ -90,19 +106,46 @@
             <p>
                 @* Name Firma *@
                 <strong>@Html.DisplayNameFor(model => model.FirmaName)</strong><br/>
-                @Html.DisplayFor(model => model.FirmaName)<br/>
+                @if (!string.IsNullOrEmpty(Model.FirmaName))
+                {
+                    @Html.DisplayFor(model => model.FirmaName)
+                }
+                else
+                {
+                    @("Geen naam")
+                }
+
+                <br />
 
                 @* Email Firma *@
                 <strong>@Html.DisplayNameFor(model => model.FirmaEmail)</strong><br/>
-                @Html.DisplayFor(model => model.FirmaEmail)<br/>
+                @if (!string.IsNullOrEmpty(Model.FirmaEmail))
+                {
+                    @Html.DisplayFor(model => model.FirmaEmail)
+                }
+                else
+                {
+                    @("Geen e-mailadres")
+                }
+
+                <br />
 
                 @* Article code *@
                 <strong>@Html.DisplayNameFor(model => model.ArticleCode)</strong><br />
-                @Html.DisplayFor(model => model.ArticleCode)<br/>
+                @if (!string.IsNullOrEmpty(Model.ArticleCode))
+                {
+                    @Html.DisplayFor(model => model.ArticleCode)
+                }
+                else
+                {
+                    @("Geen artikelcode")
+                }
+
+                <br/>
 
                 @* Price *@
                 <strong>@Html.DisplayNameFor(model => model.Price)</strong><br />
-                @Html.DisplayFor(model => model.Price)<br />
+                @string.Format("{0:C}", Model.Price)
             </p>
         </div>
     </div>
