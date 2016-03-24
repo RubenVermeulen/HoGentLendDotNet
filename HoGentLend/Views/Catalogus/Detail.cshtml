@@ -4,87 +4,107 @@
     ViewBag.Title = "Detail";
 }
 
-<h2>@Html.DisplayFor(model => model.Name)</h2>
-<hr />
-<div class="row">
+
+<div id="details" class="row">
     <div class="col-md-3 col-sm-3 col-xs-12">
         @if (@Model.PhotoBase64 != null)
         {
-            <img src="data:image/png;base64,@Model.PhotoBase64" alt="@Model.Name" class="col-md-12 col-sm-12 col-xs-12 img-reponsive"/>
+            <img src="data:image/png;base64,@Model.PhotoBase64" alt="@Model.Name" class="col-md-12 col-sm-12 col-xs-12 img-reponsive img-thumbnail details-img"/>
         }
         else
         {
-            <img src="~/Content/Images/default-placeholder.png" alt="Geen afbeelding beschikbaar" class="col-md-12 col-sm-12 col-xs-12 img-reponsive"/>
+            <img src="~/Content/Images/default-placeholder.png" alt="Geen afbeelding beschikbaar" class="col-md-12 col-sm-12 col-xs-12 img-reponsive img-thumbnail details-img"/>
         }
     </div>
 
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
+        <h2>@Html.DisplayFor(model => model.Name)</h2>
+        <hr />
 
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
+        <p class="available">
+            <span class="amount">@(Model.Amount - Model.AmountNotAvailable)</span> beschikbaar
+        </p>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ArticleCode)
-            </dt>
+        @* Description *@
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Description)</strong>
+        </p>
+        <p class="description">@Html.DisplayFor(model => model.Description)</p>
 
-            <dd>
-                @Html.DisplayFor(model => model.ArticleCode)
-            </dd>
+        @* Location *@
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Location)</strong>
+        </p>
+        <p>@Html.DisplayFor(model => model.Location)</p>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
+        <hr/>
 
-            <dd>
-                @Html.DisplayFor(model => model.Price)
-            </dd>
+        @* Doelgroepen *@
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Doelgroepen)</strong>
+        </p>
+        <p>
+            @if (Model.Doelgroepen != null)
+            {
+                foreach (string groep in Model.Doelgroepen)
+                {
+                    @groep
+                    <br/>
+                }
+            }
+            else
+            {
+                @("Geen doelgroepen")
+            }
+        </p>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Amount)
-            </dt>
+        @* Leergebieden *@
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.Leergebieden)</strong>
+        </p>
+        <p>
+            @if (Model.Leergebieden != null)
+            {
+                foreach (string groep in Model.Leergebieden)
+                {
+                    @groep
+                    <br />
+                }
+            }
+            else
+            {
+                @("Geen leergebieden")
+            }
+        </p>
 
-            <dd>
-                @Html.DisplayFor(model => model.Amount)
-            </dd>
+        <hr />
 
-            <dt>
-                @Html.DisplayNameFor(model => model.AmountNotAvailable)
-            </dt>
+        
 
-            <dd>
-                @Html.DisplayFor(model => model.AmountNotAvailable)
-            </dd>
+        @* Information for buying the item *@
+        <div class="bg-info info-buying">
+            <h3>@Model.Name aankopen</h3>
+            <p>
+                Onderstaande gegevens kan je gebruiken wanneer je een "@Model.Name" opnieuw moet aankopen omdat hij stuk is. Wil je graag één aankopen voor persoonlijk gebruik dan kan dit ook.
+            </p>
+            <p>
+                @* Name Firma *@
+                <strong>@Html.DisplayNameFor(model => model.FirmaName)</strong><br/>
+                @Html.DisplayFor(model => model.FirmaName)<br/>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Location)
-            </dt>
+                @* Email Firma *@
+                <strong>@Html.DisplayNameFor(model => model.FirmaEmail)</strong><br/>
+                @Html.DisplayFor(model => model.FirmaEmail)<br/>
 
-            <dd>
-                @Html.DisplayFor(model => model.Location)
-            </dd>
+                @* Article code *@
+                <strong>@Html.DisplayNameFor(model => model.ArticleCode)</strong><br />
+                @Html.DisplayFor(model => model.ArticleCode)<br/>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.FirmaName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.FirmaName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.FirmaEmail)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.FirmaEmail)
-            </dd>
-
-        </dl>
+                @* Price *@
+                <strong>@Html.DisplayNameFor(model => model.Price)</strong><br />
+                @Html.DisplayFor(model => model.Price)<br />
+            </p>
+        </div>
     </div>
 </div>
 <p>

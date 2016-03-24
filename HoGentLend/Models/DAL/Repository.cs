@@ -10,7 +10,7 @@ namespace HoGentLend.Models.DAL
     public class Repository<EntityType, IdType> : IRepository<EntityType, IdType>
         where EntityType : class
     {
-        private DbSet<EntityType> dbSet;
+        protected DbSet<EntityType> dbSet;
         private DbContext dbContext;
 
         protected DbSet<EntityType> DbSet { get { return dbSet; } }
