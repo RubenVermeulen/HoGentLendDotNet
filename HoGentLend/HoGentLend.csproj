@@ -218,6 +218,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\default-placeholder.png" />
+    <Content Include="Content\Images\LoginImage.jpg" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -273,6 +275,8 @@
     <Content Include="Views\_niet nodig\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Catalogus\Index.cshtml" />
+    <Content Include="Views\Catalogus\PartialFilter.cshtml" />
+    <Content Include="Views\Catalogus\MateriaalLijstPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
