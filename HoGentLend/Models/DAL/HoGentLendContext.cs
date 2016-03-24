@@ -18,7 +18,6 @@ namespace HoGentLend.Models.DAL
         // DbSets
         public virtual DbSet<Materiaal> Materialen { get; set; }
         public virtual DbSet<Groep> Groepen { get; set; }
-        public virtual DbSet<Firma> Firmas { get; set; }
         public virtual DbSet<Gebruiker> Gebruikers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
