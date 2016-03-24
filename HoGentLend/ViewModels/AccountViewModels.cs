@@ -6,7 +6,7 @@ namespace HoGentLend.ViewModels
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Gebruiksnaam")]
+        [Display(Name = "Gebruikersnaam")]
         public string UserId { get; set; }
 
         [Required]

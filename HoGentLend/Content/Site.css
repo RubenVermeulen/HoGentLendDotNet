@@ -108,7 +108,30 @@ textarea {
     margin-top: 0;
 }
 
+/* Login */
+
+#login {
+    padding: 0;
+    background: #ffffff url('Images/login-bg.jpg') left no-repeat;
+}
+
+#login > .row {
+    margin: 0;
+}
+
+#login .hogent-lend-brand {
+    padding: 25px 0;
+}
+
+#login .login-aside {
+    height: 100%;
+    padding-top: 120px;
+    padding-left: 50px;
+    background: #ffffff;
+}
+
 /* Misc */
+
 .bg-info {  
     background: #d9edf7;
 }

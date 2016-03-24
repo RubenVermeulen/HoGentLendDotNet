@@ -186,6 +186,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogusController.cs" />
+    <Compile Include="Infrastructure\GebruikerModelBinder.cs" />
     <Compile Include="Models\DAL\GebruikerRepository.cs" />
     <Compile Include="Models\DAL\Mapper\GebruikerMapper.cs" />
     <Compile Include="Models\DAL\Repository.cs" />
@@ -228,6 +229,8 @@
     <Content Include="Content\Images\Lightbox\loading.gif" />
     <Content Include="Content\Images\Lightbox\next.png" />
     <Content Include="Content\Images\Lightbox\prev.png" />
+    <Content Include="Content\Images\login-bg.jpg" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\lightbox.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

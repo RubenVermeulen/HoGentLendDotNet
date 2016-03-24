@@ -9,6 +9,7 @@ using HoGentLend.ViewModels;
 
 namespace HoGentLend.Controllers
 {
+    [Authorize]
     public class CatalogusController : Controller
     {
         private IMateriaalRepository materiaalRepository;
@@ -19,7 +20,7 @@ namespace HoGentLend.Controllers
         }
 
         // GET: Catalogus
-        public ActionResult Index()
+        public ActionResult Index(Gebruiker gebruiker)
         {
             IEnumerable<MateriaalViewModel> materialen = materiaalRepository.FindAll()
                 .Include(m => m.Firma)
@@ -29,10 +30,18 @@ namespace HoGentLend.Controllers
                 .OrderBy(m => m.Name)
                 .Select(m => new MateriaalViewModel(m));
 
-            // If lector return all materialen
+            
+            if (gebruiker.ToonAlleMaterialen()) // If lector return all materialen
+            {
+                return View(materialen);
+            }
+            else // If student return only available, in stock materialen
+            {
+                return View(materialen.Where(m => m.Amount - m.AmountNotAvailable > 0));
+            }
 
-            // If student return only available, in stock materialen
-            return View(materialen);
+            
+            
         }
 
         // POST
