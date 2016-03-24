@@ -10,13 +10,13 @@
         <input type="submit" value="Geavanceerd zoeken" />
     </p>
     <p>
-        @Html.DropDownListFor(model => model.DoelGroepen, ViewBag.Doelgroepen as SelectList,
+        @Html.DropDownListFor(model => model.Doelgroepen, ViewBag.Doelgroepen as SelectList,
                "--selecteer doelgroep--", new { @class = "form-control" })
         <label for="doelgroep">Doelgroep</label>
     </p>
 
     <p>
-        @Html.DropDownListFor(model => model.LeerGebieden, ViewBag.Leergroepen as SelectList,
+        @Html.DropDownListFor(model => model.Leergebieden, ViewBag.Leergroepen as SelectList,
                "--selecteer leergroep--", new { @class = "form-control" })
         <label for="leergroep">Leergroep</label>
 

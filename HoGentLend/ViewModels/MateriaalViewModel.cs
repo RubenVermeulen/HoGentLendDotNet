@@ -35,10 +35,10 @@ namespace HoGentLend.ViewModels
             AmountNotAvailable = m.AmountNotAvailable;
             IsLendable = m.IsLendable;
             Location = m.Location;
-            //Doelgroepen = m.Doelgroepen.Select(d => d.Name).ToList();
-            //Leergebieden = m.Leergebieden.Select(l => l.Name).ToList();
-            //FirmaName = m.Firma.Name;
-            //FirmaEmail = m.Firma.Email;
+            Doelgroepen = m.Doelgroepen.Select(d => d.Name).ToList();
+            Leergebieden = m.Leergebieden.Select(l => l.Name).ToList();
+            FirmaName = m.Firma.Name;
+            FirmaEmail = m.Firma.Email;
             PhotoBase64 = (m.PhotoBytes != null) ? Convert.ToBase64String(m.PhotoBytes) : null;
         }
 
