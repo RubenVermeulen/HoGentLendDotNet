@@ -48,10 +48,17 @@ namespace HoGentLend.Controllers
             }
         }
 
-        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager, IGebruikerRepository gebruikerRepo, IHoGentApiLookupProvider hoGentApiLookupProvider)
+        public AccountController(ApplicationSignInManager signInManager,
+            ApplicationUserManager userManager, 
+            IGebruikerRepository gebruikerRepo,
+            IHoGentApiLookupProvider hoGentApiLookupProvider)
+            : this(gebruikerRepo, hoGentApiLookupProvider)
         {
             SignInManager = signInManager;
             UserManager = userManager;
+        }
+        public AccountController(IGebruikerRepository gebruikerRepo, IHoGentApiLookupProvider hoGentApiLookupProvider)
+        {
             this.gebruikerRepo = gebruikerRepo;
             this.hoGentApiLookupProvider = hoGentApiLookupProvider;
         }

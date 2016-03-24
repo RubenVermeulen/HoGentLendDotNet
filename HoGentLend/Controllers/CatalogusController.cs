@@ -39,8 +39,6 @@ namespace HoGentLend.Controllers
             {
                 return View(materialen.Where(m => m.Amount - m.AmountNotAvailable > 0));
             }
-
-            
             
         }
 

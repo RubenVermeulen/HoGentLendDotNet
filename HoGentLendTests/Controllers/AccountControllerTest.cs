@@ -19,6 +19,7 @@ namespace HoGentLendTests.Controllers
     public class AccountControllerTest
     {
         private AccountController controller;
+
         private Mock<IGebruikerRepository> mockGebruikerRepository;
         private Mock<IHoGentApiLookupProvider> mockHoGentApiLookupProvider;
         private Mock<ApplicationSignInManager> mockApplicationSignInManager;
