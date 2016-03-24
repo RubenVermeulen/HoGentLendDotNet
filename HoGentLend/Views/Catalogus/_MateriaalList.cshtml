@@ -4,7 +4,7 @@
     @foreach (var item in Model)
     {
 
-        <div class="col-md-4">
+        <div id="item-@item.Id" class="col-md-4">
             <div class="catalog-item col-md-12">
                 <div class="row">          
                         <!-- IMAGE -->
@@ -18,12 +18,15 @@
                         {
                             <div class="catalog-img col-xs-4"></div>
                         }
-                            
+
                     <div class="col-xs-8">
                         <h4>@item.Name</h4>
                         <ul>
-                            <li>@(item.Amount - item.AmountNotAvailable) beschikbaar</li>
-                            <li>@String.Format("{0:C}", @item.Price)</li>
+                            <li>@item.DescriptionShort</li>
+                        </ul>
+
+                        <ul>
+                            <li><strong>@(item.Amount - item.AmountNotAvailable)</strong> beschikbaar</li>
                         </ul>
                     </div>
                 </div>

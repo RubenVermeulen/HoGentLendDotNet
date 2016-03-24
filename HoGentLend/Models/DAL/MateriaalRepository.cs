@@ -7,7 +7,7 @@ using HoGentLend.Models.Domain;
 
 namespace HoGentLend.Models.DAL
 {
-    public class MateriaalRepository : Repository<Materiaal, string>, IMateriaalRepository
+    public class MateriaalRepository : Repository<Materiaal, int>, IMateriaalRepository
     {
         private HoGentLendContext ctx;
         private DbSet<Materiaal> materialen;

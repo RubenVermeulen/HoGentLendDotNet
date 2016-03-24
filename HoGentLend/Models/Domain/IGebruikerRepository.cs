@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HoGentLend.Models.Domain
 {
-    public interface IGebruikerRepository : IRepository<Gebruiker, string>
+    public interface IGebruikerRepository : IRepository<Gebruiker, int>
     {
        
     }

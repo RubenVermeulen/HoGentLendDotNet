@@ -1,0 +1,92 @@
+﻿@model HoGentLend.ViewModels.MateriaalViewModel
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+<hr />
+<div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-12">
+        @if (@Model.PhotoBase64 != null)
+        {
+            <img src="data:image/png;base64,@Model.PhotoBase64" alt="@Model.Name" class="col-md-12 col-sm-12 col-xs-12 img-reponsive"/>
+        }
+        else
+        {
+            <img src="~/Content/Images/default-placeholder.png" alt="Geen afbeelding beschikbaar" class="col-md-12 col-sm-12 col-xs-12 img-reponsive"/>
+        }
+    </div>
+
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ArticleCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ArticleCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AmountNotAvailable)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AmountNotAvailable)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Location)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Location)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirmaName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirmaName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirmaEmail)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirmaEmail)
+            </dd>
+
+        </dl>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

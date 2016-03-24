@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HoGentLend.Models.Domain
 {
-    public interface IMateriaalRepository : IRepository<Materiaal, string>
+    public interface IMateriaalRepository : IRepository<Materiaal, int>
     {
     }
 }

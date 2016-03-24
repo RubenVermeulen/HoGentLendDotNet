@@ -41,5 +41,15 @@ namespace HoGentLend.Controllers
         {
             return View("Index");
         }
+
+        public ActionResult Detail(int id)
+        {
+            Materiaal m = materiaalRepository.FindBy(id);
+
+            if (m == null)
+                return HttpNotFound();
+
+            return View(new MateriaalViewModel(m));
+        }
     }
 }

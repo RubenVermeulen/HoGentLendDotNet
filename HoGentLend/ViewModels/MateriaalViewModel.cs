@@ -19,16 +19,26 @@ namespace HoGentLend.ViewModels
             Id = m.Id;
             Name = m.Name;
             Description = m.Description;
+
+            if (Description.Length > 50)
+            {
+                DescriptionShort = Description.Substring(0, 50) + " ...";
+            }
+            else
+            {
+                DescriptionShort = Description;
+            }
+
             ArticleCode = m.ArticleCode;
             Price = m.Price;
             Amount = m.Amount;
             AmountNotAvailable = m.AmountNotAvailable;
             IsLendable = m.IsLendable;
             Location = m.Location;
-            Doelgroepen = m.Doelgroepen.Select(d => d.Name).ToList();
-            Leergebieden = m.Leergebieden.Select(l => l.Name).ToList();
-            FirmaName = m.Firma.Name;
-            FirmaEmail = m.Firma.Email;
+            //Doelgroepen = m.Doelgroepen.Select(d => d.Name).ToList();
+            //Leergebieden = m.Leergebieden.Select(l => l.Name).ToList();
+            //FirmaName = m.Firma.Name;
+            //FirmaEmail = m.Firma.Email;
             PhotoBase64 = (m.PhotoBytes != null) ? Convert.ToBase64String(m.PhotoBytes) : null;
         }
 
@@ -39,6 +49,9 @@ namespace HoGentLend.ViewModels
 
         [DisplayName("Beschrijving")]
         public string Description { get; private set; }
+
+        [DisplayName("Korte beschrijving")]
+        public string DescriptionShort { get; private set; }
 
         [DisplayName("Artikelcode")]
         public string ArticleCode { get; private set; }

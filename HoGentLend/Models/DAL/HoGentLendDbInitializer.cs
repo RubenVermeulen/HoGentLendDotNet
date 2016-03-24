@@ -97,7 +97,7 @@ namespace HoGentLend.Models.DAL
                 Materiaal m5 = new Materiaal
                 {
                     Name = "Basketbal",
-                    Description = "Basketballen voor in het larger onderwijs.",
+                    Description = "De NBA Allstar biedt de perfecte oplossing op het vlak van duurzaamheid en spelprestaties. Zowel geschikt voor indoor als outdoor. Uitstekende grip!",
                     ArticleCode = "abc258",
                     Price = 25.99,
                     Amount = 12,
