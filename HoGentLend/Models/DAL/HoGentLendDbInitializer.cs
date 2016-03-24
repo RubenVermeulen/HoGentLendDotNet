@@ -38,7 +38,7 @@ namespace HoGentLend.Models.DAL
                     ArticleCode = "abc123",
                     Price = 12.85,
                     Amount = 10,
-                    AmountNotAvailable = 5,
+                    AmountNotAvailable = 10,
                     IsLendable = true,
                     Location = "GSCHB4.021",
                     Firma = f1,
