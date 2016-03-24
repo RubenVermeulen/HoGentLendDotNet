@@ -186,8 +186,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogusController.cs" />
+    <Compile Include="Models\DAL\GebruikerRepository.cs" />
+    <Compile Include="Models\DAL\Mapper\GebruikerMapper.cs" />
     <Compile Include="Models\DAL\Repository.cs" />
-    <Compile Include="Models\DAL\FirmaRepository.cs" />
     <Compile Include="Models\DAL\GroepRepository.cs" />
     <Compile Include="Models\DAL\Mapper\FirmaMapper.cs" />
     <Compile Include="Models\DAL\Mapper\GroepMapper.cs" />
@@ -195,12 +196,13 @@
     <Compile Include="Models\DAL\MateriaalRepository.cs" />
     <Compile Include="Models\Domain\Firma.cs" />
     <Compile Include="Models\Domain\Groep.cs" />
-    <Compile Include="Models\Domain\IFirmaRepository.cs" />
+    <Compile Include="Models\Domain\IGebruikerRepository.cs" />
     <Compile Include="Models\Domain\IGroepRepository.cs" />
     <Compile Include="Models\Domain\Materiaal.cs" />
     <Compile Include="Models\Domain\Gebruiker.cs" />
     <Compile Include="Models\Domain\IMateriaalRepository.cs" />
     <Compile Include="Models\Domain\IRepository.cs" />
+    <Compile Include="Models\Domain\HoGentApi.cs" />
     <Compile Include="ViewModels\MateriaalViewModel.cs" />
     <Compile Include="Views\_niet nodig\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -217,9 +219,13 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\enlarge-icon.png" />
+    <Content Include="Content\Images\Lightbox\close.png" />
     <Content Include="Content\Images\default-placeholder.png" />
-    <Content Include="Content\Images\LoginImage.jpg" />
-    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\Lightbox\loading.gif" />
+    <Content Include="Content\Images\Lightbox\next.png" />
+    <Content Include="Content\Images\Lightbox\prev.png" />
+    <Content Include="Content\lightbox.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -236,6 +242,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lightbox.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -275,11 +282,12 @@
     <Content Include="Views\_niet nodig\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Catalogus\Index.cshtml" />
-    <Content Include="Views\Catalogus\PartialFilter.cshtml" />
-    <Content Include="Views\Catalogus\MateriaalLijstPartial.cshtml" />
+    <Content Include="Views\Catalogus\_MateriaalList.cshtml" />
+    <Content Include="Views\Catalogus\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Catalogus\Partials\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

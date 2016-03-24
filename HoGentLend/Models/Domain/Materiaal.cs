@@ -10,56 +10,17 @@ namespace HoGentLend.Models.Domain
     {
         public long Id { get; private set; }
 
-        public string Name
-        {
-            get; set; }
-
-        public string Description
-        {
-            get; set; }
-
-        public string ArticleCode
-        {
-            get; set; }
-
-        public double Price
-        {
-            get; set; }
-
-        public int Amount
-        {
-            get; set; }
-
-        public int AmountNotAvailable
-        {
-            get; set; }
-
-        public bool IsLendable
-        {
-            get; set; }
-
-
-        public string Location
-        {
-            get; set; }
-
-        public List<Groep> DoelGroepen
-        {
-            get; set;
-        }
-
-        public List<Groep> LeerGebieden
-        {
-            get; set;
-        }
-
-        public Firma Firma
-        {
-            get; set;
-        }
-
-        public byte[] PhotoBytes
-        {
-            get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string ArticleCode { get; set; }
+        public double Price { get; set; }
+        public int Amount { get; set; }
+        public int AmountNotAvailable { get; set; }
+        public bool IsLendable { get; set; }
+        public string Location { get; set; }
+        public virtual List<Groep> Doelgroepen { get; set; }
+        public virtual List<Groep> Leergebieden { get; set; }
+        public virtual Firma Firma { get; set; }
+        public byte[] PhotoBytes { get; set; }
     }
 }

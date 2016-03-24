@@ -7,7 +7,7 @@ using HoGentLend.Models.Domain;
 
 namespace HoGentLend.Models.DAL
 {
-    public class GroepRepository : Repository<Groep, string>, IGroepRepository
+    public class GroepRepository : Repository<Groep, int>, IGroepRepository
     {
 
         public GroepRepository(HoGentLendContext ctx) : base(ctx.Groepen, ctx)

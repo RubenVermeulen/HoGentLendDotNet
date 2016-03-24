@@ -22,3 +22,93 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Catalog */
+
+#catalog .catalog-item {
+    margin-bottom: 15px;
+    padding-left: 0;
+    padding: 10px;
+    border: 1px solid #eeeeee;
+    box-shadow: #000 1px 1px 5px -4px;
+    transition: 0.1s background linear;
+}
+
+#catalog .catalog-item:hover {
+    background: #eeeeee;
+}
+
+#catalog .catalog-item .row {
+    margin: 0;
+}
+
+#catalog .catalog-item .catalog-img {
+    position: relative;
+    height: 100px;
+    background: url("Images/default-placeholder.png") no-repeat center;
+    background-size: contain;
+}
+
+#catalog .catalog-item .catalog-img a {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    background: rgba(0,0,0,.8) url("Images/enlarge-icon.png") no-repeat center;
+    background-size: 55%;
+
+}
+
+#catalog .catalog-item h4 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+#catalog .catalog-item ul {
+    padding: 0;
+    list-style: none;
+}
+
+/* Detail */
+
+#details {
+    margin-top: 35px;
+}
+
+#details .details-img {
+    max-width: 280px;
+}
+
+#details .available {
+    display: inline-block;
+    padding-right: 10px;
+    line-height: 30px;
+    background: #38C23C;
+    color: #ffffff;
+}
+
+#details .available .amount {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 0 10px;
+    background: #2EA732;
+    text-align: center;
+}
+
+#details .description {
+    max-width: 600px;
+}
+
+#details .info-buying {
+    padding: 15px;
+}
+
+#details .info-buying h3 {
+    margin-top: 0;
+}
+
+/* Misc */
+.bg-info {  
+    background: #d9edf7;
+}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using HoGentLend.Models.Domain;
@@ -18,16 +19,26 @@ namespace HoGentLend.ViewModels
             Id = m.Id;
             Name = m.Name;
             Description = m.Description;
+
+            if (Description.Length > 50)
+            {
+                DescriptionShort = Description.Substring(0, 50) + " ...";
+            }
+            else
+            {
+                DescriptionShort = Description;
+            }
+
             ArticleCode = m.ArticleCode;
             Price = m.Price;
             Amount = m.Amount;
             AmountNotAvailable = m.AmountNotAvailable;
             IsLendable = m.IsLendable;
             Location = m.Location;
-            DoelGroepen = m.DoelGroepen.OfType<string>().ToList();
-            LeerGebieden = m.LeerGebieden.OfType<string>().ToList();
-            FirmaName = m.Firma.Name;
-            FirmaEmail = m.Firma.Email;
+            //Doelgroepen = m.Doelgroepen.Select(d => d.Name).ToList();
+            //Leergebieden = m.Leergebieden.Select(l => l.Name).ToList();
+            //FirmaName = m.Firma.Name;
+            //FirmaEmail = m.Firma.Email;
             PhotoBase64 = (m.PhotoBytes != null) ? Convert.ToBase64String(m.PhotoBytes) : null;
         }
 
@@ -38,6 +49,9 @@ namespace HoGentLend.ViewModels
 
         [DisplayName("Beschrijving")]
         public string Description { get; private set; }
+
+        [DisplayName("Korte beschrijving")]
+        public string DescriptionShort { get; private set; }
 
         [DisplayName("Artikelcode")]
         public string ArticleCode { get; private set; }
@@ -57,9 +71,11 @@ namespace HoGentLend.ViewModels
         [DisplayName("Locatie")]
         public string Location { get; private set; }
 
-        public List<String> DoelGroepen { get; private set; }
+        [DisplayName("Doelgroepen")]
+        public List<string> Doelgroepen { get; private set; }
 
-        public List<string> LeerGebieden { get; private set; }
+        [DisplayName("Leergebieden")]
+        public List<string> Leergebieden { get; private set; }
 
         [DisplayName("Naam firma")]
         public string FirmaName { get; private set; }

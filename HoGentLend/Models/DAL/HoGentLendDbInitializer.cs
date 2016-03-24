@@ -27,7 +27,7 @@ namespace HoGentLend.Models.DAL
                 leergebiedenSet1.Add(new Groep { Name = "Geografie", IsLeerGebied = true });
 
                 List<Groep> leergebiedenSet2 = new List<Groep>();
-                leergebiedenSet1.Add(new Groep { Name = "Wiskunde", IsLeerGebied = true });
+                leergebiedenSet2.Add(new Groep { Name = "Wiskunde", IsLeerGebied = true });
 
                 Firma f1 = new Firma {Name = "Goaty Enterprise", Email = "info@goatyenterprise.be"};
 
@@ -42,8 +42,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "GSCHB4.021",
                     Firma = f1,
-                    DoelGroepen = doelgroepen,
-                    LeerGebieden = leergebiedenSet1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet1,
                     PhotoBytes = new WebClient().DownloadData("https://www.dezwerver.nl/media/cache/e3/88/e38825e2d8175a72d9d346193f983983.jpg")
                 };
 
@@ -56,10 +56,10 @@ namespace HoGentLend.Models.DAL
                     Amount = 4,
                     AmountNotAvailable = 0,
                     IsLendable = true,
-                    Location = "GSCHB4.021",
+                    Location = "GSCHB 4.021",
                     Firma = f1,
-                    DoelGroepen = doelgroepen,
-                    LeerGebieden = leergebiedenSet2,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
                     PhotoBytes = new WebClient().DownloadData("http://www.epacking.eu/Docs/Images/Groups/1/Product_2012329991k222k87k491_rekenmachine.jpg")
                 };
 
@@ -72,15 +72,49 @@ namespace HoGentLend.Models.DAL
                     Amount = 10,
                     AmountNotAvailable = 0,
                     IsLendable = false,
-                    Location = "GSCHB4.021",
+                    Location = "GSCHB 4.021",
                     Firma = f1,
-                    DoelGroepen = doelgroepen,
-                    LeerGebieden = leergebiedenSet2,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
+                };
+
+                Materiaal m4 = new Materiaal
+                {
+                    Name = "Voetbal",
+                    Description = "Voetballen voor in het larger onderwijs.",
+                    ArticleCode = "abc147",
+                    Price = 25.99,
+                    Amount = 15,
+                    AmountNotAvailable = 3,
+                    IsLendable = false,
+                    Location = "GSCHB 4.021",
+                    Firma = f1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
+                    PhotoBytes = new WebClient().DownloadData("http://hobby.blogo.nl/files/2007/11/hoe-voetbal-surprise-maken-680x703.jpg"),
+                };
+
+                Materiaal m5 = new Materiaal
+                {
+                    Name = "Basketbal",
+                    Description = "De NBA Allstar biedt de perfecte oplossing op het vlak van duurzaamheid en spelprestaties. Zowel geschikt voor indoor als outdoor. Uitstekende grip!",
+                    ArticleCode = "abc258",
+                    Price = 25.99,
+                    Amount = 12,
+                    AmountNotAvailable = 3,
+                    IsLendable = true,
+                    Location = "GSCHB 4.021",
+                    Firma = f1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
+                    PhotoBytes = new WebClient().DownloadData("https://sportbay.nl/static/files/4/88/488/Basketbal_Nike_Dominate_7.jpg"),
                 };
 
                 context.Materialen.Add(m1);
                 context.Materialen.Add(m2);
                 context.Materialen.Add(m3);
+                context.Materialen.Add(m4);
+                context.Materialen.Add(m5);
 
                 context.SaveChanges();
                 //base.Seed(context);
