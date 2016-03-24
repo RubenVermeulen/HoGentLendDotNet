@@ -228,6 +228,8 @@
     <Content Include="Content\Images\Lightbox\loading.gif" />
     <Content Include="Content\Images\Lightbox\next.png" />
     <Content Include="Content\Images\Lightbox\prev.png" />
+    <Content Include="Content\Images\login-bg.jpg" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\lightbox.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
