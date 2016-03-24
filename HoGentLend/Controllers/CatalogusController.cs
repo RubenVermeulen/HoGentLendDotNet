@@ -30,10 +30,18 @@ namespace HoGentLend.Controllers
                 .OrderBy(m => m.Name)
                 .Select(m => new MateriaalViewModel(m));
 
-            // If lector return all materialen
+            
+            if (gebruiker.ToonAlleMaterialen()) // If lector return all materialen
+            {
+                return View(materialen);
+            }
+            else // If student return only available, in stock materialen
+            {
+                return View(materialen.Where(m => m.Amount - m.AmountNotAvailable > 0));
+            }
 
-            // If student return only available, in stock materialen
-            return View(materialen);
+            
+            
         }
 
         // POST
