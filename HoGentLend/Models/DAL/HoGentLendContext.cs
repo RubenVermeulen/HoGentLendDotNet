@@ -25,6 +25,13 @@ namespace HoGentLend.Models.DAL
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
+            //modelBuilder.Entity<IdentityUser>().Ignore(u => u.EmailConfirmed);
+            //modelBuilder.Entity<IdentityUser>().Ignore(u => u.PhoneNumber);
+            //modelBuilder.Entity<IdentityUser>().Ignore(u => u.PhoneNumberConfirmed);
+            //modelBuilder.Entity<IdentityUser>().Ignore(u => u.TwoFactorEnabled);
+            //modelBuilder.Entity<IdentityUser>().Ignore(u => u.LockoutEndDateUtc);
+            //modelBuilder.Entity<IdentityUser>().Ignore(u => u.LockoutEnabled);
+            //modelBuilder.Entity<IdentityUser>().Ignore(u => u.AccessFailedCount);
         }
 
         public static HoGentLendContext Create()

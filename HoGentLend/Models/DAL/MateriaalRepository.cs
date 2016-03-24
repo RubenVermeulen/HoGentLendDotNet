@@ -16,13 +16,13 @@ namespace HoGentLend.Models.DAL
         {
         }
 
-        public Materiaal FindBy(int id)
-        {
-            return dbSet
-                .Include(m => m.Firma)
-                .Include(m => m.Doelgroepen)
-                .Include(m => m.Leergebieden)
-                .First(m => m.Id.Equals(id));
-        }
+        //public Materiaal FindBy(int id)
+        //{
+        //    return dbSet
+        //        .Include(m => m.Firma)
+        //        .Include(m => m.Doelgroepen)
+        //        .Include(m => m.Leergebieden)
+        //        .First(m => m.Id.Equals(id));
+        //}
     }
 }

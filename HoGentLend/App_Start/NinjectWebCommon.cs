@@ -13,7 +13,7 @@ namespace HoGentLend.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-
+    using Models.Domain.HoGentApi;
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -67,6 +67,7 @@ namespace HoGentLend.App_Start
             kernel.Bind<IMateriaalRepository>().To<MateriaalRepository>().InRequestScope();
             kernel.Bind<IGroepRepository>().To<GroepRepository>().InRequestScope();
             kernel.Bind<IGebruikerRepository>().To<GebruikerRepository>().InRequestScope();
+            kernel.Bind<IHoGentApiLookupProvider>().To<HoGentApiLookupProvider>().InRequestScope();
         }        
     }
 }
