@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using HoGentLend.ViewModels;
 using HoGentLend.Models.DAL;
 using HoGentLend.Models.Domain;
+using HoGentLend.Models.Domain.HoGentApi;
+using System.Net.Http;
 
 namespace HoGentLend.Controllers
 {
@@ -21,16 +23,7 @@ namespace HoGentLend.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private IGebruikerRepository gebruikerRepo;
-
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
+        private IHoGentApiLookupProvider hoGentApiLookupProvider;
 
         public ApplicationSignInManager SignInManager
         {
@@ -38,12 +31,11 @@ namespace HoGentLend.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
-
         public ApplicationUserManager UserManager
         {
             get
@@ -56,9 +48,10 @@ namespace HoGentLend.Controllers
             }
         }
 
-        public AccountController(IGebruikerRepository gebruikerRepo)
+        public AccountController(IGebruikerRepository gebruikerRepo, IHoGentApiLookupProvider hoGentApiLookupProvider)
         {
             this.gebruikerRepo = gebruikerRepo;
+            this.hoGentApiLookupProvider = hoGentApiLookupProvider;
         }
 
         //
@@ -84,62 +77,53 @@ namespace HoGentLend.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserId, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
+                    try
+                    {
+                        var lookupResult = hoGentApiLookupProvider.Lookup(model.UserId, model.Password);
+                        if (lookupResult.IsCompleetResult())
+                        {
+                            var newUser = new ApplicationUser { UserName = model.UserId, Email = lookupResult.Email };
+                            var registerResult = await UserManager.CreateAsync(newUser, model.Password);
+                            if (registerResult.Succeeded)
+                            {
+                                Gebruiker nieuweGebruiker = new Gebruiker();
+                                gebruikerRepo.Add(nieuweGebruiker);
+                                nieuweGebruiker.Email = lookupResult.Email;
+                                nieuweGebruiker.FirstName = lookupResult.FirstName;
+                                nieuweGebruiker.LastName = lookupResult.LastName;
+                                nieuweGebruiker.IsLector = (lookupResult.Type == "personeel");
+                                gebruikerRepo.SaveChanges();
+                                await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                                return RedirectToAction("Index", "Catalogus");
+                            }
+                            AddErrors(registerResult);
+                            return View(model);
+                        }
+                        else {
+                            ModelState.AddModelError("", "De gebruikersnaam of wachtwoord zijn niet geldig.");
+                            return View(model);
+                        }
+                    }
+                    catch (HttpRequestException e)
+                    {
+                        ModelState.AddModelError("", "Er ging iets mis tijdens het contacteren van de HoGent servers.");
+                        return View(model);
+                    }
+                    catch (ArgumentException e)
+                    {
+                        ModelState.AddModelError("", "De gebruikersnaam en het passwoord zijn verplicht in te vullen.");
+                        return View(model);
+                    }
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
-        }
-
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-                    
-
-
-
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
         }
 
         //
@@ -149,13 +133,10 @@ namespace HoGentLend.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -163,7 +144,6 @@ namespace HoGentLend.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -172,48 +152,97 @@ namespace HoGentLend.Controllers
             }
         }
 
+
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
-        }
-
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
-                LoginProvider = provider;
-                RedirectUri = redirectUri;
-                UserId = userId;
-            }
-
-            public string LoginProvider { get; set; }
-            public string RedirectUri { get; set; }
-            public string UserId { get; set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
-                {
-                    properties.Dictionary[XsrfKey] = UserId;
-                }
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
-            }
+            return RedirectToAction("Index", "Catalogus");
         }
         #endregion
     }
 }
 
 
+
+
+
+//// Used for XSRF protection when adding external logins
+//private const string XsrfKey = "XsrfId";
+//private void AddErrors(IdentityResult result)
+//{
+//    foreach (var error in result.Errors)
+//    {
+//        ModelState.AddModelError("", error);
+//    }
+//}
+//internal class ChallengeResult : HttpUnauthorizedResult
+//{
+//    public ChallengeResult(string provider, string redirectUri)
+//        : this(provider, redirectUri, null)
+//    {
+//    }
+
+//    public ChallengeResult(string provider, string redirectUri, string userId)
+//    {
+//        LoginProvider = provider;
+//        RedirectUri = redirectUri;
+//        UserId = userId;
+//    }
+
+//    public string LoginProvider { get; set; }
+//    public string RedirectUri { get; set; }
+//    public string UserId { get; set; }
+
+//    public override void ExecuteResult(ControllerContext context)
+//    {
+//        var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+//        if (UserId != null)
+//        {
+//            properties.Dictionary[XsrfKey] = UserId;
+//        }
+//        context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
+//    }
+//}
+////
+//// GET: /Account/Register
+//[AllowAnonymous]
+//public ActionResult Register()
+//{
+//    return View();
+//}
+
+////
+//// POST: /Account/Register
+//[HttpPost]
+//[AllowAnonymous]
+//[ValidateAntiForgeryToken]
+//public async Task<ActionResult> Register(RegisterViewModel model)
+//{
+//    if (ModelState.IsValid)
+//    {
+//        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+//        var result = await UserManager.CreateAsync(user, model.Password);
+//        if (result.Succeeded)
+//        {
+//            await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+//            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+//            // Send an email with this link
+//            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+//            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+//            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+//            return RedirectToAction("Index", "Home");
+//        }
+//        AddErrors(result);
+//    }
+
+//    // If we got this far, something failed, redisplay form
+//    return View(model);
+//}
 ////
 //// GET: /Account/ConfirmEmail
 //[AllowAnonymous]

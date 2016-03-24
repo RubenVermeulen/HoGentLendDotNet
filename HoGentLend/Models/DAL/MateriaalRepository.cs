@@ -9,9 +9,6 @@ namespace HoGentLend.Models.DAL
 {
     public class MateriaalRepository : Repository<Materiaal, int>, IMateriaalRepository
     {
-        private HoGentLendContext ctx;
-        private DbSet<Materiaal> materialen;
-
         public MateriaalRepository(HoGentLendContext ctx) : base (ctx.Materialen, ctx)
         {
         }
