@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HoGentLendTests.Models
+namespace HoGentLendTests.Models.Domain
 {
     [TestClass]
     public class FirmaTest

@@ -48,8 +48,10 @@ namespace HoGentLend.Controllers
             }
         }
 
-        public AccountController(IGebruikerRepository gebruikerRepo, IHoGentApiLookupProvider hoGentApiLookupProvider)
+        public AccountController(ApplicationSignInManager signInManager, ApplicationUserManager userManager, IGebruikerRepository gebruikerRepo, IHoGentApiLookupProvider hoGentApiLookupProvider)
         {
+            SignInManager = signInManager;
+            UserManager = userManager;
             this.gebruikerRepo = gebruikerRepo;
             this.hoGentApiLookupProvider = hoGentApiLookupProvider;
         }
@@ -68,7 +70,7 @@ namespace HoGentLend.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -77,7 +79,7 @@ namespace HoGentLend.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.UserId, model.Password, model.RememberMe, shouldLockout: false);
+            var result = SignInManager.PasswordSignInAsync(model.UserId, model.Password, model.RememberMe, shouldLockout: false).Result;
             switch (result)
             {
                 case SignInStatus.Success:
@@ -89,7 +91,7 @@ namespace HoGentLend.Controllers
                         if (lookupResult.IsCompleetResult())
                         {
                             var newUser = new ApplicationUser { UserName = model.UserId, Email = lookupResult.Email };
-                            var registerResult = await UserManager.CreateAsync(newUser, model.Password);
+                            var registerResult = UserManager.CreateAsync(newUser, model.Password).Result;
                             if (registerResult.Succeeded)
                             {
                                 Gebruiker nieuweGebruiker = new Gebruiker();
@@ -99,7 +101,7 @@ namespace HoGentLend.Controllers
                                 nieuweGebruiker.LastName = lookupResult.LastName;
                                 nieuweGebruiker.IsLector = (lookupResult.Type == "personeel");
                                 gebruikerRepo.SaveChanges();
-                                await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                                SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
                                 return RedirectToAction("Index", "Catalogus");
                             }
                             AddErrors(registerResult);
@@ -155,7 +157,7 @@ namespace HoGentLend.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (Url != null && Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
