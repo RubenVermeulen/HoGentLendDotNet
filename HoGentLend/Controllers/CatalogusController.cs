@@ -9,6 +9,7 @@ using HoGentLend.ViewModels;
 
 namespace HoGentLend.Controllers
 {
+    [Authorize]
     public class CatalogusController : Controller
     {
         private IMateriaalRepository materiaalRepository;
