@@ -9,6 +9,7 @@ using HoGentLend.ViewModels;
 
 namespace HoGentLend.Controllers
 {
+    [Authorize]
     public class CatalogusController : Controller
     {
         private IMateriaalRepository materiaalRepository;
@@ -19,7 +20,7 @@ namespace HoGentLend.Controllers
         }
 
         // GET: Catalogus
-        public ActionResult Index()
+        public ActionResult Index(Gebruiker gebruiker)
         {
             IEnumerable<MateriaalViewModel> materialen = materiaalRepository.FindAll()
                 .Include(m => m.Firma)

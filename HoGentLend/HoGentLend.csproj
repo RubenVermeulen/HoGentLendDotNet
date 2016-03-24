@@ -186,6 +186,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogusController.cs" />
+    <Compile Include="Infrastructure\GebruikerModelBinder.cs" />
     <Compile Include="Models\DAL\GebruikerRepository.cs" />
     <Compile Include="Models\DAL\Mapper\GebruikerMapper.cs" />
     <Compile Include="Models\DAL\Repository.cs" />

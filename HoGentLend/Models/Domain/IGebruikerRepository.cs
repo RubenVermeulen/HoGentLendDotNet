@@ -7,6 +7,6 @@ namespace HoGentLend.Models.Domain
 {
     public interface IGebruikerRepository : IRepository<Gebruiker, int>
     {
-       
+        Gebruiker FindByEmail(string email);
     }
 }
