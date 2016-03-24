@@ -69,3 +69,46 @@ textarea {
     padding: 0;
     list-style: none;
 }
+
+/* Detail */
+
+#details {
+    margin-top: 35px;
+}
+
+#details .details-img {
+    max-width: 280px;
+}
+
+#details .available {
+    display: inline-block;
+    padding-right: 10px;
+    line-height: 30px;
+    background: #38C23C;
+    color: #ffffff;
+}
+
+#details .available .amount {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 0 10px;
+    background: #2EA732;
+    text-align: center;
+}
+
+#details .description {
+    max-width: 600px;
+}
+
+#details .info-buying {
+    padding: 15px;
+}
+
+#details .info-buying h3 {
+    margin-top: 0;
+}
+
+/* Misc */
+.bg-info {  
+    background: #d9edf7;
+}

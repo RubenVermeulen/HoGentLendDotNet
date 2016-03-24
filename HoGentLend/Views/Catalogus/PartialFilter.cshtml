@@ -1,0 +1,31 @@
+﻿|@{
+    Layout = null;
+}
+@model HoGentLend.Models.Domain.Materiaal
+
+<form>
+    <p>
+        <input type="text" name="naam" id="zoekterm"  required autofocus>
+        <input type="submit" value="Filter" />
+        <input type="submit" value="Geavanceerd zoeken" />
+    </p>
+    <p>
+        @Html.DropDownListFor(model => model.DoelGroepen, ViewBag.Doelgroepen as SelectList,
+               "--selecteer doelgroep--", new { @class = "form-control" })
+        <label for="doelgroep">Doelgroep</label>
+    </p>
+
+    <p>
+        @Html.DropDownListFor(model => model.LeerGebieden, ViewBag.Leergroepen as SelectList,
+               "--selecteer leergroep--", new { @class = "form-control" })
+        <label for="leergroep">Leergroep</label>
+
+    </p>
+
+
+
+
+
+
+
+</form>
