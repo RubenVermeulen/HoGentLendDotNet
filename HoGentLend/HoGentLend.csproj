@@ -196,13 +196,16 @@
     <Compile Include="Models\DAL\MateriaalRepository.cs" />
     <Compile Include="Models\Domain\Firma.cs" />
     <Compile Include="Models\Domain\Groep.cs" />
+    <Compile Include="Models\Domain\HoGentApi\IHoGentApiLookupProvider.cs" />
+    <Compile Include="Models\Domain\HoGentApi\HoGentApiLookupProvider.cs" />
+    <Compile Include="Models\Domain\HoGentApi\HoGentApiLookupResult.cs" />
     <Compile Include="Models\Domain\IGebruikerRepository.cs" />
     <Compile Include="Models\Domain\IGroepRepository.cs" />
     <Compile Include="Models\Domain\Materiaal.cs" />
     <Compile Include="Models\Domain\Gebruiker.cs" />
     <Compile Include="Models\Domain\IMateriaalRepository.cs" />
     <Compile Include="Models\Domain\IRepository.cs" />
-    <Compile Include="Models\Domain\HoGentApi.cs" />
+    <Compile Include="Models\Domain\HGLUtils.cs" />
     <Compile Include="ViewModels\MateriaalViewModel.cs" />
     <Compile Include="Views\_niet nodig\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -268,7 +271,7 @@
     <Content Include="Views\_niet nodig\Account\ForgotPassword.cshtml" />
     <Content Include="Views\_niet nodig\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\_niet nodig\Register.cshtml" />
     <Content Include="Views\_niet nodig\Account\ResetPassword.cshtml" />
     <Content Include="Views\_niet nodig\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\_niet nodig\Account\SendCode.cshtml" />
