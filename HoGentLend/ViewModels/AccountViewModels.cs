@@ -6,15 +6,15 @@ namespace HoGentLend.ViewModels
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Gebruiksnaam")]
+        [Display(Name = "Gebruikersnaam")]
         public string UserId { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Wachtwoord")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Onthoud mij?")]
         public bool RememberMe { get; set; }
     }
 
