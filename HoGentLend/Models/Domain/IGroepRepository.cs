@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace HoGentLend.Models.Domain
 {
-    interface IGroepRepository : IRepository<Groep, int>
+    public interface IGroepRepository : IRepository<Groep, int>
     {
-        IQueryable<Groep> findAllDoelGroepen();
-        IQueryable<Groep> findAllLeerGebieden();
+        IQueryable<Groep> FindAllDoelGroepen();
+        IQueryable<Groep> FindAllLeerGebieden();
 
     }
 }

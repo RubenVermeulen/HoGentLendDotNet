@@ -1,28 +1,42 @@
 ﻿
 
 
-<div class="filter">
-<form>
-    <p>
-        <input type="text" name="naam" id="zoekterm"  required autofocus>
-        <input type="submit" value="Filter" />
-        <input type="submit" value="Geavanceerd zoeken" />
-    </p>
-    <p>
-        @Html.DropDownList("Doelgroepen",ViewBag.Doelgroepen as SelectList,
-               "--selecteer doelgroep--", new { @class = "form-control" })
+<div id="filter">
+
+    @using (Html.BeginForm("Index", "Catalogus", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <input type="text" name="keywords" class="form-control" placeholder="Zoekterm" required>
+            </div>
+            <div class="col-md-3">
+                @Html.DropDownList("Doelgroepen", ViewBag.Doelgroepen as SelectList,
+                    "--selecteer doelgroep--", new {@class = "form-control"})
+            </div>
+            <div class="col-md-3">
+                @Html.DropDownList("Leergebieden", ViewBag.Leergroepen as SelectList,
+                    "--selecteer leergroep--", new {@class = "form-control"})
+            </div>
+            <div class="col-md-2">
+                <input type="submit" value="Zoeken" class="btn btn-primary form-control" />
+            </div>
 
 
 
-        <label for="doelgroep">Doelgroep</label>
-    </p>
+        </div>
+            <div class="form-group">
+                
+            </div>
+    }
 
-    <p>
-        @Html.DropDownList("Leergebieden",ViewBag.Leergroepen as SelectList,
-               "--selecteer leergroep--", new { @class = "form-control" })
-        <label for="leergroep">Leergroep</label>
+    <form>
+        @*<p>
+            <input type="text" name="naam" id="zoekterm" required autofocus>
+            <input type="submit" value="Filter"/>
+            <input type="button" id="advanced-search" value="Geavanceerd zoeken"/>
+        </p>*@
 
-    </p>
-
-</form>
-    </div>
+    </form>
+</div>
