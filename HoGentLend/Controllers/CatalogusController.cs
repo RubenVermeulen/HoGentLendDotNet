@@ -27,6 +27,7 @@ namespace HoGentLend.Controllers
                 .Include(m => m.Doelgroepen)
                 .Include(m => m.Leergebieden)
                 .ToList()
+                .Where(m => m.IsLendable)
                 .OrderBy(m => m.Name)
                 .Select(m => new MateriaalViewModel(m));
 
