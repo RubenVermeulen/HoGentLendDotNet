@@ -27,7 +27,6 @@ namespace HoGentLend.Controllers
                 .Include(m => m.Doelgroepen)
                 .Include(m => m.Leergebieden)
                 .ToList()
-                .Where(m => m.IsLendable)
                 .OrderBy(m => m.Name)
                 .Select(m => new MateriaalViewModel(m));
 
@@ -38,7 +37,7 @@ namespace HoGentLend.Controllers
             }
             else // If student return only available, in stock materialen
             {
-                return View(materialen.Where(m => m.Amount - m.AmountNotAvailable > 0));
+                return View(materialen.Where(m => m.IsLendable));
             }
             
         }
