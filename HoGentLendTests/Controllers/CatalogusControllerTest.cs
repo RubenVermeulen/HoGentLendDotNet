@@ -58,6 +58,22 @@ namespace HoGentLendTests.Controllers
                 .Returns(ctx.MateriaalList
                     .Where(mat => mat.Name.Equals("Rekenmachine")));
 
+            mockMateriaalRepository
+                .Setup(m => m.FindBy(1))
+                .Returns(ctx.MateriaalList.FirstOrDefault(mat => mat.Id.Equals(1)));
+
+            mockMateriaalRepository
+                .Setup(m => m.FindBy(2))
+                .Returns(ctx.MateriaalList.FirstOrDefault(mat => mat.Id.Equals(2)));
+
+            mockMateriaalRepository
+                .Setup(m => m.FindBy(3))
+                .Returns(ctx.MateriaalList.FirstOrDefault(mat => mat.Id.Equals(3)));
+
+            mockConfigWrapper
+                .Setup(c => c.GetConfig())
+                .Returns(ctx.Config);
+
             controller = new CatalogusController(mockMateriaalRepository.Object, mockGroepRepository.Object, mockReservatieRepository.Object, mockConfigWrapper.Object);
         }
 
@@ -98,6 +114,85 @@ namespace HoGentLendTests.Controllers
 
             Assert.AreEqual(1, materials.Length);
             Assert.AreEqual("Rekenmachine", materials[0].Name);
+        }
+
+        [TestMethod]
+        public void DetailReturnsMaterial()
+        {
+            ViewResult result = controller.Detail(student, 1) as ViewResult;
+
+            MateriaalViewModel m = result.Model as MateriaalViewModel;
+
+            Assert.AreEqual(1, m.Id);
+            Assert.AreEqual("Wereldbol", m.Name);
+        }
+
+        [TestMethod]
+        public void DetailReturnsHttpNotFoundWhenMaterialIsNull()
+        {
+            HttpNotFoundResult result = controller.Detail(student, 10) as HttpNotFoundResult;
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void DetailViewBagLendingPeriod()
+        {
+            ViewResult result = controller.Detail(student, 1) as ViewResult;
+
+            var lendingPeriod = result.ViewBag.lendingPeriod;
+            
+            Assert.AreEqual(1, lendingPeriod);
+        }
+
+        [TestMethod]
+        public void DetailViewBagInWishListTrue()
+        {
+            ViewResult result = controller.Detail(student, 1) as ViewResult;
+
+            var inWishList = result.ViewBag.InWishList;
+
+            Assert.IsTrue(inWishList);
+        }
+
+        [TestMethod]
+        public void DetailViewBagInWishListFalse()
+        {
+            ViewResult result = controller.Detail(lector, 1) as ViewResult;
+
+            var inWishList = result.ViewBag.InWishList;
+
+            Assert.IsFalse(inWishList);
+        }
+
+        [TestMethod]
+        public void DetailViewBagReservatiesCountIsOne()
+        {
+            ViewResult result = controller.Detail(student, 1) as ViewResult;
+
+            var reservaties = result.ViewBag.reservaties;
+
+            Assert.AreEqual(1, reservaties.Count);
+        }
+
+        [TestMethod]
+        public void DetailViewBagReservatiesCountIsNull()
+        {
+            ViewResult result = controller.Detail(lector, 3) as ViewResult;
+
+            var reservaties = result.ViewBag.reservaties;
+
+            Assert.AreEqual(0, reservaties.Count);
+        }
+
+        [TestMethod]
+        public void DetailViewBagChartList()
+        {
+            ViewResult result = controller.Detail(lector, 3) as ViewResult;
+
+            int[] chartList = result.ViewBag.chartList;
+
+            Assert.AreEqual(15, chartList.Count());
         }
     }
 }
