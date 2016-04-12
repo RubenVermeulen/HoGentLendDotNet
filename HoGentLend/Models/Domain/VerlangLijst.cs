@@ -8,17 +8,17 @@ namespace HoGentLend.Models.Domain
     public class VerlangLijst
     {
 
-        public IList<Materiaal> materialen { get; set; }
+        public IList<Materiaal> materials { get; set; }
 
-        public void voegMaterialenToe (Materiaal materiaal){
+        public void voegMaterialenToe (Materiaal material){
 
             
-                materialen.Add(materiaal);
+                materials.Add(material);
             
         }
 
-        public void verwijderMaterialen(Materiaal materiaal) {
-            materialen.Remove(materiaal);
+        public void verwijderMaterialen(Materiaal material) {
+            materials.Remove(material);
         }
         
 
