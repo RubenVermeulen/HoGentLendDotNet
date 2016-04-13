@@ -186,6 +186,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogusController.cs" />
+    <Compile Include="Controllers\VerlanglijstController.cs" />
     <Compile Include="Infrastructure\GebruikerModelBinder.cs" />
     <Compile Include="Models\DAL\GebruikerRepository.cs" />
     <Compile Include="Models\DAL\Mapper\GebruikerMapper.cs" />
@@ -293,6 +294,7 @@
     <Content Include="Views\Catalogus\_MateriaalList.cshtml" />
     <Content Include="Views\Catalogus\Detail.cshtml" />
     <Content Include="Views\Catalogus\_PartialFilter.cshtml" />
+    <Content Include="Views\Verlanglijst\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
