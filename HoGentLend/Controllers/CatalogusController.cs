@@ -52,18 +52,17 @@ namespace HoGentLend.Controllers
                 if(doelgroepId != 0)
                 {
                     dg = groepRepository.FindBy(doelgroepId);
-                    materialen = materialen.Where(m => m.Doelgroepen.All(d => d.Equals(dg.Name)));
+                    materialen = materialen.Where(m => m.Doelgroepen.Any(d => d.Equals(dg.Name)));
                 }
 
                 if (leergebiedId != 0)
                 {
                     lg = groepRepository.FindBy(leergebiedId);
-                    materialen = materialen.Where(m => m.Leergebieden.All(d => d.Equals(lg.Name)));
+                    materialen = materialen.Where(m => m.Leergebieden.Any(d => d.Equals(lg.Name)));
                 }
 
             }
            
-
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
             ViewBag.doelgroepId = doelgroepId;
