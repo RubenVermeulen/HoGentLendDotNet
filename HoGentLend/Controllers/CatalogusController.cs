@@ -48,11 +48,26 @@ namespace HoGentLend.Controllers
                .ToList()
                .OrderBy(m => m.Name)
                .Select(m => new MateriaalViewModel(m));
+
+                if(doelgroepId != 0)
+                {
+                    dg = groepRepository.FindBy(doelgroepId);
+                    materialen = materialen.Where(m => m.Doelgroepen.Any(d => d.Equals(dg.Name)));
+                }
+
+                if (leergebiedId != 0)
+                {
+                    lg = groepRepository.FindBy(leergebiedId);
+                    materialen = materialen.Where(m => m.Leergebieden.Any(d => d.Equals(lg.Name)));
+                }
+
             }
            
-
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
+            ViewBag.doelgroepId = doelgroepId;
+            ViewBag.leergebiedId = leergebiedId;
+            ViewBag.filter = filter;
 
             if (gebruiker.DoShowAllMaterials()) // If lector return all materialen
             {
@@ -62,7 +77,8 @@ namespace HoGentLend.Controllers
             {
                 return View(materialen.Where(m => m.IsLendable));
             }
-            
+            //return View(materialen);
+
         }
 
         private SelectList GroepenSelectList(IQueryable<Groep> groepen)

@@ -19,8 +19,23 @@ namespace HoGentLend.Infrastructure
                 IGebruikerRepository repos = (IGebruikerRepository)DependencyResolver.Current.GetService(typeof(IGebruikerRepository));
                 ApplicationUserManager userManager = controllerContext.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 ApplicationUser appUser = userManager.FindByNameAsync(controllerContext.HttpContext.User.Identity.Name).Result;
+
                 if (appUser != null)
-                    return repos.FindByEmail(appUser.Email);
+                {
+                    Gebruiker g = repos.FindByEmail(appUser.Email);
+
+                    if (g.WishList == null)
+                    {
+                        g.WishList = new VerlangLijst
+                        {
+                            Materials = new List<Materiaal>()
+                        };
+                        repos.SaveChanges();
+                    }
+
+                    return g;
+                }
+                    //return repos.FindByEmail(appUser.Email);
                 return null;
             }   
             return null;

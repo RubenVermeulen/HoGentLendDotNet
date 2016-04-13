@@ -6,9 +6,15 @@ namespace HoGentLend.Models.Domain
 {
     public class VerlangLijst
     {
+        private IList<Materiaal> materials; 
+
         public int VerlangLijstId { get; set; }
 
-        public IList<Materiaal> Materials { get; set; }
+        public IList<Materiaal> Materials
+        {
+            get { return materials ?? new List<Materiaal>(); }
+            set { materials = value; }
+        }
 
         public void addMaterial(Materiaal material)
         {
