@@ -20,7 +20,6 @@ namespace HoGentLend.Models.Domain
         public void verwijderMaterialen(Materiaal material) {
             materials.Remove(material);
         }
-        
 
     }
 }

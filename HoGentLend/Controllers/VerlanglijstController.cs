@@ -4,15 +4,61 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HoGentLend.Models.Domain;
+using HoGentLend.ViewModels;
 
 namespace HoGentLend.Controllers
 {
+    [Authorize]
     public class VerlanglijstController : Controller
     {
-        // GET: Verlanglijst
+        private IMateriaalRepository materiaalRepository;
+
+        public VerlanglijstController(IMateriaalRepository materiaalRepository)
+        {
+            this.materiaalRepository = materiaalRepository;
+        }
+
+        // GET: Index
         public ActionResult Index(Gebruiker gebruiker)
         {
             return View();
         }
+
+        // POST: Add
+        [HttpPost]
+        public ActionResult Add(Gebruiker gebruiker, int materiaalId)
+        {
+            Materiaal mat = materiaalRepository.FindBy(materiaalId);
+            if (mat == null || !gebruiker.CanSeeMaterial(mat))
+            {
+                TempData["err"] = "Het materiaal dat u wenste toe te voegen aan uw verlanglijst is niet beschikbaar.";
+            }
+            else
+            {
+                gebruiker.WishList.voegMaterialenToe(mat);
+                materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
+                TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
+            }
+            return View("Index", "CatalogusController");
+        }
+
+        // POST: Remove
+        [HttpPost]
+        public ActionResult Remove(Gebruiker gebruiker, int materiaalId)
+        {
+            Materiaal mat = materiaalRepository.FindBy(materiaalId);
+            if (mat == null)
+            {
+                TempData["err"] = "Het materiaal dat u wenste te verwijderen uit uw verlanglijst is niet beschikbaar.";
+            }
+            else
+            {
+                gebruiker.WishList.verwijderMaterialen(mat);
+                materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
+                TempData["msg"] = "Het materiaal " + mat.Name + " is verwijderd uit uw verlanglijst.";
+            }
+            return View("Index");
+        }
+        
     }
 }

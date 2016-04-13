@@ -35,7 +35,7 @@ namespace HoGentLend.Controllers
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
 
-            if (gebruiker.ToonAlleMaterialen()) // If lector return all materialen
+            if (gebruiker.DoShowAllMaterials()) // If lector return all materialen
             {
                 return View(materialen);
             }
