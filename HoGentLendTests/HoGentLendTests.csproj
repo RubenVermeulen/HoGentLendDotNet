@@ -130,7 +130,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Controllers\DummyDataContext.cs" />
     <Compile Include="Controllers\HelperExtensions.cs" />
+    <Compile Include="Controllers\VerlanglijstControllerTest.cs" />
     <Compile Include="Models\Domain\GebruikerTest.cs" />
     <Compile Include="Models\Domain\MateriaalTest.cs" />
     <Compile Include="Models\Domain\GroepTest.cs" />

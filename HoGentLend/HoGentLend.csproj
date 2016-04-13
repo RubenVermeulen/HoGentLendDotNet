@@ -202,6 +202,7 @@
     <Compile Include="Models\Domain\HoGentApi\IHoGentApiLookupProvider.cs" />
     <Compile Include="Models\Domain\HoGentApi\HoGentApiLookupProvider.cs" />
     <Compile Include="Models\Domain\HoGentApi\HoGentApiLookupResult.cs" />
+    <Compile Include="Models\Domain\HoGentApi\OfflineHoGentApiLookupProvider.cs" />
     <Compile Include="Models\Domain\IGebruikerRepository.cs" />
     <Compile Include="Models\Domain\IGroepRepository.cs" />
     <Compile Include="Models\Domain\Materiaal.cs" />

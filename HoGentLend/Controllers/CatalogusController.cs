@@ -35,8 +35,8 @@ namespace HoGentLend.Controllers
                .Include(m => m.Firma)
                .Include(m => m.Doelgroepen)
                .Include(m => m.Leergebieden)
-               .ToList()
                .OrderBy(m => m.Name)
+               .ToList()
                .Select(m => new MateriaalViewModel(m));
             }
             else
@@ -45,8 +45,8 @@ namespace HoGentLend.Controllers
                .Include(m => m.Firma)
                .Include(m => m.Doelgroepen)
                .Include(m => m.Leergebieden)
-               .ToList()
                .OrderBy(m => m.Name)
+               .ToList()
                .Select(m => new MateriaalViewModel(m));
 
                 if(doelgroepId != 0)

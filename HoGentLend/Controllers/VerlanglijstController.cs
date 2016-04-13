@@ -22,17 +22,17 @@ namespace HoGentLend.Controllers
         public ActionResult Index(Gebruiker gebruiker)
         {
             // Twee materialen toevoegen om te testen
-            Add(gebruiker, 5);
-            Add(gebruiker, 3);
+            //Add(gebruiker, 5);
+            //Add(gebruiker, 3);
 
 
             IEnumerable<MateriaalViewModel> materials = gebruiker.WishList
                 .Materials
-                .ToList()
                 .OrderBy(m => m.Name)
+                .ToList()
                 .Select(m => new MateriaalViewModel(m));
 
-            return View(materials);
+            return View("Index", materials);
         }
 
         // POST: Add
