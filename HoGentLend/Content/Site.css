@@ -166,6 +166,20 @@ textarea {
     text-align: center;
 }
 
+#details .reserveer {
+    display: inline-block;
+    padding-right: 10px;
+    padding-left: 10px;
+    line-height: 30px;
+    background: #38C23C;
+    color: #ffffff;
+    border:none;
+}
+
+#details .reserveer:hover{
+    text-decoration: none;
+}
+
 #details .description {
     max-width: 600px;
 }
