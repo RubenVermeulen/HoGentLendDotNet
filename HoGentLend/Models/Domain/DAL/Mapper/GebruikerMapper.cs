@@ -45,13 +45,9 @@ namespace HoGentLend.Models.DAL.Mapper
                 .IsOptional();
 
             // Relationships
-            HasRequired(m => m.WishList)
+            HasOptional(t => t.WishList)
                 .WithMany()
-                .Map(m =>
-                {
-                    m.MapKey("gebruiker_id");
-                }
-                );
+                .Map(m => m.MapKey("VerlangLijstId"));
         }
     }
 }
