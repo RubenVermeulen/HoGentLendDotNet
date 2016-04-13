@@ -187,14 +187,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogusController.cs" />
     <Compile Include="Infrastructure\GebruikerModelBinder.cs" />
-    <Compile Include="Models\DAL\GebruikerRepository.cs" />
-    <Compile Include="Models\DAL\Mapper\GebruikerMapper.cs" />
-    <Compile Include="Models\DAL\Repository.cs" />
-    <Compile Include="Models\DAL\GroepRepository.cs" />
-    <Compile Include="Models\DAL\Mapper\FirmaMapper.cs" />
-    <Compile Include="Models\DAL\Mapper\GroepMapper.cs" />
-    <Compile Include="Models\DAL\Mapper\MateriaalMapper.cs" />
-    <Compile Include="Models\DAL\MateriaalRepository.cs" />
+    <Compile Include="Models\Domain\DAL\GebruikerRepository.cs" />
+    <Compile Include="Models\Domain\DAL\Mapper\GebruikerMapper.cs" />
+    <Compile Include="Models\Domain\DAL\Repository.cs" />
+    <Compile Include="Models\Domain\DAL\GroepRepository.cs" />
+    <Compile Include="Models\Domain\DAL\Mapper\FirmaMapper.cs" />
+    <Compile Include="Models\Domain\DAL\Mapper\GroepMapper.cs" />
+    <Compile Include="Models\Domain\DAL\Mapper\MateriaalMapper.cs" />
+    <Compile Include="Models\Domain\DAL\MateriaalRepository.cs" />
     <Compile Include="Models\Domain\Firma.cs" />
     <Compile Include="Models\Domain\Groep.cs" />
     <Compile Include="Models\Domain\HoGentApi\IHoGentApiLookupProvider.cs" />
@@ -212,9 +212,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DAL\ApplicationUser.cs" />
-    <Compile Include="Models\DAL\HoGentLendContext.cs" />
-    <Compile Include="Models\DAL\HoGentLendDbInitializer.cs" />
+    <Compile Include="Models\Domain\DAL\ApplicationUser.cs" />
+    <Compile Include="Models\Domain\DAL\HoGentLendContext.cs" />
+    <Compile Include="Models\Domain\DAL\HoGentLendDbInitializer.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Views\_niet nodig\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
