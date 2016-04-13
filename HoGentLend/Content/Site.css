@@ -186,8 +186,12 @@ textarea {
 /* Filter */
 
 #filter {
-    padding: 15px 15px 0 15px;
+    padding: 15px;
     background: #eeeeee;
+}
+
+#filter .form-group {
+    margin-bottom: 0;
 }
 
 #filter input[type="submit"] {
