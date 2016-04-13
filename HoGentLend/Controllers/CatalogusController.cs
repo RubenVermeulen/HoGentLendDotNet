@@ -70,15 +70,15 @@ namespace HoGentLend.Controllers
             ViewBag.leergebiedId = leergebiedId;
             ViewBag.filter = filter;
 
-            //if (gebruiker.DoShowAllMaterials()) // If lector return all materialen
-            //{
-            //    return View(materialen);
-            //}
-            //else // If student return only available, in stock materialen
-            //{
-            //    return View(materialen.Where(m => m.IsLendable));
-            //}
-            return View(materialen);
+            if (gebruiker.DoShowAllMaterials()) // If lector return all materialen
+            {
+                return View(materialen);
+            }
+            else // If student return only available, in stock materialen
+            {
+                return View(materialen.Where(m => m.IsLendable));
+            }
+            //return View(materialen);
 
         }
 
