@@ -9,7 +9,8 @@
 
         <div class="form-group">
             <div class="col-md-3">
-                <input type="text" name="filter" class="form-control" placeholder="Zoekterm">
+                @Html.TextBox("filter", (string)ViewBag.filter , new { @class = "form-control", @placeholder="Zoekterm",id=""})
+                
             </div>
             <div class="col-md-3">
                 @Html.DropDownList("doelgroepId", ViewBag.Doelgroepen as SelectList,

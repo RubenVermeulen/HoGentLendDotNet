@@ -57,8 +57,8 @@ namespace HoGentLend.Controllers
 
                 if (leergebiedId != 0)
                 {
-                    dg = groepRepository.FindBy(leergebiedId);
-                    materialen = materialen.Where(m => m.Leergebieden.All(d => d.Equals(dg.Name)));
+                    lg = groepRepository.FindBy(leergebiedId);
+                    materialen = materialen.Where(m => m.Leergebieden.All(d => d.Equals(lg.Name)));
                 }
 
             }
@@ -66,6 +66,9 @@ namespace HoGentLend.Controllers
 
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
+            ViewBag.doelgroepId = doelgroepId;
+            ViewBag.leergebiedId = leergebiedId;
+            ViewBag.filter = filter;
 
             //if (gebruiker.DoShowAllMaterials()) // If lector return all materialen
             //{
