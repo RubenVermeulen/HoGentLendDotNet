@@ -25,9 +25,6 @@ namespace HoGentLend.Models.Domain.DAL.Mapper
             //Relationships
             HasMany(v => v.Materials)
                 .WithMany();
-                
-                
-
         }
     }
 }
