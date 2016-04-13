@@ -20,13 +20,27 @@
                         }
 
                     <div class="col-xs-8">
-                        <h4>@Html.ActionLink(item.Name, "Detail", new {id = item.Id})</h4>
+                        <h4>
+                            @Html.ActionLink(item.Name, "Detail", new {id = item.Id})
+                            
+                        </h4>
+                        
                         
                         <p>@item.DescriptionShort</p>
 
-                        <ul>
-                            <li><strong>@(item.Amount - item.AmountNotAvailable)</strong> beschikbaar</li>
-                        </ul>
+                                <div class="voegtoe">
+                                @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post, new { @class="voegtoeknop" }))
+                                {
+                                    <button type="submit" class="sterretje">
+                                        <span class="glyphicon glyphicon-star"></span>
+                                    </button>
+                                    <input type="hidden" name="id" value="@item.Id" />
+
+                                }
+                                    <span class="amount ">
+                            <strong>@(item.Amount - item.AmountNotAvailable)</strong> beschikbaar
+                                        </span>
+                                    </div>
                     </div>
                 </div>
             </div>

@@ -122,6 +122,36 @@ textarea {
     height: 60px;
 }
 
+#catalog .voegtoe {
+    display: inline-block;
+    padding-right: 10px;
+    line-height: 30px;
+    background: #eeeeee;
+}
+
+#catalog .voegtoe .sterretje:hover {
+    background: #38C23C !important;
+}
+
+#catalog .voegtoeknop{
+    display: inline;
+}
+
+#catalog .voegtoe .amount{
+    display: inline-block
+}
+
+#catalog .voegtoe .sterretje {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 0 10px;
+    background: #009d7e;
+    text-align: center;
+    border: none;
+    color: white;
+    transition: 0.1s background linear;
+}
+
 @media (min-width : 1200px) {
     #catalog .catalog-item p {
         height: 40px;
@@ -139,6 +169,7 @@ textarea {
         height: 60px;
     }
 }
+
 
 /* Detail */
 
