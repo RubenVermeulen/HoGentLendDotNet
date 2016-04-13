@@ -15,7 +15,7 @@ namespace HoGentLend.Models.Domain
         public string Email { get; set; }
         public bool IsLector { get; set; }
 
-        public VerlangLijst WishList { get; set; };
+        public VerlangLijst WishList { get; set; }
 
 
         public bool DoShowAllMaterials()
