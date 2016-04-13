@@ -19,12 +19,14 @@ namespace HoGentLendTests.Controllers
             {
                 Name = "Wereldbol",
                 Amount = 10,
+                IsLendable = true,
             };
 
             Materiaal m2 = new Materiaal
             {
                 Name = "Rekenmachine",
                 Amount = 2,
+                IsLendable = true,
             };
 
             IList<Materiaal> MList = (new Materiaal[] {m1, m2}).ToList();

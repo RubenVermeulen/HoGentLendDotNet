@@ -69,7 +69,7 @@
             <strong>@Html.DisplayNameFor(model => model.Doelgroepen)</strong>
         </p>
         <p>
-            @if (Model.Doelgroepen != null)
+            @if (Model.Doelgroepen != null && Model.Doelgroepen.Count > 0)
             {
                 foreach (string groep in Model.Doelgroepen)
                 {
@@ -88,7 +88,7 @@
             <strong>@Html.DisplayNameFor(model => model.Leergebieden)</strong>
         </p>
         <p>
-            @if (Model.Leergebieden != null)
+            @if (Model.Leergebieden != null && Model.Leergebieden.Count > 0)
             {
                 foreach (string groep in Model.Leergebieden)
                 {
@@ -100,6 +100,8 @@
             {
                 @("Geen leergebieden")
             }
+
+
         </p>
 
         <hr />

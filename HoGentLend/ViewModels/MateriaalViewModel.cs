@@ -20,13 +20,16 @@ namespace HoGentLend.ViewModels
             Name = m.Name;
             Description = m.Description;
 
-            if (Description != null && Description.Length > 50)
+            if (Description != null)
             {
-                DescriptionShort = Description.Substring(0, 50) + " ...";
-            }
-            else
-            {
-                DescriptionShort = Description;
+                if (Description.Length > 50)
+                {
+                    DescriptionShort = Description.Substring(0, 50) + " ...";
+                }
+                else
+                {
+                    DescriptionShort = Description;
+                }
             }
 
             ArticleCode = m.ArticleCode;

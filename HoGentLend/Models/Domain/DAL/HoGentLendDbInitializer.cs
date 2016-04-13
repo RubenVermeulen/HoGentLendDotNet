@@ -39,7 +39,7 @@ namespace HoGentLend.Models.DAL
                     //Price = 12.85,
                     Amount = 10,
                     //AmountNotAvailable = 10,
-                    //IsLendable = true,
+                    IsLendable = true,
                     //Location = "GSCHB4.021",
                     //Firma = f1,
                     //Doelgroepen = doelgroepen,
