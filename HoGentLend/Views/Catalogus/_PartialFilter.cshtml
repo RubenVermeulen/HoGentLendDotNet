@@ -8,7 +8,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-group">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <input type="text" name="filter" class="form-control" placeholder="Zoekterm">
             </div>
             <div class="col-md-3">
@@ -19,8 +19,15 @@
                 @Html.DropDownList("leergebiedId", ViewBag.Leergebieden as SelectList,
                     "--selecteer leergroep--", new {@class = "form-control"})
             </div>
-            <div class="col-md-2">
-                <input type="submit" value="Zoeken" class="btn btn-primary form-control" />
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="submit" value="Zoeken" class="btn btn-primary form-control filterbutton" />
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.ActionLink("Wis Filter", "Index", "Catalogus", new object { }, new { @class = "btn btn-primary form-control filterbutton"})
+                    </div>
+                </div>
             </div>
 
 

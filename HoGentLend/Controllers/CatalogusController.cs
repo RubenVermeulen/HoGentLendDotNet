@@ -54,15 +54,16 @@ namespace HoGentLend.Controllers
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
 
-            if (gebruiker.DoShowAllMaterials()) // If lector return all materialen
-            {
-                return View(materialen);
-            }
-            else // If student return only available, in stock materialen
-            {
-                return View(materialen.Where(m => m.IsLendable));
-            }
-            
+            //if (gebruiker.DoShowAllMaterials()) // If lector return all materialen
+            //{
+            //    return View(materialen);
+            //}
+            //else // If student return only available, in stock materialen
+            //{
+            //    return View(materialen.Where(m => m.IsLendable));
+            //}
+            return View(materialen);
+
         }
 
         private SelectList GroepenSelectList(IQueryable<Groep> groepen)
