@@ -194,17 +194,17 @@ textarea {
     margin-bottom: 0;
 }
 
-#filter input[type="submit"] {
+#filter .filterbutton {
     background: #009d7e;
-    border-bottom: 1px solid #00876C;
+    border: 1px solid #00876C;
     transition: background .2s linear;
 }
 
-#filter input[type="submit"]:hover {
+#filter .filterbutton:hover {
     background: #00876C;
 }
 
-#filter input, select {
+#filter input, #filter select, #filter a {
     max-width: 100%;
     margin: 5px 0;
 }
