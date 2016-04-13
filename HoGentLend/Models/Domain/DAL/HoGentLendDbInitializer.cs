@@ -34,17 +34,17 @@ namespace HoGentLend.Models.DAL
                 Materiaal m1 = new Materiaal
                 {
                     Name = "Wereldbol",
-                    Description = "Alle landen van de wereld in één handomdraai.",
-                    ArticleCode = "abc123",
-                    Price = 12.85,
+                    //Description = "Alle landen van de wereld in één handomdraai.",
+                    //ArticleCode = "abc123",
+                    //Price = 12.85,
                     Amount = 10,
-                    AmountNotAvailable = 10,
+                    //AmountNotAvailable = 10,
                     IsLendable = true,
-                    Location = "GSCHB4.021",
-                    Firma = f1,
-                    Doelgroepen = doelgroepen,
-                    Leergebieden = leergebiedenSet1,
-                    PhotoBytes = new WebClient().DownloadData("https://www.dezwerver.nl/media/cache/e3/88/e38825e2d8175a72d9d346193f983983.jpg")
+                    //Location = "GSCHB4.021",
+                    //Firma = f1,
+                    //Doelgroepen = doelgroepen,
+                    //Leergebieden = leergebiedenSet1,
+                    //PhotoBytes = new WebClient().DownloadData("https://www.dezwerver.nl/media/cache/e3/88/e38825e2d8175a72d9d346193f983983.jpg")
                 };
 
                 Materiaal m2 = new Materiaal

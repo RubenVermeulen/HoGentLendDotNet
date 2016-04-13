@@ -20,6 +20,8 @@ namespace HoGentLend.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private const string PASSWORD_FILLER = "Password123";
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private IGebruikerRepository gebruikerRepo;
@@ -49,7 +51,7 @@ namespace HoGentLend.Controllers
         }
 
         public AccountController(ApplicationSignInManager signInManager,
-            ApplicationUserManager userManager, 
+            ApplicationUserManager userManager,
             IGebruikerRepository gebruikerRepo,
             IHoGentApiLookupProvider hoGentApiLookupProvider)
             : this(gebruikerRepo, hoGentApiLookupProvider)
@@ -84,9 +86,15 @@ namespace HoGentLend.Controllers
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = SignInManager.PasswordSignInAsync(model.UserId, model.Password, model.RememberMe, shouldLockout: false).Result;
+
+            var lookupResult = hoGentApiLookupProvider.Lookup(model.UserId, model.Password);
+            if (!lookupResult.IsCompleetResult())
+            {
+                ModelState.AddModelError("", "De gebruikersnaam of wachtwoord zijn niet geldig.");
+                return View(model);
+            }
+
+            var result = SignInManager.PasswordSignInAsync(model.UserId, PASSWORD_FILLER, model.RememberMe, shouldLockout: false).Result;
             switch (result)
             {
                 case SignInStatus.Success:
@@ -94,30 +102,23 @@ namespace HoGentLend.Controllers
                 case SignInStatus.Failure:
                     try
                     {
-                        var lookupResult = hoGentApiLookupProvider.Lookup(model.UserId, model.Password);
-                        if (lookupResult.IsCompleetResult())
+                        var newUser = new ApplicationUser { UserName = model.UserId, Email = lookupResult.Email };
+                        var registerResult = UserManager.CreateAsync(newUser, PASSWORD_FILLER).Result;
+                        if (registerResult.Succeeded)
                         {
-                            var newUser = new ApplicationUser { UserName = model.UserId, Email = lookupResult.Email };
-                            var registerResult = UserManager.CreateAsync(newUser, model.Password).Result;
-                            if (registerResult.Succeeded)
-                            {
-                                Gebruiker nieuweGebruiker = new Gebruiker();
-                                gebruikerRepo.Add(nieuweGebruiker);
-                                nieuweGebruiker.Email = lookupResult.Email;
-                                nieuweGebruiker.FirstName = lookupResult.FirstName;
-                                nieuweGebruiker.LastName = lookupResult.LastName;
-                                nieuweGebruiker.IsLector = (lookupResult.Type == "personeel");
-                                gebruikerRepo.SaveChanges();
-                                SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
-                                return RedirectToAction("Index", "Catalogus");
-                            }
-                            AddErrors(registerResult);
-                            return View(model);
+                            Gebruiker nieuweGebruiker = new Gebruiker();
+                            gebruikerRepo.Add(nieuweGebruiker);
+                            nieuweGebruiker.Email = lookupResult.Email;
+                            nieuweGebruiker.FirstName = lookupResult.FirstName;
+                            nieuweGebruiker.LastName = lookupResult.LastName;
+                            nieuweGebruiker.IsLector = (lookupResult.Type == "personeel");
+                            gebruikerRepo.SaveChanges();
+                            SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                            return RedirectToAction("Index", "Catalogus");
                         }
-                        else {
-                            ModelState.AddModelError("", "De gebruikersnaam of wachtwoord zijn niet geldig.");
-                            return View(model);
-                        }
+                        AddErrors(registerResult);
+                        return View(model);
+
                     }
                     catch (HttpRequestException e)
                     {
@@ -130,7 +131,7 @@ namespace HoGentLend.Controllers
                         return View(model);
                     }
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Ongeldige login poging.");
                     return View(model);
             }
         }
