@@ -22,15 +22,34 @@ namespace HoGentLend.Controllers
         }
 
         // GET: Catalogus
-        public ActionResult Index(Gebruiker gebruiker)
+        public ActionResult Index(Gebruiker gebruiker, String filter="", int doelgroepId = 0,
+            int leergebiedId = 0)
         {
-            IEnumerable<MateriaalViewModel> materialen = materiaalRepository.FindAll()
-                .Include(m => m.Firma)
-                .Include(m => m.Doelgroepen)
-                .Include(m => m.Leergebieden)
-                .ToList()
-                .OrderBy(m => m.Name)
-                .Select(m => new MateriaalViewModel(m));
+            IEnumerable<MateriaalViewModel> materialen = null;
+            Groep dg = null;
+            Groep lg = null;
+
+            if(String.IsNullOrEmpty(filter) && doelgroepId == 0 && leergebiedId == 0)
+            {
+                materialen = materiaalRepository.FindAll()
+               .Include(m => m.Firma)
+               .Include(m => m.Doelgroepen)
+               .Include(m => m.Leergebieden)
+               .ToList()
+               .OrderBy(m => m.Name)
+               .Select(m => new MateriaalViewModel(m));
+            }
+            else
+            {
+                materialen = materiaalRepository.FindByFilter(filter, null, null)
+               .Include(m => m.Firma)
+               .Include(m => m.Doelgroepen)
+               .Include(m => m.Leergebieden)
+               .ToList()
+               .OrderBy(m => m.Name)
+               .Select(m => new MateriaalViewModel(m));
+            }
+           
 
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());

@@ -9,14 +9,14 @@
 
         <div class="form-group">
             <div class="col-md-4">
-                <input type="text" name="keywords" class="form-control" placeholder="Zoekterm" required>
+                <input type="text" name="filter" class="form-control" placeholder="Zoekterm" required>
             </div>
             <div class="col-md-3">
-                @Html.DropDownList("Doelgroepen", ViewBag.Doelgroepen as SelectList,
+                @Html.DropDownList("doelgroepId", ViewBag.Doelgroepen as SelectList,
                     "--selecteer doelgroep--", new {@class = "form-control"})
             </div>
             <div class="col-md-3">
-                @Html.DropDownList("Leergebieden", ViewBag.Leergroepen as SelectList,
+                @Html.DropDownList("leergebiedId", ViewBag.Leergebieden as SelectList,
                     "--selecteer leergroep--", new {@class = "form-control"})
             </div>
             <div class="col-md-2">
