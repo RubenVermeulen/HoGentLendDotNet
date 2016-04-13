@@ -21,11 +21,10 @@ namespace HoGentLend.Controllers
         // GET: Index
         public ActionResult Index(Gebruiker gebruiker)
         {
-            gebruiker.WishList = new VerlangLijst
-            {
-                Materials = materiaalRepository.FindAll().ToList()
-            };
-                
+            // Twee materialen toevoegen om te testen
+            Add(gebruiker, 5);
+            Add(gebruiker, 3);
+
 
             IEnumerable<MateriaalViewModel> materials = gebruiker.WishList
                 .Materials
@@ -51,7 +50,8 @@ namespace HoGentLend.Controllers
                 materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
                 TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
             }
-            return View("Index", "CatalogusController");
+
+            return View("Index");
         }
 
         // POST: Remove
