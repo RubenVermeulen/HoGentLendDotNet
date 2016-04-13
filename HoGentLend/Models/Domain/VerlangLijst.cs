@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace HoGentLend.Models.Domain
 {
     public class VerlangLijst
     {
 
-        public IList<Materiaal> materials { get; set; }
+        public IList<Materiaal> Materials { get; set; }
 
-        public void voegMaterialenToe (Materiaal material){
-
-            
-                materials.Add(material);
-            
+        public void addMaterial(Materiaal material)
+        {
+            Materials.Add(material);
         }
 
-        public void verwijderMaterialen(Materiaal material) {
-            materials.Remove(material);
+        public void removeMaterial(Materiaal material)
+        {
+            Materials.Remove(material);
         }
-        
+
 
     }
 }
