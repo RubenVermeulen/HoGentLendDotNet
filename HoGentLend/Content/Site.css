@@ -168,6 +168,11 @@ textarea {
     #catalog .catalog-item p {
         height: 60px;
     }
+
+    #catalog .voegtoe{
+        font-size: 0.8em;
+    }
+
 }
 
 
