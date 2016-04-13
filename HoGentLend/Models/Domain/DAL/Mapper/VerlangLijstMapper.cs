@@ -24,9 +24,9 @@ namespace HoGentLend.Models.Domain.DAL.Mapper
 
             //Relationships
             HasMany(v => v.Materials)
-                .WithRequired()
-                .Map(m => m.MapKey("VerlanglijstId"))
-                .WillCascadeOnDelete(false);
+                .WithMany();
+                
+                
 
         }
     }
