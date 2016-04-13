@@ -21,7 +21,19 @@ namespace HoGentLend.Controllers
         // GET: Index
         public ActionResult Index(Gebruiker gebruiker)
         {
-            return View();
+            gebruiker.WishList = new VerlangLijst
+            {
+                Materials = materiaalRepository.FindAll().ToList()
+            };
+                
+
+            IEnumerable<MateriaalViewModel> materials = gebruiker.WishList
+                .Materials
+                .ToList()
+                .OrderBy(m => m.Name)
+                .Select(m => new MateriaalViewModel(m));
+
+            return View(materials);
         }
 
         // POST: Add
