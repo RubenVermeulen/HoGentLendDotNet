@@ -15,6 +15,10 @@ namespace HoGentLend.Models.Domain
         public string Email { get; set; }
         public bool IsLector { get; set; }
 
+        public VerlangLijst wishList;
+
+       
+
         public bool ToonAlleMaterialen()
         {
             return IsLector;

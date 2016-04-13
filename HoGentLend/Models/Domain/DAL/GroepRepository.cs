@@ -13,12 +13,12 @@ namespace HoGentLend.Models.DAL
         public GroepRepository(HoGentLendContext ctx) : base(ctx.Groepen, ctx)
         {}
 
-        public IQueryable<Groep> findAllDoelGroepen()
+        public IQueryable<Groep> FindAllDoelGroepen()
         {
             return FindAll().Where(g => ! g.IsLeerGebied);
         }
 
-        public IQueryable<Groep> findAllLeerGebieden()
+        public IQueryable<Groep> FindAllLeerGebieden()
         {
             return FindAll().Where(g => g.IsLeerGebied);
         }

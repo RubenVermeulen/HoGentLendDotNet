@@ -13,10 +13,12 @@ namespace HoGentLend.Controllers
     public class CatalogusController : Controller
     {
         private IMateriaalRepository materiaalRepository;
+        private IGroepRepository groepRepository;
 
-        public CatalogusController(IMateriaalRepository materiaalRepository)
+        public CatalogusController(IMateriaalRepository materiaalRepository, IGroepRepository groepRepository)
         {
             this.materiaalRepository = materiaalRepository;
+            this.groepRepository = groepRepository;
         }
 
         // GET: Catalogus
@@ -30,16 +32,23 @@ namespace HoGentLend.Controllers
                 .OrderBy(m => m.Name)
                 .Select(m => new MateriaalViewModel(m));
 
-            
+            ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
+            ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
+
             if (gebruiker.ToonAlleMaterialen()) // If lector return all materialen
             {
                 return View(materialen);
             }
             else // If student return only available, in stock materialen
             {
-                return View(materialen.Where(m => m.Amount - m.AmountNotAvailable > 0));
+                return View(materialen.Where(m => m.IsLendable));
             }
             
+        }
+
+        private SelectList GroepenSelectList(IQueryable<Groep> groepen)
+        {
+            return new SelectList(groepen.OrderBy(g => g.Name), "Id", "Name");
         }
 
         // POST
