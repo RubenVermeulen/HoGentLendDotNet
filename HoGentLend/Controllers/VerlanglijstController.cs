@@ -28,8 +28,8 @@ namespace HoGentLend.Controllers
 
             IEnumerable<MateriaalViewModel> materials = gebruiker.WishList
                 .Materials
-                .ToList()
                 .OrderBy(m => m.Name)
+                .ToList()
                 .Select(m => new MateriaalViewModel(m));
 
             return View("Index", materials);

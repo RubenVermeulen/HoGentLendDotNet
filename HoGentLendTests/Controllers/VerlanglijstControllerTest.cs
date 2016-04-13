@@ -37,10 +37,13 @@ namespace HoGentLendTests.Controllers
 
             // Act
             ViewResult result = controller.Index(g) as ViewResult;
+
             MateriaalViewModel[] materials = ((IEnumerable<MateriaalViewModel>)result.Model).ToArray();
 
             // Assert
             Assert.AreEqual(2, materials.Length);
+            Assert.AreEqual("Rekenmachine", materials[0].Name);
+            Assert.AreEqual(2, materials[0].Amount);
         }
     }
 }
