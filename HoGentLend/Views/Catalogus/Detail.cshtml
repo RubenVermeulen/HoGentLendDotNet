@@ -18,12 +18,21 @@
     </div>
 
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <h2>@Html.DisplayFor(model => model.Name)</h2>
-        <hr />
+        <div class="page-header">
+            <h2>@Html.DisplayFor(model => model.Name)</h2>
+        </div>
 
+        @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post))
+        {
         <p class="available">
             <span class="amount">@(Model.Amount - Model.AmountNotAvailable)</span> beschikbaar
         </p>
+            <button type="submit" class="reserveer">
+                <span class="glyphicon glyphicon-star"></span>
+                Voeg toe aan verlanglijstje
+            </button>
+            @Html.HiddenFor(model => model.Id);
+        }
 
         @* Description *@
         <p>
@@ -151,5 +160,5 @@
     </div>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Terug naar materiaallijst", "Index")
 </p>
