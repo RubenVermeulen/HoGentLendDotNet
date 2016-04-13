@@ -118,9 +118,26 @@ textarea {
     border-bottom: 1px solid #eeeeee;
 }
 
-#catalog .catalog-item ul {
-    padding: 0;
-    list-style: none;
+#catalog .catalog-item p {
+    height: 60px;
+}
+
+@media (min-width : 1200px) {
+    #catalog .catalog-item p {
+        height: 40px;
+    }
+}
+
+@media (max-width : 992px) {
+    #catalog .catalog-item p {
+        height: 40px;
+    }
+}
+
+@media (max-width : 400px) {
+    #catalog .catalog-item p {
+        height: 60px;
+    }
 }
 
 /* Detail */
