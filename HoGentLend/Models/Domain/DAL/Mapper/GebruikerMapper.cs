@@ -43,6 +43,15 @@ namespace HoGentLend.Models.DAL.Mapper
                 .HasColumnName("LECTOR")
                 .HasColumnType("bit")
                 .IsOptional();
+
+            // Relationships
+            HasRequired(m => m.WishList)
+                .WithMany()
+                .Map(m =>
+                {
+                    m.MapKey("gebruiker_id");
+                }
+                );
         }
     }
 }
