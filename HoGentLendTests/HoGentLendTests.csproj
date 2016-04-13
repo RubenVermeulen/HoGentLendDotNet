@@ -135,6 +135,7 @@
     <Compile Include="Models\Domain\MateriaalTest.cs" />
     <Compile Include="Models\Domain\GroepTest.cs" />
     <Compile Include="Models\Domain\FirmaTest.cs" />
+    <Compile Include="Models\Domain\VerlangLijstTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\AccountControllerTest.cs" />
   </ItemGroup>
