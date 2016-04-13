@@ -31,13 +31,13 @@ namespace HoGentLend.Controllers
             Materiaal mat = materiaalRepository.FindBy(materiaalId);
             if (mat == null || !gebruiker.CanSeeMaterial(mat))
             {
-                ViewBag.msgError = "Het materiaal dat u wenste toe te voegen aan uw verlanglijst is niet beschikbaar.";
+                TempData["err"] = "Het materiaal dat u wenste toe te voegen aan uw verlanglijst is niet beschikbaar.";
             }
             else
             {
                 gebruiker.WishList.voegMaterialenToe(mat);
                 materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
-                ViewBag.msgSuccess = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
+                TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
             }
             return View("Index", "CatalogusController");
         }
@@ -49,13 +49,13 @@ namespace HoGentLend.Controllers
             Materiaal mat = materiaalRepository.FindBy(materiaalId);
             if (mat == null)
             {
-                ViewBag.msgError = "Het materiaal dat u wenste te verwijderen uit uw verlanglijst is niet beschikbaar.";
+                TempData["err"] = "Het materiaal dat u wenste te verwijderen uit uw verlanglijst is niet beschikbaar.";
             }
             else
             {
                 gebruiker.WishList.verwijderMaterialen(mat);
                 materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
-                ViewBag.msgSuccess = "Het materiaal " + mat.Name + " is verwijderd uit uw verlanglijst.";
+                TempData["msg"] = "Het materiaal " + mat.Name + " is verwijderd uit uw verlanglijst.";
             }
             return View("Index");
         }
