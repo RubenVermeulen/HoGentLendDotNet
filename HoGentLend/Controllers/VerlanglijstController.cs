@@ -51,7 +51,7 @@ namespace HoGentLend.Controllers
                 TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
             }
 
-            return View("Index");
+            return Index(gebruiker);
         }
 
         // POST: Remove
