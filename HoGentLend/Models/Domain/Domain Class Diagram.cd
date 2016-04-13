@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="HoGentLend.Models.Domain.Gebruiker">
-    <Position X="4.25" Y="0.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAACAEAAACAAAAAAAAAAAAAAgAQAAAABAAAAAAAAAAg=</HashCode>
-      <FileName>Models\Domain\Gebruiker.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="HoGentLend.Models.Domain.Materiaal">
     <Position X="0.75" Y="5.25" Width="2" />
     <TypeIdentifier>
@@ -29,6 +22,13 @@
     <TypeIdentifier>
       <HashCode>AAACAAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Firma.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HoGentLend.Models.Domain.Gebruiker">
+    <Position X="4.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAACAAAAgAAAAAAABAgAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="HoGentLend.Models.Domain.IRepository&lt;EntityType, IdType&gt;">

@@ -210,7 +210,6 @@
     <Compile Include="Models\Domain\IRepository.cs" />
     <Compile Include="Models\Domain\HGLUtils.cs" />
     <Compile Include="Models\Domain\VerlangLijst.cs" />
-    <Compile Include="VerlangLijst.cs" />
     <Compile Include="ViewModels\MateriaalViewModel.cs" />
     <Compile Include="Views\_niet nodig\ManageController.cs" />
     <Compile Include="Global.asax.cs">
