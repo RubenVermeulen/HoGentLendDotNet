@@ -32,7 +32,7 @@ namespace HoGentLend.Controllers
                 .OrderBy(m => m.Name)
                 .Select(m => new MateriaalViewModel(m));
 
-            return View(materials);
+            return View("Index", materials);
         }
 
         // POST: Add
