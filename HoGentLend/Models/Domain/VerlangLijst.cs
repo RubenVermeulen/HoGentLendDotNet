@@ -8,7 +8,7 @@ namespace HoGentLend.Models.Domain
     {
         private IList<Materiaal> materials; 
 
-        public int VerlangLijstId { get; set; }
+        public long VerlangLijstId { get; set; }
 
         public IList<Materiaal> Materials
         {

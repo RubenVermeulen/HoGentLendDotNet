@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="HoGentLend.Models.Domain.Materiaal">
-    <Position X="0.75" Y="5.25" Width="2" />
+    <Position X="0.75" Y="5.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAACAAAQAQAgAAACAAIAAASAAAAAAAAEAAAACACAAQA=</HashCode>
       <FileName>Models\Domain\Materiaal.cs</FileName>
@@ -11,49 +11,56 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="HoGentLend.Models.Domain.Groep">
-    <Position X="4.75" Y="5.25" Width="1.75" />
+    <Position X="4.75" Y="5.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAABAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Groep.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HoGentLend.Models.Domain.Firma">
-    <Position X="4.75" Y="7" Width="1.5" />
+    <Position X="4.75" Y="7" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Firma.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HoGentLend.Models.Domain.Gebruiker">
-    <Position X="4.25" Y="0.5" Width="1.75" />
+    <Position X="4" Y="0.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAACAEAAACAAAAgAAAAAAABAgAAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="HoGentLend.Models.Domain.VerlangLijst">
+    <Position X="7.25" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAACAAAAgAAAAAAAAAAAAAAAAACAAAAABAAEA=</HashCode>
+      <FileName>Models\Domain\VerlangLijst.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="HoGentLend.Models.Domain.IRepository&lt;EntityType, IdType&gt;">
-    <Position X="0.5" Y="0.5" Width="3" />
+    <Position X="0.5" Y="0.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>gAIAAAAAAAAAAAgAAAAQAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\IRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="HoGentLend.Models.Domain.IMateriaalRepository">
-    <Position X="2.75" Y="3.5" Width="2" />
+    <Position X="0.5" Y="3.75" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\IMateriaalRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="HoGentLend.Models.Domain.IGroepRepository">
-    <Position X="5" Y="3.5" Width="2.75" />
+    <Position X="4.75" Y="3.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\IGroepRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="HoGentLend.Models.Domain.IGebruikerRepository">
-    <Position X="8" Y="3.5" Width="2" />
+    <Position X="7.75" Y="3.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\IGebruikerRepository.cs</FileName>
