@@ -204,7 +204,7 @@ textarea {
     background: #00876C;
 }
 
-#filter input, select, a {
+#filter input, #filter select, #filter a {
     max-width: 100%;
     margin: 5px 0;
 }
