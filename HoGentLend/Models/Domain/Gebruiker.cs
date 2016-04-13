@@ -17,7 +17,6 @@ namespace HoGentLend.Models.Domain
 
         public VerlangLijst wishList;
 
-       
 
         public bool ToonAlleMaterialen()
         {
