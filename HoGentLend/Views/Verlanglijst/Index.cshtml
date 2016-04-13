@@ -44,7 +44,7 @@
 
                         </div>
                         <div class="col-md-8">
-                            <a href="#">@item.Name</a>
+                            @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
                         </div>
                         <div class="col-md-2">
                             <form action="/" method="post" class="form-inline">
