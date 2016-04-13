@@ -22,8 +22,8 @@ namespace HoGentLend.Controllers
         public ActionResult Index(Gebruiker gebruiker)
         {
             // Twee materialen toevoegen om te testen
-            Add(gebruiker, 5);
-            Add(gebruiker, 3);
+            //Add(gebruiker, 5);
+            //Add(gebruiker, 3);
 
 
             IEnumerable<MateriaalViewModel> materials = gebruiker.WishList
