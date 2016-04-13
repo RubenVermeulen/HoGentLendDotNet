@@ -37,9 +37,9 @@ namespace HoGentLend.Controllers
 
         // POST: Add
         [HttpPost]
-        public ActionResult Add(Gebruiker gebruiker, int materiaalId)
+        public ActionResult Add(Gebruiker gebruiker, int id)
         {
-            Materiaal mat = materiaalRepository.FindBy(materiaalId);
+            Materiaal mat = materiaalRepository.FindBy(id);
             if (mat == null || !gebruiker.CanSeeMaterial(mat))
             {
                 TempData["err"] = "Het materiaal dat u wenste toe te voegen aan uw verlanglijst is niet beschikbaar.";
