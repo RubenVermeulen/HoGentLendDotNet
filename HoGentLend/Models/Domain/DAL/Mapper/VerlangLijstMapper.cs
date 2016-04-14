@@ -15,10 +15,10 @@ namespace HoGentLend.Models.Domain.DAL.Mapper
             ToTable("verlanglijstjes");
 
             // Key
-            HasKey(v => v.VerlangLijstId);
+            HasKey(v => v.Id);
 
             // Properties
-            Property(v => v.VerlangLijstId)
+            Property(v => v.Id)
                 .HasColumnName("ID")
                 .HasColumnType("numeric");
 

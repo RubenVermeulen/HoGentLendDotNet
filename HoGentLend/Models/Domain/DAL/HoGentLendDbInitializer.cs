@@ -42,8 +42,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     //Location = "GSCHB4.021",
                     //Firma = f1,
-                    //Doelgroepen = doelgroepen,
-                    //Leergebieden = leergebiedenSet1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet1,
                     //PhotoBytes = new WebClient().DownloadData("https://www.dezwerver.nl/media/cache/e3/88/e38825e2d8175a72d9d346193f983983.jpg")
                 };
 
