@@ -23,19 +23,8 @@ namespace HoGentLend.Infrastructure
                 if (appUser != null)
                 {
                     Gebruiker g = repos.FindByEmail(appUser.Email);
-
-                    if (g.WishList == null)
-                    {
-                        g.WishList = new VerlangLijst
-                        {
-                            Materials = new List<Materiaal>()
-                        };
-                        repos.SaveChanges();
-                    }
-
                     return g;
                 }
-                    //return repos.FindByEmail(appUser.Email);
                 return null;
             }   
             return null;

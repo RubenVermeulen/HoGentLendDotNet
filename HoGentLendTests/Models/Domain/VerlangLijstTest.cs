@@ -7,8 +7,7 @@ namespace HoGentLendTests.Models.Domain
     [TestClass]
     public class VerlangLijstTest
     {
-
-
+        
         private VerlangLijst wishList;
         System.Collections.Generic.IList<Materiaal> Materials;
         Materiaal m1;
@@ -40,20 +39,20 @@ namespace HoGentLendTests.Models.Domain
         [ExpectedException(typeof(ArgumentException))]
         public void AddMaterialAlreadyInWishlistFails()
         {
-            wishList.addMaterial(m2);
+            wishList.AddMaterial(m2);
         }
 
         [TestMethod()]
         public void AddMaterialCauses3Materials()
         {
-            wishList.addMaterial(m3);
+            wishList.AddMaterial(m3);
             Assert.AreEqual(3, wishList.Materials.Count);
         }
 
         [TestMethod()]
         public void RemoveMaterialCauses1Materials()
         {
-            wishList.removeMaterial(m2);
+            wishList.RemoveMaterial(m2);
             Assert.AreEqual(1, wishList.Materials.Count);
         }
 
@@ -61,7 +60,7 @@ namespace HoGentLendTests.Models.Domain
         [ExpectedException(typeof(ArgumentException))]
         public void RemoveMaterialNotInWishlistFails()
         {
-            wishList.removeMaterial(m3);
+            wishList.RemoveMaterial(m3);
         }
 
 

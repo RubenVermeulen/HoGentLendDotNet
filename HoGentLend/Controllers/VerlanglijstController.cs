@@ -25,7 +25,6 @@ namespace HoGentLend.Controllers
             //Add(gebruiker, 5);
             //Add(gebruiker, 3);
 
-
             IEnumerable<MateriaalViewModel> materials = gebruiker.WishList
                 .Materials
                 .OrderBy(m => m.Name)
@@ -46,7 +45,7 @@ namespace HoGentLend.Controllers
             }
             else
             {
-                gebruiker.WishList.addMaterial(mat);
+                gebruiker.WishList.AddMaterial(mat);
                 materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
                 TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
             }
@@ -65,7 +64,7 @@ namespace HoGentLend.Controllers
             }
             else
             {
-                gebruiker.WishList.removeMaterial(mat);
+                gebruiker.WishList.RemoveMaterial(mat);
                 materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
                 TempData["msg"] = "Het materiaal " + mat.Name + " is verwijderd uit uw verlanglijst.";
             }

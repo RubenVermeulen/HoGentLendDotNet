@@ -112,6 +112,8 @@ namespace HoGentLend.Controllers
                             nieuweGebruiker.FirstName = lookupResult.FirstName;
                             nieuweGebruiker.LastName = lookupResult.LastName;
                             nieuweGebruiker.IsLector = (lookupResult.Type == "personeel");
+
+                            nieuweGebruiker.WishList = new VerlangLijst();
                             gebruikerRepo.SaveChanges();
                             SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
                             return RedirectToAction("Index", "Catalogus");
