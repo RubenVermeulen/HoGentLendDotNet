@@ -210,6 +210,9 @@
     <Compile Include="Models\Domain\IMateriaalRepository.cs" />
     <Compile Include="Models\Domain\IRepository.cs" />
     <Compile Include="Models\Domain\HGLUtils.cs" />
+    <Compile Include="Models\Domain\Reservatie.cs" />
+    <Compile Include="Models\Domain\ReservatieLijn.cs" />
+    <Compile Include="Models\Domain\ReservatieRepository.cs" />
     <Compile Include="Models\Domain\VerlangLijst.cs" />
     <Compile Include="ViewModels\MateriaalViewModel.cs" />
     <Compile Include="Views\_niet nodig\ManageController.cs" />
