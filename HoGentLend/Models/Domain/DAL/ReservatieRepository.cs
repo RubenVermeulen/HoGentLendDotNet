@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace HoGentLend.Models.Domain
+namespace HoGentLend.Models.Domain.DAL
 {
     public class ReservatieRepository
     {

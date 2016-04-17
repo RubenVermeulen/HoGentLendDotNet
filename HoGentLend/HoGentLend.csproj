@@ -197,6 +197,7 @@
     <Compile Include="Models\Domain\DAL\Mapper\GroepMapper.cs" />
     <Compile Include="Models\Domain\DAL\Mapper\MateriaalMapper.cs" />
     <Compile Include="Models\Domain\DAL\MateriaalRepository.cs" />
+    <Compile Include="Models\Domain\DAL\ReservatieRepository.cs" />
     <Compile Include="Models\Domain\Firma.cs" />
     <Compile Include="Models\Domain\Groep.cs" />
     <Compile Include="Models\Domain\HoGentApi\IHoGentApiLookupProvider.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\Domain\HoGentApi\OfflineHoGentApiLookupProvider.cs" />
     <Compile Include="Models\Domain\IGebruikerRepository.cs" />
     <Compile Include="Models\Domain\IGroepRepository.cs" />
+    <Compile Include="Models\Domain\IReservatieRepository.cs" />
     <Compile Include="Models\Domain\Materiaal.cs" />
     <Compile Include="Models\Domain\Gebruiker.cs" />
     <Compile Include="Models\Domain\IMateriaalRepository.cs" />
@@ -212,7 +214,6 @@
     <Compile Include="Models\Domain\HGLUtils.cs" />
     <Compile Include="Models\Domain\Reservatie.cs" />
     <Compile Include="Models\Domain\ReservatieLijn.cs" />
-    <Compile Include="Models\Domain\ReservatieRepository.cs" />
     <Compile Include="Models\Domain\VerlangLijst.cs" />
     <Compile Include="ViewModels\MateriaalViewModel.cs" />
     <Compile Include="Views\_niet nodig\ManageController.cs" />
