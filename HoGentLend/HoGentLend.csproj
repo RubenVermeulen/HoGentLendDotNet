@@ -190,6 +190,7 @@
     <Compile Include="Infrastructure\GebruikerModelBinder.cs" />
     <Compile Include="Models\Domain\DAL\GebruikerRepository.cs" />
     <Compile Include="Models\Domain\DAL\Mapper\GebruikerMapper.cs" />
+    <Compile Include="Models\Domain\DAL\Mapper\ReservatieMapper.cs" />
     <Compile Include="Models\Domain\DAL\Mapper\VerlangLijstMapper.cs" />
     <Compile Include="Models\Domain\DAL\Repository.cs" />
     <Compile Include="Models\Domain\DAL\GroepRepository.cs" />

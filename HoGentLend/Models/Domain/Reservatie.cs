@@ -15,7 +15,8 @@ namespace HoGentLend.Models.Domain
         public DateTime Indienmoment { get; set; }
         public DateTime Reservatiemoment { get; set; }
         public bool Opgehaald { get; set; }
-        public virtual List<ReservatieLijn> ReservatieLijnen  { get; set; }
+        //ReservatieLijn bestaat nog niet
+        //public virtual List<ReservatieLijn> ReservatieLijnen  { get; set; }
 
 
     }

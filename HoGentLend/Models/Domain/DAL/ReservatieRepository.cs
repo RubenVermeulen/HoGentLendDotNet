@@ -13,7 +13,12 @@ namespace HoGentLend.Models.DAL
 
         public ReservatieRepository(HoGentLendContext ctx) : base (ctx.Reservaties, ctx)
         {
+
+
+
         }
+
+
 
     }
 }
