@@ -25,43 +25,8 @@ namespace HoGentLend.Controllers
         public ActionResult Index(Gebruiker gebruiker, String filter="", int doelgroepId = 0,
             int leergebiedId = 0)
         {
-            IEnumerable<MateriaalViewModel> materialen = null;
-            Groep dg = null;
-            Groep lg = null;
-
-            if(String.IsNullOrEmpty(filter) && doelgroepId == 0 && leergebiedId == 0)
-            {
-                materialen = materiaalRepository.FindAll()
-               .Include(m => m.Firma)
-               .Include(m => m.Doelgroepen)
-               .Include(m => m.Leergebieden)
-               .OrderBy(m => m.Name)
-               .ToList()
-               .Select(m => new MateriaalViewModel(m));
-            }
-            else
-            {
-                materialen = materiaalRepository.FindByFilter(filter, null, null)
-               .Include(m => m.Firma)
-               .Include(m => m.Doelgroepen)
-               .Include(m => m.Leergebieden)
-               .OrderBy(m => m.Name)
-               .ToList()
-               .Select(m => new MateriaalViewModel(m));
-
-                if(doelgroepId != 0)
-                {
-                    dg = groepRepository.FindBy(doelgroepId);
-                    materialen = materialen.Where(m => m.Doelgroepen.Any(d => d.Equals(dg.Name)));
-                }
-
-                if (leergebiedId != 0)
-                {
-                    lg = groepRepository.FindBy(leergebiedId);
-                    materialen = materialen.Where(m => m.Leergebieden.Any(d => d.Equals(lg.Name)));
-                }
-
-            }
+            IEnumerable<MateriaalViewModel> materialen =
+                materiaalRepository.FindByFilter(filter, doelgroepId, leergebiedId);
            
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
