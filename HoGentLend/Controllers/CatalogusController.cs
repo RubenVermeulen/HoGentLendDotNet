@@ -26,7 +26,8 @@ namespace HoGentLend.Controllers
             int leergebiedId = 0)
         {
             IEnumerable<MateriaalViewModel> materialen =
-                materiaalRepository.FindByFilter(filter, doelgroepId, leergebiedId);
+                materiaalRepository.FindByFilter(filter, doelgroepId, leergebiedId)
+                .Select(m => new MateriaalViewModel(m));
            
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
@@ -49,13 +50,6 @@ namespace HoGentLend.Controllers
         private SelectList GroepenSelectList(IQueryable<Groep> groepen)
         {
             return new SelectList(groepen.OrderBy(g => g.Name), "Id", "Name");
-        }
-
-        // POST
-        [HttpPost]
-        public ActionResult Filter()
-        {
-            return View("Index");
         }
 
         public ActionResult Detail(int id)

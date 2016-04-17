@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using HoGentLend.Models.Domain;
-using HoGentLend.ViewModels;
 
 namespace HoGentLend.Models.DAL
 {
@@ -17,10 +16,9 @@ namespace HoGentLend.Models.DAL
         {
         }
 
-        public IEnumerable<MateriaalViewModel> FindByFilter(String filter, int doelgroepId, int leergebiedId)
+        public IEnumerable<Materiaal> FindByFilter(String filter, int doelgroepId, int leergebiedId)
         {
             IQueryable<Materiaal> materialen;
-            IEnumerable<MateriaalViewModel> materialenvm = null;
 
             if (String.IsNullOrEmpty(filter) && doelgroepId == 0 && leergebiedId == 0)
             {
@@ -53,8 +51,7 @@ namespace HoGentLend.Models.DAL
                .Include(m => m.Doelgroepen)
                .Include(m => m.Leergebieden)
                .OrderBy(m => m.Name)
-               .ToList()
-               .Select(m => new MateriaalViewModel(m));
+               .ToList();
         }
 
     }
