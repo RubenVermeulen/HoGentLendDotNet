@@ -41,7 +41,7 @@ namespace HoGentLend.Models.Domain
             }
             this.Amount = amount;
             this.IndienMoment = indienMoment;
-            this.OphaalMoment = OphaalMoment;
+            this.OphaalMoment = ophaalMoment;
             this.Materiaal = mat;
         }
     }

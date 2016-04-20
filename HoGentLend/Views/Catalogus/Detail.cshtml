@@ -185,8 +185,15 @@
                 @* Price *@
                 <strong>@Html.DisplayNameFor(model => model.Price)</strong><br/>
                 @string.Format("{0:C}", Model.Price)
+
             </p>
         </div>
+
+
+        @for (var i = 0; i < 14; i++)
+        {
+            <p>@ViewBag.chartList[i]</p>
+        }
     </div>
 </div>
 
