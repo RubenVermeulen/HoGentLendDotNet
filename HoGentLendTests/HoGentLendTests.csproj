@@ -134,6 +134,7 @@
     <Compile Include="Controllers\HelperExtensions.cs" />
     <Compile Include="Controllers\CatalogusControllerTest.cs" />
     <Compile Include="Controllers\VerlanglijstControllerTest.cs" />
+    <Compile Include="Models\Domain\DAL\MateriaalRepositoryTest.cs" />
     <Compile Include="Models\Domain\GebruikerTest.cs" />
     <Compile Include="Models\Domain\MateriaalTest.cs" />
     <Compile Include="Models\Domain\GroepTest.cs" />
