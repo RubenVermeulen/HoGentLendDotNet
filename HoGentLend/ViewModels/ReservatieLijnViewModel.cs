@@ -9,9 +9,13 @@ namespace HoGentLend.ViewModels
     public class ReservatieLijnViewModel
     {
 
+        public MateriaalViewModel Materiaal { get; set; }
         public ReservatieLijnViewModel(ReservatieLijn r)
         {
-            
+
+
+            Materiaal = new MateriaalViewModel(r.Materiaal);
+
         }
 
     }
