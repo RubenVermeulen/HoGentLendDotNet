@@ -145,6 +145,7 @@ namespace HoGentLend.Models.DAL
                 DateTime _28April2016 = new DateTime(2016, 4, 28);
 
                 Reservatie r1 = new Reservatie(g1, _13April2016, _20April2016);
+                r1.ReservatieLijnen = new List<ReservatieLijn>();
                 r1.ReservatieLijnen.Add(new ReservatieLijn(2, _13April2016, _20April2016, m1));
                 r1.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m2));
                 r1.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3));

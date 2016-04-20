@@ -23,11 +23,11 @@ namespace HoGentLend.ViewModels
         public DateTime? Ophaalmoment { get; set; }
 
         [DisplayName("Indienmoment")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? Indienmoment { get; set; }
 
         [DisplayName("Reservatiemoment")]
-        [DisplayFormat(DataFormatString = "{0:dd MM yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? Reservatiemoment { get; set; }
 
         [DisplayName("Opgehaald")]
@@ -46,7 +46,7 @@ namespace HoGentLend.ViewModels
             Opgehaald = r.Opgehaald;
 
 
-            ReservatieLijnen = r.ReservatieLijnen?.Select(rl => new ReservatieLijnViewModel(rl)).ToList();
+            ReservatieLijnen = r.ReservatieLijnen.Select(rl => new ReservatieLijnViewModel(rl)).ToList();
 
         }
 

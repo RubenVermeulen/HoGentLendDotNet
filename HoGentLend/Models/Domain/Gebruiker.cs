@@ -63,6 +63,7 @@ namespace HoGentLend.Models.Domain
                 throw new ArgumentException("Materialen en hoeveelheden zijn verplicht en er moeten evenveel van elk gegeven worden.");
             }
             Reservatie reservatie = new Reservatie(this, ophaalDatum, indienDatum);
+            reservatie.ReservatieLijnen = new List<ReservatieLijn>();
             for (int i = 0; i < materials.Count; i++)
             {
                 Materiaal mat = materials[i];

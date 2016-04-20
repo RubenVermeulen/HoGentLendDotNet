@@ -19,7 +19,6 @@ namespace HoGentLend.Models.Domain
 
         private Reservatie()
         {
-            ReservatieLijnen = new List<ReservatieLijn>();
         }
 
         public Reservatie(Gebruiker lener,
