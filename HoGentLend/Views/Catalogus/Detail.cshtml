@@ -6,6 +6,12 @@
 
 
 <div id="details" class="row">
+    <div class="col-md-12">
+        @Html.ActionLink("Terug naar materiaallijst", "Index", "Catalogus", new { @class = "btn btn-primary" })
+    </div>
+
+    <br/>
+
     <div class="col-md-3 col-sm-3 col-xs-12">
         @if (@Model.PhotoBase64 != null)
         {
@@ -24,14 +30,15 @@
 
         @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post))
         {
-        <p class="available">
-            <span class="amount">@(Model.Amount - Model.AmountNotAvailable)</span> beschikbaar
-        </p>
+            <p class="available">
+                <span class="amount">@(Model.Amount - Model.AmountNotAvailable)</span> beschikbaar
+            </p>
             <button type="submit" class="reserveer">
                 <span class="glyphicon glyphicon-star"></span>
                 Voeg toe aan verlanglijstje
             </button>
-            @Html.HiddenFor(model => model.Id);
+            @Html.HiddenFor(model => model.Id)
+            ;
         }
 
         @* Description *@
@@ -93,7 +100,7 @@
                 foreach (string groep in Model.Leergebieden)
                 {
                     @groep
-                    <br />
+                    <br/>
                 }
             }
             else
@@ -104,9 +111,9 @@
 
         </p>
 
-        <hr />
+        <hr/>
 
-        
+
 
         @* Information for buying the item *@
         <div class="bg-info info-buying">
@@ -126,7 +133,7 @@
                     @("Geen naam")
                 }
 
-                <br />
+                <br/>
 
                 @* Email Firma *@
                 <strong>@Html.DisplayNameFor(model => model.FirmaEmail)</strong><br/>
@@ -139,10 +146,10 @@
                     @("Geen e-mailadres")
                 }
 
-                <br />
+                <br/>
 
                 @* Article code *@
-                <strong>@Html.DisplayNameFor(model => model.ArticleCode)</strong><br />
+                <strong>@Html.DisplayNameFor(model => model.ArticleCode)</strong><br/>
                 @if (!string.IsNullOrEmpty(Model.ArticleCode))
                 {
                     @Html.DisplayFor(model => model.ArticleCode)
@@ -155,12 +162,57 @@
                 <br/>
 
                 @* Price *@
-                <strong>@Html.DisplayNameFor(model => model.Price)</strong><br />
+                <strong>@Html.DisplayNameFor(model => model.Price)</strong><br/>
                 @string.Format("{0:C}", Model.Price)
             </p>
         </div>
+
+        <hr/>
+
+        <div id="chart" class="col-md-12" style="height: 400px;"></div>
     </div>
 </div>
-<p>
-    @Html.ActionLink("Terug naar materiaallijst", "Index")
-</p>
+
+@section scripts
+{
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script>
+        $(function () {
+            $('#chart').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Reservatie grafiek'
+                },
+                xAxis: {
+                    title: {
+                        text: 'Dagen',
+                    },
+                    type: 'datetime',
+                    tickInterval: 3600 * 1000 * 24, // 1 dag
+                    range: 3600 * 1000 * 24 * 14, // 14 dagen
+                    max: 3600 * 1000 * 24 * 13, // 14 dagen
+                },
+                yAxis: {
+                    title: {
+                        text: 'Aantal',
+                    },
+                    tickInterval: 1,
+                },
+                series: [
+                    {
+                        name: 'Aantal gereserveerd',
+                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,15,12,31,4,5,8,4,4],
+                        pointInterval: 3600 * 1000 * 24,
+                    },
+                    {
+                        name: 'Aantal beschikbaar',
+                        data: [5, 4, 7, 8, 9, 5, 10],
+                        pointInterval: 3600 * 1000 * 24,
+                    }
+                ],
+            });
+        });
+    </script>
+}
