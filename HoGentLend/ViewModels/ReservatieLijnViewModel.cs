@@ -28,6 +28,7 @@ namespace HoGentLend.ViewModels
 
         public ReservatieLijnViewModel(ReservatieLijn r)
         {
+            Id = r.Id;
             Amount = r.Amount;
             IndienMoment = r.IndienMoment;
             OphaalMoment = r.OphaalMoment;
