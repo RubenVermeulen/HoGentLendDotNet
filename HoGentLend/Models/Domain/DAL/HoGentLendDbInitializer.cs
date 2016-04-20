@@ -121,14 +121,18 @@ namespace HoGentLend.Models.DAL
                     FirstName = "Offline",
                     LastName = "Student",
                     Email = "offline.student@hogent.be",
-                    IsLector = false
+                    IsLector = false,
+                    WishList = new VerlangLijst(),
+                    Reservaties = new List<Reservatie>()
                 };
                 Gebruiker g2 = new Gebruiker()
                 {
                     FirstName = "Offline",
                     LastName = "Lector",
                     Email = "offline.lector@hogent.be",
-                    IsLector = true
+                    IsLector = true,
+                    WishList = new VerlangLijst(),
+                    Reservaties = new List<Reservatie>()
                 };
 
                 context.Gebruikers.Add(g1);

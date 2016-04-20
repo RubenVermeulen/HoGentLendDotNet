@@ -10,43 +10,44 @@
 
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In viverra libero quis ipsum mollis rutrum. Pellentesque semper lacinia rhoncus. Vestibulum mauris odio, cursus nec volutpat quis, pharetra quis massa. Aenean a imperdiet sapien. Nullam sit amet finibus nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit ligula nec elit gravida, ut congue lorem interdum. Suspendisse potenti. In a quam varius, facilisis sapien ut, ultricies velit. Sed suscipit tincidunt sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. </p>
 
-<hr/>
+<hr />
 
 <div id="wishlist">
-    
 
-        @if (!Model.Any())
-        {
-            <p>Er zit nog niets in je verlanglijstje.</p>
-        }
-        else
-        {
-            <form action="/" method="post" class="form-inline">
 
-                @foreach (var item in Model)
-                {
+    @if (!Model.Any())
+    {
+        <p>Er zit nog niets in je verlanglijstje.</p>
+    }
+    else
+    {
+        using (Html.BeginForm("Add", "Reservatie", FormMethod.Post))
+       {
+          int counter = -1;
+           foreach (var item in Model)
+            {
+                counter = counter + 1;
+                    <div class="row wishlist-item">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
 
-                <div class="row wishlist-item">
-                    <div class="col-md-12">
-                        <div class="col-md-2">
+                                <!-- IMAGE -->
+                                @if (item.PhotoBase64 != null)
+                                {
+                                    <div class="wishlist-img" style="background-image: url(data:image/png;base64,@item.PhotoBase64)">
+                                        <a href="data:image/png;base64,@item.PhotoBase64" data-lightbox="@item.Name"></a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="wishlist-img"></div>
+                                }
 
-                            <!-- IMAGE -->
-                            @if (item.PhotoBase64 != null)
-                            {
-                                <div class="wishlist-img" style="background-image: url(data:image/png;base64,@item.PhotoBase64)">
-                                    <a href="data:image/png;base64,@item.PhotoBase64" data-lightbox="@item.Name"></a>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="wishlist-img"></div>
-                            }
-
-                        </div>
-                        <div class="col-md-8">
-                            @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
-                        </div>
-                        <div class="col-md-2">
+                            </div>
+                            <div class="col-md-8">
+                                @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
+                            </div>
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -54,39 +55,41 @@
                                                 <label for="amount">Aantal</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="number" id="amount" class="form-control" value="0" />
+                                                <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id"/>
+                                                <input type="number" id="amount" class="form-control" name="reservatiepartmodels[@counter].Amount" value="0" />
                                             </div>
                                         </div>
                                     </div>
 
 
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+            }
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="date">Reservatiedatum (begin)</label>
+                            <input type="date" id="date" value="Reserveren" name="ophaalDatum" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="date">Reservatiedatum (Einde)</label>
+                            <p>22/04/2016</p>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <hr />
+            <input type="submit" class="btn btn-primary" value="Reserveren" />
+
                 }
+                    }
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                <label for="date">Reservatiedatum (begin)</label>
-                                <input type="date" id="date" value="Reserveren" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                <label for="date">Reservatiedatum (Einde)</label>
-                                <p>22/04/2016</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <input type="submit" class="btn btn-primary" value="Reserveren" />
-
-            </form>
-        }      
 </div>

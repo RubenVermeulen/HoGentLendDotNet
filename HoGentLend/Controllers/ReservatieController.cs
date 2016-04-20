@@ -12,10 +12,13 @@ namespace HoGentLend.Controllers
     public class ReservatieController : Controller
     {
         private IReservatieRepository reservatieRepository;
+        private IMateriaalRepository materiaalRepository;
 
-        public ReservatieController(IReservatieRepository reservatieRepository)
+        public ReservatieController(IReservatieRepository reservatieRepository,
+            IMateriaalRepository materiaalRepository)
         {
             this.reservatieRepository = reservatieRepository;
+            this.materiaalRepository = materiaalRepository;
         }
 
         // GET: Reservatie
@@ -36,16 +39,29 @@ namespace HoGentLend.Controllers
 
         // POST: Add
         [HttpPost]
-        public ActionResult Add(Gebruiker gebruiker, List<Materiaal> materials, List<long> amounts,
-            DateTime ophaalDatum)
+        public ActionResult Add(Gebruiker gebruiker, List<ReservatiePartModel> reservatiepartmodels,
+            DateTime? ophaalDatum)
         {
             double weeks = 1; // dit zal later nog uit de database gehaald worden
-            DateTime indienDatum = ophaalDatum.AddDays(7 * weeks);
-            
+            if (!ophaalDatum.HasValue)
+            {
+                throw new ArgumentException("De ophaaldatum moet een waarde hebben.");
+            }
+            DateTime indienDatum = ophaalDatum.Value.AddDays(7 * weeks);
 
+            List<Materiaal> materials = new List<Materiaal>();
+            List<long> amounts = new List<long>();
+
+            foreach (ReservatiePartModel rpm in reservatiepartmodels)
+            {
+                materials.Add(materiaalRepository.FindBy(rpm.
+                    MateriaalId));
+                amounts.Add(rpm.Amount);
+            }
             try
             {
-                gebruiker.AddReservation(materials, amounts, ophaalDatum, indienDatum, reservatieRepository.FindAll());
+                gebruiker.AddReservation(materials, amounts, ophaalDatum.Value, indienDatum,
+                    reservatieRepository.FindAll());
                 reservatieRepository.SaveChanges();
                 TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
             }
