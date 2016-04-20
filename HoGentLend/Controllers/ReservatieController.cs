@@ -8,6 +8,7 @@ using HoGentLend.ViewModels;
 
 namespace HoGentLend.Controllers
 {
+    [Authorize]
     public class ReservatieController : Controller
     {
         // GET: Reservatie

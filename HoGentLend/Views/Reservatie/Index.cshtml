@@ -21,40 +21,61 @@
     }
     else
     {
-        <form action="/" method="post" class="form-inline">
 
-            @foreach (var item in Model)
-                {
+        using (Html.BeginForm("Remove", "Reservatie", FormMethod.Post))
+        {
+
+            @*<div class="row">
+                <div class="col-md-1">#</div>
+                <div class="col-md-3">Ophaalmoment</div>
+                <div class="col-md-3">Indienmoment</div>
+                <div class="col-md-3"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+            </div>*@
+
+
+            int i = 1;
+            foreach (var item in Model)
+            {
 
                 <div class="row reservation-item">
                     <div class="col-md-12">
-                        <div class="col-md-2">
-                            @Html.DisplayFor(model => item.Ophaalmoment)
+                        <div class="col-md-1">
+                            @i
                         </div>
-                        <div class="col-md-2">
-                            @Html.DisplayFor(model => item.Indienmoment)
+                        <div class="col-md-3">
+                            <strong>Ophaalmoment</strong> <br/> @Html.DisplayFor(model => item.Ophaalmoment)
                         </div>
-                        <div class="col-md-4">
-                            @Html.DisplayFor(model => item.ReservatieLijnen)
+                        <div class="col-md-3">
+                            <strong>Indienmoment</strong> <br/> @Html.DisplayFor(model => item.Indienmoment)
                         </div>
-
-
-                        <div class="col-md-8">
-                            @* @Html.ActionLink(item.Name, "Detail", "Catalogus", new {id = item.Id}, null)*@
+                        <div class="col-md-3">
+                            @foreach (var reservatielijn in item.ReservatieLijnen)
+                            {
+                                @Html.DisplayFor(model => reservatielijn.Materiaal.Name)
+                            }
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-1">
+                            @Html.ActionLink("Details", "Details", "Reservatie", new { id = item.Id }, null)
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-default">
+                                Verwijder
+                            </button>
 
                         </div>
                     </div>
                 </div>
 
 
-                <hr />
-            }
-
+                <hr/>
+                i++;
             
 
-        </form>
+        }
+
+    }
     }
 </div>
 
