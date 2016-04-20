@@ -19,6 +19,7 @@ namespace HoGentLend.Models.Domain
 
         private Reservatie()
         {
+            ReservatieLijnen = new List<ReservatieLijn>();
         }
 
         public Reservatie(Gebruiker lener,
@@ -48,7 +49,7 @@ namespace HoGentLend.Models.Domain
 
         internal void AddReservationLine(Materiaal materiaal, long amount, DateTime ophaalDatum, DateTime indienDatum)
         {
-            ReservatieLijn reservatieLijn = new ReservatieLijn(amount, indienDatum, ophaalDatum, materiaal);
+            ReservatieLijn reservatieLijn = new ReservatieLijn(amount, indienDatum, ophaalDatum, materiaal, this);
             ReservatieLijnen.Add(reservatieLijn);
         }
     }

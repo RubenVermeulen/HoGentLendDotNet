@@ -174,15 +174,15 @@ namespace HoGentLend.Models.DAL
 
                 Reservatie r1 = new Reservatie(g1, _13April2016, _20April2016);
                 r1.ReservatieLijnen = new List<ReservatieLijn>();
-                r1.ReservatieLijnen.Add(new ReservatieLijn(2, _13April2016, _20April2016, m1));
-                r1.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m2));
-                r1.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3));
+                r1.ReservatieLijnen.Add(new ReservatieLijn(2, _13April2016, _20April2016, m1, r1));
+                r1.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m2, r1));
+                r1.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3, r1));
 
                 Reservatie r2 = new Reservatie(g1, _21April2016, _28April2016);
                 r2.ReservatieLijnen = new List<ReservatieLijn>();
-                r2.ReservatieLijnen.Add(new ReservatieLijn(2, _21April2016, _28April2016, m4));
-                r2.ReservatieLijnen.Add(new ReservatieLijn(3, _21April2016, _28April2016, m5));
-                r2.ReservatieLijnen.Add(new ReservatieLijn(4, _21April2016, _28April2016, m3));
+                r2.ReservatieLijnen.Add(new ReservatieLijn(2, _21April2016, _28April2016, m4, r2));
+                r2.ReservatieLijnen.Add(new ReservatieLijn(3, _21April2016, _28April2016, m5, r2));
+                r2.ReservatieLijnen.Add(new ReservatieLijn(4, _21April2016, _28April2016, m3, r2));
 
                 context.Reservaties.Add(r1);
                 context.Reservaties.Add(r2);

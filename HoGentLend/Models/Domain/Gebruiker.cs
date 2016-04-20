@@ -22,7 +22,7 @@ namespace HoGentLend.Models.Domain
 
         public Gebruiker()
         {
-                
+
         }
 
         public bool DoShowAllMaterials()
