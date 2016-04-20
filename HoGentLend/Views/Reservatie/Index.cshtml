@@ -43,9 +43,16 @@
                             <strong>Indienmoment</strong> <br/> @Html.DisplayFor(model => item.Indienmoment)
                         </div>
                         <div class="col-md-3">
+                            @{ int j = 0;}
                             @foreach (var reservatielijn in item.ReservatieLijnen)
                             {
-                                @Html.DisplayFor(model => reservatielijn.Materiaal.Name)<text>, </text>
+                                if (j > 0)
+                                {
+                                    <text>, </text>
+                                }
+
+                                @Html.DisplayFor(model => reservatielijn.Materiaal.Name)
+                                j++;
                             }
                         </div>
                         <div class="col-md-1">
