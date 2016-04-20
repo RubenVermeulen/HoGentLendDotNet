@@ -203,17 +203,19 @@ textarea {
 }
 
 #details .reserveer {
-    display: inline-block;
-    padding-right: 10px;
-    padding-left: 10px;
+    display: block;
+    padding: 5px 10px;
     line-height: 30px;
     background: #38C23C;
     color: #ffffff;
     border:none;
+    box-shadow: #000 1px 1px 3px -1px;
+    transition: background .2s linear;
 }
 
 #details .reserveer:hover{
     text-decoration: none;
+    background: #33b437;
 }
 
 #details .description {

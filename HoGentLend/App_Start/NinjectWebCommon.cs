@@ -69,6 +69,7 @@ namespace HoGentLend.App_Start
             kernel.Bind<IMateriaalRepository>().To<MateriaalRepository>().InRequestScope();
             kernel.Bind<IGroepRepository>().To<GroepRepository>().InRequestScope();
             kernel.Bind<IGebruikerRepository>().To<GebruikerRepository>().InRequestScope();
+            kernel.Bind<IReservatieRepository>().To<ReservatieRepository>().InRequestScope();
 
             kernel.Bind<IHoGentApiLookupProvider>().To<OfflineHoGentApiLookupProvider>().InRequestScope();
           //  kernel.Bind<IHoGentApiLookupProvider>().To<HoGentApiLookupProvider>().InRequestScope();

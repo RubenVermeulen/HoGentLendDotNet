@@ -10,7 +10,9 @@
         @Html.ActionLink("Terug naar materiaallijst", "Index", "Catalogus", new { @class = "btn btn-primary" })
     </div>
 
-    <br/>
+    <div class="page-header col-md-12">
+        <h2>@Html.DisplayFor(model => model.Name)</h2>
+    </div>
 
     <div class="col-md-3 col-sm-3 col-xs-12">
         @if (@Model.PhotoBase64 != null)
@@ -21,99 +23,118 @@
         {
             <img src="~/Content/Images/default-placeholder.png" alt="Geen afbeelding beschikbaar" class="col-md-12 col-sm-12 col-xs-12 img-reponsive img-thumbnail details-img"/>
         }
+
+        @* Add to whistlist *@
+        <p>
+            @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post))
+            {
+                <button type="submit" class="reserveer col-md-12 col-sm-12 col-sx-12">
+                    <span class="glyphicon glyphicon-star"></span>
+                    Voeg toe aan verlanglijstje
+                </button>
+                @Html.HiddenFor(model => model.Id);
+            }
+        </p>
     </div>
 
     <div class="col-md-9 col-sm-9 col-xs-12">
-        <div class="page-header">
-            <h2>@Html.DisplayFor(model => model.Name)</h2>
+      
+        <div class="row">
+            @* Description *@
+            <div class="col-md-12">
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.Description)</strong>
+                </p>
+                <p class="description">
+                    @if (!string.IsNullOrEmpty(Model.Description))
+            {
+                        @Html.DisplayFor(model => model.Description)
+                    }
+                    else
+                    {
+                        @("Geen beschrijving")
+                    }
+                </p>
+            </div>
         </div>
-
-        @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post))
-        {
-            <p class="available">
-                <span class="amount">@(Model.Amount - Model.AmountNotAvailable)</span> beschikbaar
-            </p>
-            <button type="submit" class="reserveer">
-                <span class="glyphicon glyphicon-star"></span>
-                Voeg toe aan verlanglijstje
-            </button>
-            @Html.HiddenFor(model => model.Id)
-            ;
-        }
-
-        @* Description *@
-        <p>
-            <strong>@Html.DisplayNameFor(model => model.Description)</strong>
-        </p>
-        <p class="description">
-            @if (!string.IsNullOrEmpty(Model.Description))
-            {
-                @Html.DisplayFor(model => model.Description)
-            }
-            else
-            {
-                @("Geen beschrijving")
-            }
-        </p>
-
-        @* Location *@
-        <p>
-            <strong>@Html.DisplayNameFor(model => model.Location)</strong>
-        </p>
-        <p>
-            @if (!string.IsNullOrEmpty(Model.Location))
-            {
-                @Html.DisplayFor(model => model.Location)
-            }
-            else
-            {
-                @("Geen locatie")
-            }
-        </p>
-
-        @* Doelgroepen *@
-        <p>
-            <strong>@Html.DisplayNameFor(model => model.Doelgroepen)</strong>
-        </p>
-        <p>
-            @if (Model.Doelgroepen != null && Model.Doelgroepen.Count > 0)
-            {
-                foreach (string groep in Model.Doelgroepen)
-                {
-                    @groep
-                    <br/>
-                }
-            }
-            else
-            {
-                @("Geen doelgroepen")
-            }
-        </p>
-
-        @* Leergebieden *@
-        <p>
-            <strong>@Html.DisplayNameFor(model => model.Leergebieden)</strong>
-        </p>
-        <p>
-            @if (Model.Leergebieden != null && Model.Leergebieden.Count > 0)
-            {
-                foreach (string groep in Model.Leergebieden)
-                {
-                    @groep
-                    <br/>
-                }
-            }
-            else
-            {
-                @("Geen leergebieden")
-            }
-
-
-        </p>
 
         <hr/>
 
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                @* Amount *@
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.Amount)</strong>
+                </p>
+                <p>@(Model.Amount - Model.AmountNotAvailable)</p>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                @* Location *@
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.Location)</strong>
+                </p>
+                <p>
+                    @if (!string.IsNullOrEmpty(Model.Location))
+            {
+                        @Html.DisplayFor(model => model.Location)
+                    }
+                    else
+                    {
+                        @("Geen locatie")
+                    }
+                </p>
+            </div>
 
+
+            <div class="col-md-6 col-sm-6">
+                @* Doelgroepen *@
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.Doelgroepen)</strong>
+                </p>
+                <p>
+                    @if (Model.Doelgroepen != null && Model.Doelgroepen.Count > 0)
+            {
+                foreach (string groep in Model.Doelgroepen)
+                {
+                            @groep
+                            <br />
+                        }
+                    }
+                    else
+                    {
+                        @("Geen doelgroepen")
+                    }
+                </p>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                @* Leergebieden *@
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.Leergebieden)</strong>
+                </p>
+                <p>
+                    @if (Model.Leergebieden != null && Model.Leergebieden.Count > 0)
+            {
+                foreach (string groep in Model.Leergebieden)
+                {
+                            @groep
+                            <br />
+                        }
+                    }
+                    else
+                    {
+                        @("Geen leergebieden")
+                    }
+
+
+                </p>
+            </div>
+        </div>
+        
+
+        <hr/>
+
+        @* Chart *@
+        <div id="chart" class="col-md-12 col-sm-12" style="height: 400px;"></div>
 
         @* Information for buying the item *@
         <div class="bg-info info-buying">
@@ -166,10 +187,6 @@
                 @string.Format("{0:C}", Model.Price)
             </p>
         </div>
-
-        <hr/>
-
-        <div id="chart" class="col-md-12" style="height: 400px;"></div>
     </div>
 </div>
 
