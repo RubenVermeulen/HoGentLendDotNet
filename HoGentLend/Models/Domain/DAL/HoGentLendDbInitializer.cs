@@ -220,27 +220,55 @@ namespace HoGentLend.Models.DAL
                     WishList = new VerlangLijst(),
                     Reservaties = new List<Reservatie>()
                 };
+                context.Users.Add(new ApplicationUser()
+                {
+                    Id = "95bebdd6-39b7-4ea5-a3fb-996af68af2aa",
+                    Email = "offline.student@hogent.be",
+                    EmailConfirmed = false,
+                    SecurityStamp = "6a296cb5-8ebd-45e9-b539-0be1526bccb3",
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEndDateUtc = null,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0,
+                    UserName = "student",
+                    PasswordHash = "ABoaWXEiAci5aH8AifWD7ugcOa8TrTarAGGdff7BJ7zyJFeGATxR71fmBnuwzvPAxw=="
+                });
+                context.Users.Add(new ApplicationUser()
+                {
+                    Id = "9c544638-8722-4542-a7e2-5b82cd6c1592",
+                    Email = "offline.lector@hogent.be",
+                    EmailConfirmed = false,
+                    SecurityStamp = "715aa298-8ae8-4861-b34d-79fc9e95d3c3",
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEndDateUtc = null,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0,
+                    UserName = "lector",
+                    PasswordHash = "AJYvUYUnpvspai3ll9CtyglpHk+9MwU6huE7PpWIWYLpFoNRKd8knknkzfLaqQthLw=="
+                });
 
                 context.Gebruikers.Add(g1);
                 context.Gebruikers.Add(g2);
 
-                DateTime _13April2016 = new DateTime(2016, 4, 20);
-                DateTime _20April2016 = new DateTime(2016, 4, 13);
+                DateTime _13April2016 = new DateTime(2016, 4, 13);
+                DateTime _20April2016 = new DateTime(2016, 4, 20);
 
                 DateTime _21April2016 = new DateTime(2016, 4, 21);
                 DateTime _28April2016 = new DateTime(2016, 4, 28);
 
                 Reservatie r1 = new Reservatie(g1, _13April2016, _20April2016);
                 r1.ReservatieLijnen = new List<ReservatieLijn>();
-                r1.ReservatieLijnen.Add(new ReservatieLijn(2, _13April2016, _20April2016, m1));
-                r1.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m2));
-                r1.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3));
+                r1.ReservatieLijnen.Add(new ReservatieLijn(2, _13April2016, _20April2016, m1, r1));
+                r1.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m2, r1));
+                r1.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3, r1));
 
                 Reservatie r2 = new Reservatie(g1, _21April2016, _28April2016);
                 r2.ReservatieLijnen = new List<ReservatieLijn>();
-                r2.ReservatieLijnen.Add(new ReservatieLijn(2, _13April2016, _20April2016, m4));
-                r2.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m5));
-                r2.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3));
+                r2.ReservatieLijnen.Add(new ReservatieLijn(2, _21April2016, _28April2016, m4, r2));
+                r2.ReservatieLijnen.Add(new ReservatieLijn(3, _21April2016, _28April2016, m5, r2));
+                r2.ReservatieLijnen.Add(new ReservatieLijn(4, _21April2016, _28April2016, m3, r2));
 
                 context.Reservaties.Add(r1);
                 context.Reservaties.Add(r2);

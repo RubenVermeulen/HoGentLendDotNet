@@ -14,11 +14,13 @@ namespace HoGentLend.Controllers
     {
         private IMateriaalRepository materiaalRepository;
         private IGroepRepository groepRepository;
+        private IReservatieRepository reservatieRepository;
 
-        public CatalogusController(IMateriaalRepository materiaalRepository, IGroepRepository groepRepository)
+        public CatalogusController(IMateriaalRepository materiaalRepository, IGroepRepository groepRepository, IReservatieRepository reservatieRepository)
         {
             this.materiaalRepository = materiaalRepository;
             this.groepRepository = groepRepository;
+            this.reservatieRepository = reservatieRepository;
         }
 
         // GET: Catalogus
@@ -58,6 +60,34 @@ namespace HoGentLend.Controllers
 
             if (m == null)
                 return HttpNotFound();
+
+            long convertId = Convert.ToInt64(id);
+
+            // Get only the reservations who have the material.
+            IList<Reservatie> reservations = reservatieRepository.FindAll()
+                //.Where(r => r.ReservatieLijnen.Any(rl => rl.Materiaal.Id == convertId))
+                .ToList();
+
+            int[] chartList = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+            foreach (Reservatie r in reservations)
+            {
+                foreach (ReservatieLijn rl in r.ReservatieLijnen)
+                {
+                    if (rl.Materiaal.Id == convertId)
+                    {
+                        for (int i = 0; i < 14; i++)
+                        {
+                            if (rl.OphaalMoment <= DateTime.Today.AddDays(i) && rl.IndienMoment >= DateTime.Today.AddDays(i))
+                            {
+                                chartList[i]++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            ViewBag.chartList = chartList;
 
             return View(new MateriaalViewModel(m));
         }

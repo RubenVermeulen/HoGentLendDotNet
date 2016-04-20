@@ -21,7 +21,7 @@ namespace HoGentLend.Models.Domain
 
         }
 
-        public ReservatieLijn(long amount, DateTime ophaalMoment, DateTime indienMoment, Materiaal mat) : this()
+        public ReservatieLijn(long amount, DateTime ophaalMoment, DateTime indienMoment, Materiaal mat, Reservatie r) : this()
         {
             if (mat == null)
             {
@@ -41,8 +41,9 @@ namespace HoGentLend.Models.Domain
             }
             this.Amount = amount;
             this.IndienMoment = indienMoment;
-            this.OphaalMoment = OphaalMoment;
+            this.OphaalMoment = ophaalMoment;
             this.Materiaal = mat;
+            this.Reservatie = r;
         }
     }
 }

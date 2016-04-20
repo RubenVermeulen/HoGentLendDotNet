@@ -37,7 +37,7 @@ namespace HoGentLend.Models.DAL
             return dbSet;
         }
 
-        public EntityType FindBy(IdType id)
+        public virtual EntityType FindBy(IdType id)
         {
             return dbSet.Find(id);
         }
