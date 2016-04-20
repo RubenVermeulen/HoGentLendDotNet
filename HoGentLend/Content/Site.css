@@ -125,9 +125,10 @@ textarea {
 #catalog .voegtoe {
     display: inline-block;
     padding-right: 10px;
-    line-height: 30px;
+    line-height: 27px;
     background: #eeeeee;
     border: 0;
+    border: #009d7e 1px solid;
 }
 
 #catalog .voegtoe:hover {
