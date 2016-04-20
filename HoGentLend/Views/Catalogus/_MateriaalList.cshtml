@@ -37,14 +37,17 @@
                             }
                         </p>
 
-                                <div class="voegtoe">
-                                    @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post, new { @class="voegtoeknop" }))
+                                <div>
+                                    @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post, new { @class = "voegtoeknop" }))
                                     {
-                                        <button type="submit" class="sterretje">
-                                            <span class="glyphicon glyphicon-star"></span>
+                                        <button type="submit" class="voegtoe">
+                                            <div type="submit" class="sterretje">
+                                                <span class="glyphicon glyphicon-star"></span>
+                                            </div>
+
+                                            <span class="amount">In verlanglijstje</span>
                                         </button>
                                         <input type="hidden" name="id" value="@item.Id" />
-                                        <span class="amount">In verlanglijstje</span>
                                     }
                                 </div>
                     </div>
