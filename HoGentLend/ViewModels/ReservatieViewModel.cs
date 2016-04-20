@@ -11,6 +11,7 @@ namespace HoGentLend.ViewModels
 {
     public class ReservatieViewModel
     {
+        private List<Reservatie> reservaties;
 
         public long Id { get; private set; }
 
@@ -49,5 +50,9 @@ namespace HoGentLend.ViewModels
 
         }
 
+        public ReservatieViewModel(List<Reservatie> reservaties)
+        {
+            this.reservaties = reservaties;
+        }
     }
 }
