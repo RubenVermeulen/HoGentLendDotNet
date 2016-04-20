@@ -42,10 +42,7 @@ namespace HoGentLend.Models.DAL.Mapper
             HasRequired(r => r.Lener).WithMany(g => g.Reservaties).Map(r =>
             {
                 r.MapKey("LENER_ID");
-            }).WillCascadeOnDelete(false);
-
-            HasMany(r => r.ReservatieLijnen)
-                .WithRequired(rl => rl.Reservatie).Map(m => m.MapKey("RESERVATIE_ID")).WillCascadeOnDelete(true); ;
+            });
         }
 
     }

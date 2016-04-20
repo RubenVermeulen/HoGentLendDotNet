@@ -82,7 +82,7 @@ namespace HoGentLend.Models.Domain
             Reservaties.Add(reservatie);
         }
 
-        public void RemoveReservation(Reservatie reservatie)
+        public Reservatie RemoveReservation(Reservatie reservatie)
         {
             if (reservatie == null)
             {
@@ -93,6 +93,7 @@ namespace HoGentLend.Models.Domain
                 throw new ArgumentException("De reservatie is al verwijderd geweest.");
             }
             Reservaties.Remove(reservatie);
+            return reservatie;
         }
 
         public void RemoveReservationLijn(ReservatieLijn reservatieLijn)
