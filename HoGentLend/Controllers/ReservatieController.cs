@@ -44,11 +44,7 @@ namespace HoGentLend.Controllers
             DateTime? ophaalDatum)
         {
             double weeks = 1; // dit zal later nog uit de database gehaald worden
-            if (!ophaalDatum.HasValue)
-            {
-                throw new ArgumentException("De ophaaldatum moet een waarde hebben.");
-            }
-            DateTime indienDatum = ophaalDatum.Value.AddDays(7 * weeks);
+
 
             List<Materiaal> materials = new List<Materiaal>();
             List<long> amounts = new List<long>();
@@ -61,6 +57,11 @@ namespace HoGentLend.Controllers
             }
             try
             {
+                if (!ophaalDatum.HasValue)
+                {
+                    throw new ArgumentException("De ophaaldatum moet een waarde hebben.");
+                }
+                DateTime indienDatum = ophaalDatum.Value.AddDays(7 * weeks);
                 gebruiker.AddReservation(materials, amounts, ophaalDatum.Value, indienDatum,
                     reservatieRepository.FindAll());
                 reservatieRepository.SaveChanges();
