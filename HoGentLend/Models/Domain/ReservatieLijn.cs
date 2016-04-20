@@ -15,6 +15,7 @@ namespace HoGentLend.Models.Domain
         public DateTime? OphaalMoment { get; set; }
         public virtual Materiaal Materiaal { get; set; }
         public virtual Reservatie Reservatie { get; set; }
+        public long ReservatieId { get; set; }
 
         private ReservatieLijn()
         {

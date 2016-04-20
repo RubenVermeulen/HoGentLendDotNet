@@ -30,8 +30,7 @@ namespace HoGentLend.Models.Domain.DAL.Mapper
                 .HasColumnName("INDIENMOMENT")
                 .HasColumnType("datetime");
 
-            HasRequired(m => m.Materiaal).WithMany().Map(rl => rl.MapKey("MATERIAAL_ID")).WillCascadeOnDelete(false); ;
-            HasRequired(m => m.Reservatie).WithMany(r => r.ReservatieLijnen).Map(rl => rl.MapKey("RESERVATIE_ID")).WillCascadeOnDelete(true); ;
+            HasRequired(m => m.Materiaal).WithMany().Map(rl => rl.MapKey("MATERIAAL_ID"));
         }
     }
 }
