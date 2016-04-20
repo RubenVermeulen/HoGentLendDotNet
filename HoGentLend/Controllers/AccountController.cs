@@ -13,6 +13,7 @@ using HoGentLend.Models.DAL;
 using HoGentLend.Models.Domain;
 using HoGentLend.Models.Domain.HoGentApi;
 using System.Net.Http;
+using System.Collections.Generic;
 
 namespace HoGentLend.Controllers
 {
@@ -114,6 +115,7 @@ namespace HoGentLend.Controllers
                             nieuweGebruiker.IsLector = (lookupResult.Type == "personeel");
 
                             nieuweGebruiker.WishList = new VerlangLijst();
+                            nieuweGebruiker.Reservaties = new List<Reservatie>();
                             gebruikerRepo.SaveChanges();
                             SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
                             return RedirectToAction("Index", "Catalogus");
