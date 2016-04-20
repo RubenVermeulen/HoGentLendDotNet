@@ -39,17 +39,16 @@ namespace HoGentLend.Controllers
         public ActionResult Add(Gebruiker gebruiker, int id)
         {
             Materiaal mat = materiaalRepository.FindBy(id);
-            if (mat == null || !gebruiker.CanSeeMaterial(mat))
+            try
             {
-                TempData["err"] = "Het materiaal dat u wenste toe te voegen aan uw verlanglijst is niet beschikbaar.";
-            }
-            else
-            {
-                gebruiker.WishList.AddMaterial(mat);
-                materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
+                gebruiker.AddToWishList(mat);
+                materiaalRepository.SaveChanges();
                 TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
             }
-
+            catch (ArgumentException e)
+            {
+                TempData["err"] = e.Message;
+            }
             return Index(gebruiker);
         }
 
@@ -58,18 +57,18 @@ namespace HoGentLend.Controllers
         public ActionResult Remove(Gebruiker gebruiker, int materiaalId)
         {
             Materiaal mat = materiaalRepository.FindBy(materiaalId);
-            if (mat == null)
-            {
-                TempData["err"] = "Het materiaal dat u wenste te verwijderen uit uw verlanglijst is niet beschikbaar.";
-            }
-            else
+            try
             {
                 gebruiker.WishList.RemoveMaterial(mat);
                 materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
                 TempData["msg"] = "Het materiaal " + mat.Name + " is verwijderd uit uw verlanglijst.";
             }
+            catch (ArgumentException e)
+            {
+                TempData["err"] = e.Message;
+            }
             return View("Index");
         }
-        
+
     }
 }

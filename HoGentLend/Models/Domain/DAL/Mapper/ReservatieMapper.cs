@@ -39,15 +39,13 @@ namespace HoGentLend.Models.DAL.Mapper
                 .HasColumnType("bit");
 
             //Relationships
-            HasRequired(r => r.Lener).WithMany().Map(r =>
+            HasRequired(r => r.Lener).WithMany(g => g.Reservaties).Map(r =>
             {
                 r.MapKey("LENER_ID");
             });
 
             HasMany(r => r.ReservatieLijnen)
-                .WithRequired(rl => rl.Reservatie).Map(m => m.MapKey("RESERVATIE_ID"));
-
-
+                .WithRequired().Map(m => m.MapKey("RESERVATIE_ID"));
         }
 
     }
