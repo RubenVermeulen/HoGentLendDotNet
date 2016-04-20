@@ -305,6 +305,7 @@
     <Content Include="Views\Catalogus\_PartialFilter.cshtml" />
     <Content Include="Views\Verlanglijst\Index.cshtml" />
     <Content Include="Views\Reservatie\Index.cshtml" />
+    <Content Include="Views\Reservatie\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
