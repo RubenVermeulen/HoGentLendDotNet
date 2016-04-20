@@ -22,7 +22,7 @@ namespace HoGentLend.Models.Domain
 
         public Gebruiker()
         {
-            Reservaties = new List<Reservatie>();
+                
         }
 
         public bool DoShowAllMaterials()
