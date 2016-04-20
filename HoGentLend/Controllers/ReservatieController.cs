@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -89,6 +90,21 @@ namespace HoGentLend.Controllers
                 TempData["err"] = e.Message;
             }
             return View("Index");
+        }
+
+        public ActionResult Detail(int id)
+        {
+            Reservatie r = reservatieRepository.FindBy(id);
+
+            if (r == null)
+                return HttpNotFound();
+
+            IList<ReservatieLijnViewModel> rlList = r.ReservatieLijnen
+                .OrderBy(rl => rl.Materiaal.Name)
+                .Select(rl => new ReservatieLijnViewModel(rl))
+                .ToList();
+
+            return View(rlList);
         }
     }
 }
