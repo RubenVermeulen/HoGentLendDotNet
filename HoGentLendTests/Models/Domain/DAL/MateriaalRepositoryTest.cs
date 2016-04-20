@@ -35,7 +35,7 @@ namespace HoGentLendTests.Models.Domain.DAL
             mockSet.As<IQueryable<Materiaal>>().Setup(m => m.Provider).Returns(materialen.Provider);
             mockSet.As<IQueryable<Materiaal>>().Setup(m => m.Expression).Returns(materialen.Expression);
             mockSet.As<IQueryable<Materiaal>>().Setup(m => m.ElementType).Returns(materialen.ElementType);
-            mockSet.As<IQueryable<Materiaal>>().Setup(m => m.GetEnumerator()).Returns(0 => materialen.GetEnumerator());
+            //mockSet.As<IQueryable<Materiaal>>().Setup(m => m.GetEnumerator()).Returns(0 => materialen.GetEnumerator());
 
 
             mockHogentLendContext = new Mock<HoGentLendContext>();
