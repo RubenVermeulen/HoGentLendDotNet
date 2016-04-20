@@ -99,10 +99,13 @@ namespace HoGentLend.Controllers
             if (r == null)
                 return HttpNotFound();
 
-            IList<ReservatieLijnViewModel> rlList = r.ReservatieLijnen
+            List<ReservatieLijnViewModel> rlList = r.ReservatieLijnen
                 .OrderBy(rl => rl.Materiaal.Name)
                 .Select(rl => new ReservatieLijnViewModel(rl))
                 .ToList();
+
+            ReservatieViewModel rv = new ReservatieViewModel(r);
+            rv.ReservatieLijnen = rlList;
 
             return View(rlList);
         }
