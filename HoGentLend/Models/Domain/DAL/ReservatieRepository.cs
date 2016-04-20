@@ -26,12 +26,12 @@ namespace HoGentLend.Models.DAL
 
         public override IQueryable<Reservatie> FindAll()
         {
-            return base.FindAll().Include(r => r.ReservatieLijnen);
+            return dbSet.Include(r => r.ReservatieLijnen).Include(r => r.Lener).Include(r => r.ReservatieLijnen.Select(rl => rl.Materiaal))
         }
 
         public override Reservatie FindBy(int id)
         {
-            return dbSet.Include(r => r.ReservatieLijnen).Include(r => r.Lener).Include(r => r.ReservatieLijnen.Select(rl => rl.Materiaal))
+            return FindAll()
               .SingleOrDefault(x => x.Id == id);
         }
     }
