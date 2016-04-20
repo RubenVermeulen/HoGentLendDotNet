@@ -70,7 +70,7 @@ namespace HoGentLend.Controllers
                 TempData["err"] = e.Message;
             }
 
-            return Index(gebruiker);
+            return RedirectToAction("Index");
         }
     }
 }

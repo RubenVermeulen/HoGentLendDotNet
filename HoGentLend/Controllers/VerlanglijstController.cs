@@ -49,7 +49,7 @@ namespace HoGentLend.Controllers
             {
                 TempData["err"] = e.Message;
             }
-            return Index(gebruiker);
+            return RedirectToAction("Index");
         }
 
         // POST: Remove
@@ -67,7 +67,7 @@ namespace HoGentLend.Controllers
             {
                 TempData["err"] = e.Message;
             }
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
     }

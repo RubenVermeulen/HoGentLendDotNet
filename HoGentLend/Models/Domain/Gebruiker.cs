@@ -68,7 +68,7 @@ namespace HoGentLend.Models.Domain
                 Materiaal mat = materials[i];
                 long amount = amounts[i];
                 long availableAmount = GetAmountAvailableForReservation(mat, allReservations, ophaalDatum, indienDatum);
-                if (availableAmount > amount)
+                if (amount > availableAmount)
                 {
                     throw new ArgumentException(string.Format("Het materiaal {0} heeft nog maar {1} exemplaren beschikbaar.", mat.Name, availableAmount));
                 }
