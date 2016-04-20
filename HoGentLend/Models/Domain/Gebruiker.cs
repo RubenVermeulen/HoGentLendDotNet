@@ -17,6 +17,9 @@ namespace HoGentLend.Models.Domain
 
         public virtual VerlangLijst WishList { get; set; }
 
+        public Gebruiker()
+        {
+        }
 
         public bool DoShowAllMaterials()
         {
