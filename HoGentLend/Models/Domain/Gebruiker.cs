@@ -82,9 +82,38 @@ namespace HoGentLend.Models.Domain
             Reservaties.Add(reservatie);
         }
 
-        internal void RemoveReservation(int reservatieId)
+        public void RemoveReservation(Reservatie reservatie)
         {
-            throw new NotImplementedException();
+            if (reservatie == null)
+            {
+                throw new ArgumentException("De reservatie is niet beschikbaar of mogelijk al verwijderd.");
+            }
+            if (!Reservaties.Contains(reservatie))
+            {
+                throw new ArgumentException("De reservatie is al verwijderd geweest.");
+            }
+            Reservaties.Remove(reservatie);
+        }
+
+        public void RemoveReservationLijn(ReservatieLijn reservatieLijn)
+        {
+            if (reservatieLijn == null)
+            {
+                throw new ArgumentException("De reservatielijn is niet beschikbaar of mogelijk al verwijderd.");
+            }
+            if (!Reservaties.Contains(reservatieLijn.Reservatie))
+            {
+                throw new ArgumentException("De reservatielijn is niet beschikbaar.");
+            }
+            if (!reservatieLijn.Reservatie.ReservatieLijnen.Contains(reservatieLijn))
+            {
+                throw new ArgumentException("De reservatielijn is al verwijderd geweest.");
+            }
+            reservatieLijn.Reservatie.ReservatieLijnen.Remove(reservatieLijn);
+            if (reservatieLijn.Reservatie.ReservatieLijnen.Count == 0)
+            {
+                Reservaties.Remove(reservatieLijn.Reservatie);
+            }
         }
 
         private long GetAmountAvailableForReservation(Materiaal mat, IQueryable<Reservatie> allReservations,
