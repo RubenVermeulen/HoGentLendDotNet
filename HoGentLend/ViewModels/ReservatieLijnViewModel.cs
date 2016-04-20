@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using HoGentLend.Models.Domain;
@@ -15,9 +16,11 @@ namespace HoGentLend.ViewModels
         public long Amount { get; set; }
 
         [DisplayName("Indiendmoment")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? IndienMoment { get; set; }
 
         [DisplayName("Ophaalmoment")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? OphaalMoment { get; set; }
 
         [DisplayName("Materiaal")]
