@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace HoGentLend.Models.DAL
 {
-    public class GebruikerRepository : Repository<Gebruiker, int>, IGebruikerReposSitory
+    public class GebruikerRepository : Repository<Gebruiker, int>, IGebruikerRepository
     {
         public GebruikerRepository(HoGentLendContext ctx) : base(ctx.Gebruikers, ctx)
         { }
