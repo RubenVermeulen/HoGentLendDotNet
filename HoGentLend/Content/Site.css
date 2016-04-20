@@ -127,11 +127,17 @@ textarea {
     padding-right: 10px;
     line-height: 30px;
     background: #eeeeee;
+    border: 0;
 }
 
-#catalog .voegtoe .sterretje:hover {
-    background: #38C23C !important;
+#catalog .voegtoe:hover {
+    background: #009d7e;
+    transition: 0.1s background linear;
 }
+
+/*#catalog .voegtoe .sterretje:hover {
+    background: #38C23C !important;
+}*/
 
 #catalog .voegtoeknop{
     display: inline;
@@ -144,12 +150,13 @@ textarea {
 #catalog .voegtoe .sterretje {
     display: inline-block;
     margin-right: 5px;
+    margin-left: -8px;
     padding: 0 10px;
     background: #009d7e;
     text-align: center;
     border: none;
     color: white;
-    transition: 0.1s background linear;
+    
 }
 
 @media (min-width : 1200px) {
