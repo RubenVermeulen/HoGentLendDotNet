@@ -9,7 +9,7 @@ namespace HoGentLend.Models.Domain.HoGentApi
     {
         public HoGentApiLookupResult Lookup(string userId, string unhashedPassword)
         {
-            if (userId == "offtest" && unhashedPassword == "offtest")
+            if (userId == "student" && unhashedPassword == "student")
             {
                 return new HoGentApiLookupResult()
                 {
@@ -18,6 +18,17 @@ namespace HoGentLend.Models.Domain.HoGentApi
                     LastName  = "Student",
                     Email = "offline.student@hogent.be",
                     Type = "student"
+                };
+            }
+            if (userId == "lector" && unhashedPassword == "lector")
+            {
+                return new HoGentApiLookupResult()
+                {
+                    Faculteit = "FBO",
+                    FirstName = "Offline",
+                    LastName = "Lector",
+                    Email = "offline.lector@hogent.be",
+                    Type = "personeel"
                 };
             }
             return new HoGentApiLookupResult();

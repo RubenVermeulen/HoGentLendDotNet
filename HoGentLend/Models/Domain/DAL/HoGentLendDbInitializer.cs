@@ -116,6 +116,43 @@ namespace HoGentLend.Models.DAL
                 context.Materialen.Add(m4);
                 context.Materialen.Add(m5);
 
+                Gebruiker g1 = new Gebruiker()
+                {
+                    FirstName = "Offline",
+                    LastName = "Student",
+                    Email = "offline.student@hogent.be",
+                    IsLector = false
+                };
+                Gebruiker g2 = new Gebruiker()
+                {
+                    FirstName = "Offline",
+                    LastName = "Lector",
+                    Email = "offline.lector@hogent.be",
+                    IsLector = true
+                };
+
+                context.Gebruikers.Add(g1);
+                context.Gebruikers.Add(g2);
+
+                DateTime _13April2016 = new DateTime(2016, 4, 20);
+                DateTime _20April2016 = new DateTime(2016, 4, 13);
+
+                DateTime _21April2016 = new DateTime(2016, 4, 21);
+                DateTime _28April2016 = new DateTime(2016, 4, 28);
+
+                Reservatie r1 = new Reservatie(g1, _13April2016, _20April2016);
+                r1.ReservatieLijnen.Add(new ReservatieLijn(2, _13April2016, _20April2016, m1));
+                r1.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m2));
+                r1.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3));
+
+                Reservatie r2 = new Reservatie(g2, _21April2016, _28April2016);
+                r2.ReservatieLijnen.Add(new ReservatieLijn(2, _13April2016, _20April2016, m4));
+                r2.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m5));
+                r2.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3));
+
+                context.Reservaties.Add(r1);
+                context.Reservaties.Add(r2);
+
                 context.SaveChanges();
                 //base.Seed(context);
             }
