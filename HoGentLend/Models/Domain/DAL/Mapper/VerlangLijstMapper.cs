@@ -24,7 +24,7 @@ namespace HoGentLend.Models.Domain.DAL.Mapper
 
             //Relationships
             HasMany(v => v.Materials)
-                .WithMany();
+                .WithMany().Map(m => m.ToTable("verlanglijst_materiaal").MapLeftKey("VERLANGLIJST_ID").MapRightKey("MATERIAAL_ID"));
         }
     }
 }
