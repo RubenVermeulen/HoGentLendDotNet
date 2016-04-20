@@ -8,7 +8,7 @@ namespace HoGentLend.ViewModels
     public class ReservatiePartModel
     {
 
-        public long MateriaalId { get; set; }
+        public int MateriaalId { get; set; }
         public long Amount { get; set; }
 
         public ReservatiePartModel()
