@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HoGentLend.Models.Domain
 {
-    interface IReservatieRepository : IRepository<Reservatie, int>
+   public interface IReservatieRepository : IRepository<Reservatie, int>
     {
     }
 }

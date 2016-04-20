@@ -10,6 +10,13 @@ namespace HoGentLend.Controllers
 {
     public class ReservatieController : Controller
     {
+        private IReservatieRepository reservatieRepository;
+
+        public ReservatieController(IReservatieRepository reservatieRepository)
+        {
+            this.reservatieRepository = reservatieRepository;
+        }
+
         // GET: Reservatie
         public ActionResult Index(Gebruiker gebruiker)
         {
@@ -27,21 +34,27 @@ namespace HoGentLend.Controllers
         }
 
         // POST: Add
-        //[HttpPost]
-        // public ActionResult Add(Gebruiker gebruiker, int id)
-        // {
-        //     Materiaal mat = materiaalRepository.FindBy(id);
-        //     try
-        //     {
-        //         gebruiker.AddToWishList(mat);
-        //         materiaalRepository.SaveChanges();
-        //         TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
-        //     }
-        //     catch (ArgumentException e)
-        //     {
-        //         TempData["err"] = e.Message;
-        //     }
-        //     return Index(gebruiker);
-        // }
+        [HttpPost]
+        public ActionResult Add(Gebruiker gebruiker, List<Materiaal> materials, List<long> amounts, DateTime ophaalDatum, DateTime indienDatum)
+        {
+            double weeks = (indienDatum - ophaalDatum).TotalDays / 7;
+
+            try
+            {
+                if (weeks > 1.5)
+                {
+                    throw new ArgumentException("De indiendatum mag niet meer dan een week na de ophaaldatum liggen.");
+                }
+                gebruiker.AddReservation(materials, amounts, ophaalDatum, indienDatum);
+                reservatieRepository.SaveChanges();
+                TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
+            }
+            catch (ArgumentException e)
+            {
+                TempData["err"] = e.Message;
+            }
+
+            return Index(gebruiker);
+        }
     }
 }
