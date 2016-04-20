@@ -199,6 +199,16 @@
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script>
         $(function () {
+            Highcharts.setOptions({
+                global: {
+                    useUTC: false
+                },
+                lang: {
+                    months: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+                    shortMonths: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+                }
+            });
+
             $('#chart').highcharts({
                 chart: {
                     type: 'line'
