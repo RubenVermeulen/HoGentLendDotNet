@@ -28,5 +28,11 @@ namespace HoGentLend.Models.DAL
         {
             return base.FindAll().Include(r => r.ReservatieLijnen);
         }
+
+        public override Reservatie FindBy(int id)
+        {
+            return dbSet.Include(r => r.ReservatieLijnen).Include(r => r.Lener).Include(r => r.ReservatieLijnen.Select(rl => rl.Materiaal))
+              .SingleOrDefault(x => x.Id == id);
+        }
     }
 }
