@@ -20,6 +20,7 @@ namespace HoGentLendTests.Controllers
 
         private Mock<IMateriaalRepository> mockMateriaalRepository;
         private Mock<IGroepRepository> mockGroepRepository;
+        private Mock<IGroepRepository> mockReservatieRepository;
 
         private Gebruiker student;
         private Gebruiker lector;
@@ -36,6 +37,7 @@ namespace HoGentLendTests.Controllers
 
             mockMateriaalRepository = new Mock<IMateriaalRepository>();
             mockGroepRepository = new Mock<IGroepRepository>();
+            mockReservatieRepository = new Mock<IGroepRepository>();
 
             student = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
             lector = ctx.GebruikerList.First(u => u.Email.Equals("lector@hogent.be"));
@@ -56,7 +58,7 @@ namespace HoGentLendTests.Controllers
                     .Where(mat => mat.Leergebieden.Any(d => d.Name.Equals("Wiskunde")))
                 );
 
-            controller = new CatalogusController(mockMateriaalRepository.Object, mockGroepRepository.Object);
+            controller = new CatalogusController(mockMateriaalRepository.Object, mockGroepRepository.Object, mockReservatieRepository.Object);
         }
 
         [TestMethod]
