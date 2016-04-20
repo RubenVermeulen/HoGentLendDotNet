@@ -14,6 +14,7 @@ namespace HoGentLend.Models.Domain
         public DateTime IndienMoment { get; set; }
         public DateTime OphaalMoment { get; set; }
         public virtual Materiaal Materiaal { get; set; }
+        public virtual Reservatie Reservatie { get; set; }
 
         private ReservatieLijn()
         {
