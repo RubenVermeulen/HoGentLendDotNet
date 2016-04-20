@@ -190,10 +190,7 @@
         </div>
 
 
-        @for (var i = 0; i < 14; i++)
-        {
-            <p>@ViewBag.chartList[i]</p>
-        }
+        
     </div>
 </div>
 
@@ -215,8 +212,8 @@
                     },
                     type: 'datetime',
                     tickInterval: 3600 * 1000 * 24, // 1 dag
-                    range: 3600 * 1000 * 24 * 14, // 14 dagen
-                    max: 3600 * 1000 * 24 * 13, // 14 dagen
+                    //range: 3600 * 1000 * 24 * 14, // 14 dagen
+                    //max: 3600 * 1000 * 24 * 13, // 14 dagen
                 },
                 yAxis: {
                     title: {
@@ -224,15 +221,32 @@
                     },
                     tickInterval: 1,
                 },
+
+                plotOptions: {
+                    series: {
+                        pointStart: Date.now(),
+                    }
+                },
+
                 series: [
                     {
                         name: 'Aantal gereserveerd',
-                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,15,12,31,4,5,8,4,4],
+                        data: [
+                            @for (var i = 0; i < 14; i++)
+                            {
+                                @String.Format("{0},", ViewBag.chartList[i])
+                            }
+                        ],
                         pointInterval: 3600 * 1000 * 24,
                     },
                     {
                         name: 'Aantal beschikbaar',
-                        data: [5, 4, 7, 8, 9, 5, 10],
+                        data: [
+                            @for (var i = 0; i < 14; i++)
+                            {
+                                @String.Format("{0},", Model.Amount - Model.AmountNotAvailable - ViewBag.chartList[i])
+                            }
+                        ],
                         pointInterval: 3600 * 1000 * 24,
                     }
                 ],
