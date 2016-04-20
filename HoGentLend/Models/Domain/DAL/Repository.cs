@@ -32,7 +32,7 @@ namespace HoGentLend.Models.DAL
             dbSet.Remove(entity);
         }
 
-        public IQueryable<EntityType> FindAll()
+        public virtual IQueryable<EntityType> FindAll()
         {
             return dbSet;
         }
