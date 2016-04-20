@@ -20,7 +20,7 @@ namespace HoGentLendTests.Controllers
 
         private Mock<IMateriaalRepository> mockMateriaalRepository;
         private Mock<IGroepRepository> mockGroepRepository;
-        private Mock<IGroepRepository> mockReservatieRepository;
+        private Mock<IReservatieRepository> mockReservatieRepository;
 
         private Gebruiker student;
         private Gebruiker lector;
@@ -37,7 +37,7 @@ namespace HoGentLendTests.Controllers
 
             mockMateriaalRepository = new Mock<IMateriaalRepository>();
             mockGroepRepository = new Mock<IGroepRepository>();
-            mockReservatieRepository = new Mock<IGroepRepository>();
+            mockReservatieRepository = new Mock<IReservatieRepository>();
 
             student = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
             lector = ctx.GebruikerList.First(u => u.Email.Equals("lector@hogent.be"));
