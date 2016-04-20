@@ -302,11 +302,11 @@
     <Content Include="Views\Catalogus\Detail.cshtml" />
     <Content Include="Views\Catalogus\_PartialFilter.cshtml" />
     <Content Include="Views\Verlanglijst\Index.cshtml" />
+    <Content Include="Views\Reservatie\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Catalogus\Partials\" />
-    <Folder Include="Views\Reservatie\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
