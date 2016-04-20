@@ -186,6 +186,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogusController.cs" />
+    <Compile Include="Controllers\ReservatieController.cs" />
     <Compile Include="Controllers\VerlanglijstController.cs" />
     <Compile Include="Infrastructure\GebruikerModelBinder.cs" />
     <Compile Include="Models\Domain\DAL\GebruikerRepository.cs" />
@@ -307,6 +308,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Catalogus\Partials\" />
+    <Folder Include="Views\Reservatie\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
