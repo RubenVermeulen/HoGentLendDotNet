@@ -36,17 +36,16 @@ namespace HoGentLend.Controllers
 
         // POST: Add
         [HttpPost]
-        public ActionResult Add(Gebruiker gebruiker, List<Materiaal> materials, List<long> amounts, DateTime ophaalDatum, DateTime indienDatum)
+        public ActionResult Add(Gebruiker gebruiker, List<Materiaal> materials, List<long> amounts,
+            DateTime ophaalDatum)
         {
-            double weeks = (indienDatum - ophaalDatum).TotalDays / 7;
+            double weeks = 1; // dit zal later nog uit de database gehaald worden
+            DateTime indienDatum = ophaalDatum.AddDays(7 * weeks);
+            
 
             try
             {
-                if (weeks > 1.5)
-                {
-                    throw new ArgumentException("De indiendatum mag niet meer dan een week na de ophaaldatum liggen.");
-                }
-                gebruiker.AddReservation(materials, amounts, ophaalDatum, indienDatum);
+                gebruiker.AddReservation(materials, amounts, ophaalDatum, indienDatum, reservatieRepository.FindAll());
                 reservatieRepository.SaveChanges();
                 TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
             }
