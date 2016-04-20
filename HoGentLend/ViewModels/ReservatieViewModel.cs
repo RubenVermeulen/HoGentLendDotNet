@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using HoGentLend.Models.Domain;
+using Ninject.Infrastructure.Language;
 
 namespace HoGentLend.ViewModels
 {
@@ -31,7 +32,7 @@ namespace HoGentLend.ViewModels
         [DisplayName("Opgehaald")]
         public bool Opgehaald { get; set; }
 
-        public List<ReservatieViewModel> ReservatieLijnen { get; set; }
+        public List<ReservatieLijnViewModel> ReservatieLijnen { get; set; }
 
 
         public ReservatieViewModel(Reservatie r)
@@ -43,7 +44,8 @@ namespace HoGentLend.ViewModels
             Reservatiemoment = r.Reservatiemoment;
             Opgehaald = r.Opgehaald;
 
-            ReservatieLijnen = r.ReservatieLijnen?.Select(l => new ReservatieLijnViewModel(l));
+
+            ReservatieLijnen = r.ReservatieLijnen?.Select(rl => new ReservatieLijnViewModel(rl)).ToList();
 
         }
 
