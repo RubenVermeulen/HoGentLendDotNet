@@ -22,7 +22,8 @@
                 <span class="text-danger">Nog niet opgehaald</span>
             }
 
-        <div id="reservationlist">
+            <hr/>
+            <div id="reservationlist">
 
 
             @*@if (!Model.ReservatieLijnen.Any())
@@ -32,7 +33,7 @@
             else
             {*@
 
-            @using (Html.BeginForm("Remove", "Reservatie", FormMethod.Post))
+            @using (Html.BeginForm("RemoveReservationLine", "Reservatie", FormMethod.Post))
             {
 
                 foreach (var item in Model.ReservatieLijnen)
@@ -73,7 +74,8 @@
                                 </button>
 
                             </div>
-                            <input type="hidden" name="reservatieId" value="@item.Id"/>
+                            <input type="hidden" name="reservatieId" value="@Model.Id" />
+                            <input type="hidden" name="reservatieLineId" value="@item.Id" />
                         </div>
                     </div>
 
@@ -88,7 +90,7 @@
         </div>
         <div>Gereserveerd op <span class="datum">@(Model.Reservatiemoment)</span></div>
 
-
+            <br/>
 
     </div>
     <p>

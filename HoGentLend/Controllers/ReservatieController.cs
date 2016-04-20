@@ -83,14 +83,32 @@ namespace HoGentLend.Controllers
             try
             {
                 gebruiker.RemoveReservation(res);
-                reservatieRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
+                reservatieRepository.SaveChanges();
                 TempData["msg"] = "De reservatie is succesvol verwijderd.";
             }
             catch (ArgumentException e)
             {
                 TempData["err"] = e.Message;
             }
-            return View("Index");
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult RemoveReservationLine(Gebruiker gebruiker, int reservatieId, int reservatieLineId)
+        {
+            Reservatie res = reservatieRepository.FindBy(reservatieId);
+            try
+            {
+                ReservatieLijn rl = res.ReservatieLijnen.FirstOrDefault(rll => rll.Id == reservatieLineId);
+                gebruiker.RemoveReservationLijn(rl);
+                reservatieRepository.SaveChanges();
+                TempData["msg"] = "Het materiaal " + rl.Materiaal.Name + " is succesvol uit de reservatie verwijderd.";
+            }
+            catch (ArgumentException e)
+            {
+                TempData["err"] = e.Message;
+            }
+            return RedirectToAction("Detail",new { id = reservatieId});
         }
 
         public ActionResult Detail(int id)
@@ -98,7 +116,7 @@ namespace HoGentLend.Controllers
             Reservatie r = reservatieRepository.FindBy(id);
 
             if (r == null)
-                return HttpNotFound();
+                return RedirectToAction("Index");
 
             List<ReservatieLijnViewModel> rlList = r.ReservatieLijnen
                 .OrderBy(rl => rl.Materiaal.Name)
