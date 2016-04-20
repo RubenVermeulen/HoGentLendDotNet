@@ -17,7 +17,7 @@ namespace HoGentLend.Models.DAL
             try
             {
                 // Hier zetten we database context initializatie
-                Groep d1 = new Groep {Name = "Kleuteronderwijs", IsLeerGebied = false};
+                Groep d1 = new Groep { Name = "Kleuteronderwijs", IsLeerGebied = false };
 
                 List<Groep> doelgroepen = new List<Groep>();
                 doelgroepen.Add(d1);
@@ -29,7 +29,7 @@ namespace HoGentLend.Models.DAL
                 List<Groep> leergebiedenSet2 = new List<Groep>();
                 leergebiedenSet2.Add(new Groep { Name = "Wiskunde", IsLeerGebied = true });
 
-                Firma f1 = new Firma {Name = "Goaty Enterprise", Email = "info@goatyenterprise.be"};
+                Firma f1 = new Firma { Name = "Goaty Enterprise", Email = "info@goatyenterprise.be" };
 
                 Materiaal m1 = new Materiaal
                 {
@@ -110,11 +110,97 @@ namespace HoGentLend.Models.DAL
                     PhotoBytes = new WebClient().DownloadData("https://sportbay.nl/static/files/4/88/488/Basketbal_Nike_Dominate_7.jpg"),
                 };
 
+                Materiaal m6 = new Materiaal
+                {
+                    Name = "Dobbelsteen-schatkist-162delig",
+                    Description = "Een koffertje met verschillende soorten dobbelstenen: blanco, met cjfers, ...",
+                    ArticleCode = "MH1447",
+                    Price = 35.00,
+                    Amount = 1,
+                    AmountNotAvailable = 0,
+                    IsLendable = true,
+                    Location = "GLEDE 1.011",
+                    Firma = f1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
+                    PhotoBytes = new WebClient().DownloadData("http://www.baert.com/images/products/MH1447-03.jpg"),
+                };
+
+                Materiaal m7 = new Materiaal
+                {
+                    Name = "Mini-loco-spelbord - 4 tot 8 jaar",
+                    Description = "Spelbord: klapt open met een rode becijferde kant en een doorzichtige kan + 12 blokjes met de getallen van 1 tot en met 12.",
+                    ArticleCode = "NC2038",
+                    Price = 15.90,
+                    Amount = 6,
+                    AmountNotAvailable = 0,
+                    IsLendable = true,
+                    Location = "GLEDE 1.011",
+                    Firma = f1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
+                    PhotoBytes = new WebClient().DownloadData("https://s.s-bol.com/imgbase0/imagebase3/large/FC/4/9/6/6/1001004004476694.jpg"),
+                };
+
+                Materiaal m8 = new Materiaal
+                {
+                    Name = "Student Dissectie Set",
+                    Description = "Student Dissectie Set van professionele kwaliteit. De kit is zeer compleet en is ontworpen voor studenten.",
+                    ArticleCode = "WTC911",
+                    Price = 17.95,
+                    Amount = 12,
+                    AmountNotAvailable = 0,
+                    IsLendable = true,
+                    Location = "Campus Vesalius 4.020",
+                    Firma = f1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
+                    PhotoBytes = new WebClient().DownloadData("http://www.nursexl.be/media/catalog/product/cache/24/image/250x250/17f82f742ffe127f42dca9de82fb58b1/v/k/vk-1.jpg"),
+                };
+
+                Materiaal m9 = new Materiaal
+                {
+                    Name = "Acer H5380BD",
+                    Description = "Fed decent video content (like Blu-ray), the H5380BD puts out an extremely watchable image. And its input lag is low—faster than most TVs and high-end projectors.",
+                    ArticleCode = "3EPNO60",
+                    Price = 495.00,
+                    Amount = 12,
+                    AmountNotAvailable = 0,
+                    IsLendable = true,
+                    Location = "GLEDE 1.011",
+                    Firma = f1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
+                    PhotoBytes = new WebClient().DownloadData("https://thewirecutter.com/wp-content/uploads/2016/01/01w-500-projector-acer-h5380bd-630-420x280.jpg"),
+                };
+
+                Materiaal m10 = new Materiaal
+                {
+                    Name = "Kleurpotloden Caran D'Ache Supra 80",
+                    Description = "* Superieure kwaliteit aquarel kleurpotloden. * Met zachte potlood stift. * Excellente lichtechtheid. * Gemaakt uit FSC gecertificeerd hout, verpakt in een luxe koffer.",
+                    ArticleCode = "7610186044809",
+                    Price = 269.00,
+                    Amount = 22,
+                    AmountNotAvailable = 0,
+                    IsLendable = true,
+                    Location = "GLEDE 1.011",
+                    Firma = f1,
+                    Doelgroepen = doelgroepen,
+                    Leergebieden = leergebiedenSet2,
+                    PhotoBytes = new WebClient().DownloadData("https://s.s-bol.com/imgbase0/imagebase3/large/FC/8/5/4/0/9200000046170458.jpg"),
+                };
+
                 context.Materialen.Add(m1);
                 context.Materialen.Add(m2);
                 context.Materialen.Add(m3);
                 context.Materialen.Add(m4);
                 context.Materialen.Add(m5);
+                context.Materialen.Add(m6);
+                context.Materialen.Add(m7);
+                context.Materialen.Add(m8);
+                context.Materialen.Add(m9);
+                context.Materialen.Add(m10);
+
 
                 Gebruiker g1 = new Gebruiker()
                 {
