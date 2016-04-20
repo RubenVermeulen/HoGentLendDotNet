@@ -36,7 +36,7 @@ namespace HoGentLend.Controllers
 
         // POST: Add
         [HttpPost]
-        public ActionResult Add(Gebruiker gebruiker, List<Materiaal> materials, List<long> amounts,
+        public ActionResult Add(Gebruiker gebruiker, List<ReservatiePartModel> reservatiepartmodels,
             DateTime ophaalDatum)
         {
             double weeks = 1; // dit zal later nog uit de database gehaald worden
