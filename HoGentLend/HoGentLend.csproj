@@ -218,6 +218,8 @@
     <Compile Include="Models\Domain\ReservatieLijn.cs" />
     <Compile Include="Models\Domain\VerlangLijst.cs" />
     <Compile Include="ViewModels\MateriaalViewModel.cs" />
+    <Compile Include="ViewModels\ReservatieLijnViewModel.cs" />
+    <Compile Include="ViewModels\ReservatieViewModel.cs" />
     <Compile Include="Views\_niet nodig\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
