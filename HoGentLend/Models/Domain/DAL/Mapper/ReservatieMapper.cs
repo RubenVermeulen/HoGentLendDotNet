@@ -44,16 +44,8 @@ namespace HoGentLend.Models.DAL.Mapper
                 r.MapKey("LENER_ID");
             });
 
-            //ReservatieLijnen bestaat nog niet
-
-            //HasMany(r => r.ReservatieLijnen)
-            //    .WithMany()
-            //    .Map(r =>
-            //    {
-            //        r.MapLeftKey("RESERVATIE_ID");
-            //        r.MapRightKey("RESERVATIELIJN_ID");
-            //        r.ToTable("reservatie_reservatielijnen");
-            //    });
+            HasMany(r => r.ReservatieLijnen)
+                .WithRequired(rl => rl.Reservatie).Map(m => m.MapKey("RESERVATIE_ID"));
 
 
         }
