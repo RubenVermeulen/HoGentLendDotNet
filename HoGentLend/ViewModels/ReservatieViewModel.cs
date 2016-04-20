@@ -20,15 +20,15 @@ namespace HoGentLend.ViewModels
 
         [DisplayName("Ophaalmoment")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
-        public DateTime Ophaalmoment { get; set; }
+        public DateTime? Ophaalmoment { get; set; }
 
         [DisplayName("Indienmoment")]
         [DisplayFormat(DataFormatString = "{0:dd-MM/yyyy}")]
-        public DateTime Indienmoment { get; set; }
+        public DateTime? Indienmoment { get; set; }
 
         [DisplayName("Reservatiemoment")]
         [DisplayFormat(DataFormatString = "{0:dd MM yyyy}")]
-        public DateTime Reservatiemoment { get; set; }
+        public DateTime? Reservatiemoment { get; set; }
 
         [DisplayName("Opgehaald")]
         public bool Opgehaald { get; set; }

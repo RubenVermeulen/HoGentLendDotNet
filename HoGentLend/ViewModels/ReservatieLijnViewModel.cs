@@ -15,10 +15,10 @@ namespace HoGentLend.ViewModels
         public long Amount { get; set; }
 
         [DisplayName("Indiendmoment")]
-        public DateTime IndienMoment { get; set; }
+        public DateTime? IndienMoment { get; set; }
 
         [DisplayName("Ophaalmoment")]
-        public DateTime OphaalMoment { get; set; }
+        public DateTime? OphaalMoment { get; set; }
 
         [DisplayName("Materiaal")]
         public MateriaalViewModel Materiaal { get; set; }
