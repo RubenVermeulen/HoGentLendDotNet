@@ -1,0 +1,68 @@
+﻿
+
+@model IEnumerable<HoGentLend.ViewModels.MateriaalViewModel>
+@using System.Linq
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Reservatielijstje</h2>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In viverra libero quis ipsum mollis rutrum. Pellentesque semper lacinia rhoncus. Vestibulum mauris odio, cursus nec volutpat quis, pharetra quis massa. Aenean a imperdiet sapien. Nullam sit amet finibus nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc hendrerit ligula nec elit gravida, ut congue lorem interdum. Suspendisse potenti. In a quam varius, facilisis sapien ut, ultricies velit. Sed suscipit tincidunt sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. </p>
+
+<hr />
+
+<div id="reservationlist">
+
+
+    @if (!Model.Any())
+    {
+        <p>Er zit nog niets in je reservatielijstje.</p>
+    }
+    else
+    {
+        <form action="/" method="post" class="form-inline">
+
+            @foreach (var item in Model)
+                {
+
+                <div class="row wishlist-item">
+                    <div class="col-md-12">
+                        <div class="col-md-2">
+
+                            <!-- IMAGE -->
+                            @if (item.PhotoBase64 != null)
+                            {
+                                <div class="reservatielist-img" style="background-image: url(data:image/png;base64,@item.PhotoBase64)">
+                                    <a href="data:image/png;base64,@item.PhotoBase64" data-lightbox="@item.Name"></a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="reservatielist-img"></div>
+                            }
+
+                        </div>
+                        <div class="col-md-8">
+                            @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
+                        </div>
+                        <div class="col-md-8">
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <hr />
+            }
+
+            
+
+        </form>
+    }
+</div>
+
+
+
+
