@@ -82,7 +82,7 @@ namespace HoGentLend.Controllers
             Reservatie res = reservatieRepository.FindBy(reservatieId);
             try
             {
-                gebruiker.RemoveReservation(reservatieId);
+                gebruiker.RemoveReservation(res);
                 reservatieRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
                 TempData["msg"] = "De reservatie is succesvol verwijderd.";
             }
