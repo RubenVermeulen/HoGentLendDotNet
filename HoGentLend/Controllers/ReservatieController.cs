@@ -50,7 +50,7 @@ namespace HoGentLend.Controllers
                 TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
             }
             catch (ArgumentException e)
-            {
+            {   
                 TempData["err"] = e.Message;
             }
 
