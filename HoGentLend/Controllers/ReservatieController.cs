@@ -8,8 +8,16 @@ using HoGentLend.ViewModels;
 
 namespace HoGentLend.Controllers
 {
+    [Authorize]
     public class ReservatieController : Controller
     {
+        private IReservatieRepository reservatieRepository;
+
+        public ReservatieController(IReservatieRepository reservatieRepository)
+        {
+            this.reservatieRepository = reservatieRepository;
+        }
+
         // GET: Reservatie
         public ActionResult Index(Gebruiker gebruiker)
         {
@@ -27,21 +35,26 @@ namespace HoGentLend.Controllers
         }
 
         // POST: Add
-        //[HttpPost]
-        // public ActionResult Add(Gebruiker gebruiker, int id)
-        // {
-        //     Materiaal mat = materiaalRepository.FindBy(id);
-        //     try
-        //     {
-        //         gebruiker.AddToWishList(mat);
-        //         materiaalRepository.SaveChanges();
-        //         TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
-        //     }
-        //     catch (ArgumentException e)
-        //     {
-        //         TempData["err"] = e.Message;
-        //     }
-        //     return Index(gebruiker);
-        // }
+        [HttpPost]
+        public ActionResult Add(Gebruiker gebruiker, List<Materiaal> materials, List<long> amounts,
+            DateTime ophaalDatum)
+        {
+            double weeks = 1; // dit zal later nog uit de database gehaald worden
+            DateTime indienDatum = ophaalDatum.AddDays(7 * weeks);
+            
+
+            try
+            {
+                gebruiker.AddReservation(materials, amounts, ophaalDatum, indienDatum, reservatieRepository.FindAll());
+                reservatieRepository.SaveChanges();
+                TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
+            }
+            catch (ArgumentException e)
+            {
+                TempData["err"] = e.Message;
+            }
+
+            return Index(gebruiker);
+        }
     }
 }
