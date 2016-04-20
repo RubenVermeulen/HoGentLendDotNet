@@ -288,6 +288,26 @@ textarea {
     background-size: contain;
 }
 
+
+/* Reservation detail */
+
+#reservatiedetails .status {
+    cursor: default;
+}
+
+#reservatiedetails .status:hover {
+    color: #ffffff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+#reservatiedetails .status:hover {
+    color: #ffffff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+
 /* Misc */
 
 .bg-info {  
