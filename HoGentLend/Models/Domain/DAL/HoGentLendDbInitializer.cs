@@ -18,9 +18,25 @@ namespace HoGentLend.Models.DAL
             {
                 // Hier zetten we database context initializatie
                 Groep d1 = new Groep { Name = "Kleuteronderwijs", IsLeerGebied = false };
+                Groep d2 = new Groep { Name = "Lager onderwijs", IsLeerGebied = false };
+                Groep d3 = new Groep { Name = "Secundair onderwijs", IsLeerGebied = false };
+                Groep d4 = new Groep { Name = "Hoger onderwijs", IsLeerGebied = false };
 
-                List<Groep> doelgroepen = new List<Groep>();
-                doelgroepen.Add(d1);
+
+                List<Groep> van3tot12 = new List<Groep>();
+                van3tot12.Add(d1);
+                van3tot12.Add(d2);
+
+                List<Groep> van6tot12 = new List<Groep>();
+                van6tot12.Add(d2);
+
+                List<Groep> van12tot21 = new List<Groep>();
+                van12tot21.Add(d3);
+                van12tot21.Add(d4);
+
+
+
+
 
                 List<Groep> leergebiedenSet1 = new List<Groep>();
                 leergebiedenSet1.Add(new Groep { Name = "Aardrijkskunde", IsLeerGebied = true });
@@ -28,6 +44,32 @@ namespace HoGentLend.Models.DAL
 
                 List<Groep> leergebiedenSet2 = new List<Groep>();
                 leergebiedenSet2.Add(new Groep { Name = "Wiskunde", IsLeerGebied = true });
+
+                List<Groep> leergebiedenSet3 = new List<Groep>();
+                leergebiedenSet3.Add(new Groep { Name = "LO", IsLeerGebied = true });
+
+                List<Groep> leergebiedenSet4 = new List<Groep>();
+                leergebiedenSet4.Add(new Groep { Name = "Biologie", IsLeerGebied = true });
+
+                List<Groep> leergebiedenSet5 = new List<Groep>();
+                leergebiedenSet5.Add(new Groep { Name = "Kunst", IsLeerGebied = true });
+
+                List<Groep> leergebiedenSet6 = new List<Groep>();
+                leergebiedenSet6.Add(new Groep { Name = "Spel", IsLeerGebied = true });
+
+
+
+
+
+
+
+                
+
+
+
+
+
+
 
                 Firma f1 = new Firma { Name = "Goaty Enterprise", Email = "info@goatyenterprise.be" };
 
@@ -42,7 +84,7 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     //Location = "GSCHB4.021",
                     //Firma = f1,
-                    Doelgroepen = doelgroepen,
+                    Doelgroepen = van3tot12,
                     Leergebieden = leergebiedenSet1,
                     //PhotoBytes = new WebClient().DownloadData("https://www.dezwerver.nl/media/cache/e3/88/e38825e2d8175a72d9d346193f983983.jpg")
                 };
@@ -58,7 +100,7 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "GSCHB 4.021",
                     Firma = f1,
-                    Doelgroepen = doelgroepen,
+                    Doelgroepen = van12tot21,
                     Leergebieden = leergebiedenSet2,
                     PhotoBytes = new WebClient().DownloadData("http://www.epacking.eu/Docs/Images/Groups/1/Product_2012329991k222k87k491_rekenmachine.jpg")
                 };
@@ -74,14 +116,14 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "GSCHB 4.021",
                     Firma = f1,
-                    Doelgroepen = doelgroepen,
-                    Leergebieden = leergebiedenSet2,
+                    Doelgroepen = van6tot12,
+                    Leergebieden = leergebiedenSet5,
                 };
 
                 Materiaal m4 = new Materiaal
                 {
                     Name = "Voetbal",
-                    Description = "Voetballen voor in het larger onderwijs.",
+                    Description = "Voetballen voor in het lager onderwijs.",
                     ArticleCode = "abc147",
                     Price = 25.99,
                     Amount = 15,
@@ -89,8 +131,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = false,
                     Location = "GSCHB 4.021",
                     Firma = f1,
-                    Doelgroepen = doelgroepen,
-                    Leergebieden = leergebiedenSet2,
+                    Doelgroepen = van6tot12,
+                    Leergebieden = leergebiedenSet3,
                     PhotoBytes = new WebClient().DownloadData("http://hobby.blogo.nl/files/2007/11/hoe-voetbal-surprise-maken-680x703.jpg"),
                 };
 
@@ -105,8 +147,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "GSCHB 4.021",
                     Firma = f1,
-                    Doelgroepen = doelgroepen,
-                    Leergebieden = leergebiedenSet2,
+                    Doelgroepen = van12tot21,
+                    Leergebieden = leergebiedenSet3,
                     PhotoBytes = new WebClient().DownloadData("https://sportbay.nl/static/files/4/88/488/Basketbal_Nike_Dominate_7.jpg"),
                 };
 
@@ -121,8 +163,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "GLEDE 1.011",
                     Firma = f1,
-                    Doelgroepen = doelgroepen,
-                    Leergebieden = leergebiedenSet2,
+                    Doelgroepen = van6tot12,
+                    Leergebieden = leergebiedenSet6,
                     PhotoBytes = new WebClient().DownloadData("http://www.baert.com/images/products/MH1447-03.jpg"),
                 };
 
@@ -137,8 +179,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "GLEDE 1.011",
                     Firma = f1,
-                    Doelgroepen = doelgroepen,
-                    Leergebieden = leergebiedenSet2,
+                    Doelgroepen = van3tot12,
+                    Leergebieden = leergebiedenSet6,
                     PhotoBytes = new WebClient().DownloadData("https://s.s-bol.com/imgbase0/imagebase3/large/FC/4/9/6/6/1001004004476694.jpg"),
                 };
 
@@ -153,8 +195,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "Campus Vesalius 4.020",
                     Firma = f1,
-                    Doelgroepen = doelgroepen,
-                    Leergebieden = leergebiedenSet2,
+                    Doelgroepen = van12tot21,
+                    Leergebieden = leergebiedenSet4,
                     PhotoBytes = new WebClient().DownloadData("http://www.nursexl.be/media/catalog/product/cache/24/image/250x250/17f82f742ffe127f42dca9de82fb58b1/v/k/vk-1.jpg"),
                 };
 
@@ -169,8 +211,8 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "GLEDE 1.011",
                     Firma = f1,
-                    Doelgroepen = doelgroepen,
-                    Leergebieden = leergebiedenSet2,
+                    Doelgroepen = van12tot21,
+                    Leergebieden = leergebiedenSet1,
                     PhotoBytes = new WebClient().DownloadData("https://thewirecutter.com/wp-content/uploads/2016/01/01w-500-projector-acer-h5380bd-630-420x280.jpg"),
                 };
 
@@ -185,7 +227,7 @@ namespace HoGentLend.Models.DAL
                     IsLendable = true,
                     Location = "GLEDE 1.011",
                     Firma = f1,
-                    Doelgroepen = doelgroepen,
+                    Doelgroepen = van3tot12,
                     Leergebieden = leergebiedenSet2,
                     PhotoBytes = new WebClient().DownloadData("https://s.s-bol.com/imgbase0/imagebase3/large/FC/8/5/4/0/9200000046170458.jpg"),
                 };
