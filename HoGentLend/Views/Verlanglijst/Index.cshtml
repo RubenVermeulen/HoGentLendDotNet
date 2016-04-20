@@ -21,14 +21,12 @@
     }
     else
     {
-        <form action="/" method="post" class="form-inline">
-
-            @{
-                int counter = 0;
-            }
-            @foreach (var item in Model)
+        using (Html.BeginForm("Add", "Reservatie", FormMethod.Post))
+       {
+          int counter = 0;
+           foreach (var item in Model)
             {
-                @counter = counter + 1
+                counter = counter + 1;
                     <div class="row wishlist-item">
                         <div class="col-md-12">
                             <div class="col-md-2">
@@ -57,6 +55,7 @@
                                                 <label for="amount">Aantal</label>
                                             </div>
                                             <div class="col-md-6">
+                                                <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id"/>
                                                 <input type="number" id="amount" class="form-control" name="reservatiepartmodels[@counter].Amount" value="0" />
                                             </div>
                                         </div>
@@ -69,14 +68,14 @@
                     </div>
 
                     <hr />
-                    }
+            }
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-6">
                         <div class="form-group">
                             <label for="date">Reservatiedatum (begin)</label>
-                            <input type="date" id="date" value="Reserveren" class="form-control" />
+                            <input type="date" id="date" value="Reserveren" name="ophaalDatum" class="form-control" />
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
@@ -90,7 +89,7 @@
 
             <input type="submit" class="btn btn-primary" value="Reserveren" />
 
-        </form>
+                }
                     }
 
 </div>

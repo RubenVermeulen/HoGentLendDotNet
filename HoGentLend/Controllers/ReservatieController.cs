@@ -45,7 +45,7 @@ namespace HoGentLend.Controllers
 
             try
             {
-                gebruiker.AddReservation(materials, amounts, ophaalDatum, indienDatum, reservatieRepository.FindAll());
+                //gebruiker.AddReservation(materials, amounts, ophaalDatum, indienDatum, reservatieRepository.FindAll());
                 reservatieRepository.SaveChanges();
                 TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
             }
