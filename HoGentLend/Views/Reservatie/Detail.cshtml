@@ -7,62 +7,79 @@
 
     <div id="details" class="row">
         <div class="page-header">
-            <h2>Reservatie lopende van @Html.DisplayFor(model => model.Ophaalmoment) tot @Html.DisplayFor(model => model.Indienmoment)</h2>
+            <h2>Reservatie @Html.DisplayFor(model => model.Ophaalmoment) - @Html.DisplayFor(model => model.Indienmoment)</h2>
         </div>
         <p class="reservatiemoment">
-           Deze reservatie werd gereserveerd om <span class="datum">@(Model.Reservatiemoment)</span>.
+           Deze reservatie werd gereserveerd op <span class="datum">@(Model.Reservatiemoment)</span>.
         </p>
         <p class="opgehaald">
-            Deze reservatie werd gereserveerd om <span class="datum">@(Model.Opgehaald)</span>.
+            Deze reservatie werd gereserveerd op <span class="datum">@(Model.Opgehaald)</span>.
         </p>
 
-        @foreach (var item in Model.ReservatieLijnen)
-        {
+        <div id="reservationlist">
 
-            <div class="row wishlist-item">
-                <div class="col-md-12">
-                    <div class="col-md-2">
 
-                        <!-- IMAGE -->
-                        @if (item.Materiaal.PhotoBase64 != null)
-                        {
-                            <div class="wishlist-img" style="background-image: url(data:image/png;base64,@item.PhotoBase64)">
-                                <a href="data:image/png;base64,@item.PhotoBase64" data-lightbox="@item.Name"></a>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="wishlist-img"></div>
-                        }
+            @*@if (!Model.ReservatieLijnen.Any())
+            {
+                <p>Deze reservatie bevat geen materialen!</p>
+            }
+            else
+            {*@
 
-                    </div>
-                    <div class="col-md-8">
-                        @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
-                    </div>
-                    <div class="col-md-2">
-                        <form action="/" method="post" class="form-inline">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-4 col-md-offset-2">
-                                            <label for="amount">Aantal</label>
+                @using (Html.BeginForm("Remove", "Reservatie", FormMethod.Post))
+                {
+                    
+                    foreach (var item in Model.ReservatieLijnen)
+                    {
+
+                        <div class="row reservation-item">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+
+                                    <!-- IMAGE -->
+                                    @if (item.Materiaal.PhotoBase64 != null)
+                                    {
+                                        <div class="wishlist-img" style="background-image: url(data:image/png;base64,@item.Materiaal.PhotoBase64)">
+                                            <a href="data:image/png;base64,@item.Materiaal.PhotoBase64" data-lightbox="@item.Materiaal.Name"></a>
                                         </div>
-                                        <div class="col-md-6">
-                                            <input type="number" id="amount" class="form-control" value="0" />
-                                        </div>
-                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="wishlist-img"></div>
+                                    }
+
                                 </div>
+                                <div class="col-md-2">
+                                    @Html.ActionLink(item.Materiaal.Name, "Detail", "Catalogus", new {id = item.Materiaal.Id}, null)
+                                </div>
+                                <div class="col-md-2">
+                                    <strong>Aantal</strong> <br/> @Html.DisplayFor(model => item.Amount)
+                                </div>
+                                <div class="col-md-2">
+                                    <strong>Ophaalmoment</strong> <br /> @Html.DisplayFor(model => item.OphaalMoment)
+                                </div>
+                                <div class="col-md-2">
+                                    <strong>Indienmoment</strong> <br /> @Html.DisplayFor(model => item.IndienMoment)
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn btn-default">
+                                        Verwijder uit deze reservatie
+                                    </button>
 
-
+                                </div>
+                                <input type="hidden" name="reservatieId" value="@item.Id" />
                             </div>
+                        </div>
 
-                        </form>
-                    </div>
-                </div>
-            </div>
 
-                    <hr />
-        }
+                        <hr />
+
+
+                    }
+
+                
+            }
+        </div>
 
 
 

@@ -107,7 +107,7 @@ namespace HoGentLend.Controllers
             ReservatieViewModel rv = new ReservatieViewModel(r);
             rv.ReservatieLijnen = rlList;
 
-            return View(rlList);
+            return View(rv);
         }
     }
 }
