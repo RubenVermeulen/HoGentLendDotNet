@@ -11,8 +11,8 @@ namespace HoGentLend.Models.Domain
         public long Id { get; private set; }
 
         public long Amount { get; set; }
-        public DateTime IndienMoment { get; set; }
-        public DateTime OphaalMoment { get; set; }
+        public DateTime? IndienMoment { get; set; }
+        public DateTime? OphaalMoment { get; set; }
         public virtual Materiaal Materiaal { get; set; }
         public virtual Reservatie Reservatie { get; set; }
 
@@ -21,7 +21,7 @@ namespace HoGentLend.Models.Domain
 
         }
 
-        public ReservatieLijn(long amount, DateTime indienMoment, DateTime ophaalMoment, Materiaal mat)
+        public ReservatieLijn(long amount, DateTime indienMoment, DateTime ophaalMoment, Materiaal mat) : this()
         {
             if (mat == null)
             {

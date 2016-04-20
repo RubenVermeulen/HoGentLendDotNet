@@ -7,7 +7,7 @@ namespace HoGentLend.Models
 {
     public class MyDateUtil
     {
-        public static bool DoesFirstPairOverlapWithSecond(DateTime a1, DateTime a2, DateTime b1, DateTime b2)
+        public static bool DoesFirstPairOverlapWithSecond(DateTime a1, DateTime a2, DateTime? b1, DateTime? b2)
         {
             if (a1 == null && a2 == null)
             {
