@@ -1,72 +1,75 @@
-﻿@model HoGentLend.ViewModels.ReservatieViewModel
+﻿@*
 
-@{
-    ViewBag.Title = "Detail";
-}
+    @model HoGentLend.ViewModels.ReservatieViewModel
 
-
-<div id="details" class="row">
-    <div class="page-header">
-        <h2>Reservatie lopende van @Html.DisplayFor(model => model.Ophaalmoment) tot @Html.DisplayFor(model => model.Indienmoment)</h2>
-    </div>
-    <p class="reservatiemoment">
-       Deze reservatie werd gereserveerd om <span class="datum">@(Model.Reservatiemoment)</span>.
-    </p>
-    <p class="opgehaald">
-        Deze reservatie werd gereserveerd om <span class="datum">@(Model.Opgehaald)</span>.
-    </p>
-
-    @foreach (var item in Model.ReservatieLijnen)
-    {
-
-        <div class="row wishlist-item">
-            <div class="col-md-12">
-                <div class="col-md-2">
-
-                    <!-- IMAGE -->
-                    @if (item.Materiaal. != null)
-                    {
-                        <div class="wishlist-img" style="background-image: url(data:image/png;base64,@item.PhotoBase64)">
-                            <a href="data:image/png;base64,@item.PhotoBase64" data-lightbox="@item.Name"></a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="wishlist-img"></div>
-                    }
-
-                </div>
-                <div class="col-md-8">
-                    @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
-                </div>
-                <div class="col-md-2">
-                    <form action="/" method="post" class="form-inline">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-4 col-md-offset-2">
-                                        <label for="amount">Aantal</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="number" id="amount" class="form-control" value="0" />
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-
-                <hr />
+    @{
+        ViewBag.Title = "Detail";
     }
 
 
+    <div id="details" class="row">
+        <div class="page-header">
+            <h2>Reservatie lopende van @Html.DisplayFor(model => model.Ophaalmoment) tot @Html.DisplayFor(model => model.Indienmoment)</h2>
+        </div>
+        <p class="reservatiemoment">
+           Deze reservatie werd gereserveerd om <span class="datum">@(Model.Reservatiemoment)</span>.
+        </p>
+        <p class="opgehaald">
+            Deze reservatie werd gereserveerd om <span class="datum">@(Model.Opgehaald)</span>.
+        </p>
 
-</div>
-<p>
-    @Html.ActionLink("Terug naar materiaallijst", "Index")
-</p>
+        @foreach (var item in Model.ReservatieLijnen)
+        {
+
+            <div class="row wishlist-item">
+                <div class="col-md-12">
+                    <div class="col-md-2">
+
+                        <!-- IMAGE -->
+                        @if (item.Materiaal. != null)
+                        {
+                            <div class="wishlist-img" style="background-image: url(data:image/png;base64,@item.PhotoBase64)">
+                                <a href="data:image/png;base64,@item.PhotoBase64" data-lightbox="@item.Name"></a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="wishlist-img"></div>
+                        }
+
+                    </div>
+                    <div class="col-md-8">
+                        @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
+                    </div>
+                    <div class="col-md-2">
+                        <form action="/" method="post" class="form-inline">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-4 col-md-offset-2">
+                                            <label for="amount">Aantal</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="number" id="amount" class="form-control" value="0" />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+                    <hr />
+        }
+
+
+
+    </div>
+    <p>
+        @Html.ActionLink("Terug naar materiaallijst", "Index")
+    </p>
+*@
