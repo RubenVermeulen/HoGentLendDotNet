@@ -67,7 +67,7 @@ namespace HoGentLend.Controllers
             {
                 TempData["err"] = e.Message;
             }
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
     }

@@ -81,6 +81,11 @@ namespace HoGentLend.Models.Domain
             Reservaties.Add(reservatie);
         }
 
+        internal void RemoveReservation(int reservatieId)
+        {
+            throw new NotImplementedException();
+        }
+
         private long GetAmountAvailableForReservation(Materiaal mat, IQueryable<Reservatie> allReservations,
             DateTime ophaalDatum, DateTime indienDatum)
         {
