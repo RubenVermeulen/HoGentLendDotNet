@@ -38,7 +38,7 @@ namespace HoGentLend.Models.Domain
             }
             if (amount < 0)
             {
-                throw new ArgumentException("De reservatie hoeveelheid moet groter zijn dan 0.");
+                throw new ArgumentException("Aantal mag niet kleiner zijn dan 0.");
             }
             this.Amount = amount;
             this.IndienMoment = indienMoment;

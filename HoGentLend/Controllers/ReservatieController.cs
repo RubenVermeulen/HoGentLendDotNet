@@ -48,19 +48,30 @@ namespace HoGentLend.Controllers
 
             List<Materiaal> materials = new List<Materiaal>();
             List<long> amounts = new List<long>();
-
+            int x = 0;
             foreach (ReservatiePartModel rpm in reservatiepartmodels)
             {
-                materials.Add(materiaalRepository.FindBy(rpm.
+                if (rpm.Amount != 0)
+                {
+                    materials.Add(materiaalRepository.FindBy(rpm.
                     MateriaalId));
-                amounts.Add(rpm.Amount);
+                    amounts.Add(rpm.Amount);
+                    x++;
+                }
+                
             }
             try
             {
                 if (!ophaalDatum.HasValue)
                 {
-                    throw new ArgumentException("De ophaaldatum moet een waarde hebben.");
+                    throw new ArgumentException("De ophaaldatum moet een geldige waarde hebben (Formaat: dd/mm/yyyy).");
                 }
+
+                if (x == 0)
+                {
+                    throw new ArgumentException("Er moet minstens 1 materiaal zijn waarbij het aantal groter is dan 0.");
+                }
+
                 DateTime indienDatum = ophaalDatum.Value.AddDays(7 * weeks);
                 gebruiker.AddReservation(materials, amounts, ophaalDatum.Value, indienDatum,
                     reservatieRepository.FindAll());
@@ -70,6 +81,7 @@ namespace HoGentLend.Controllers
             catch (ArgumentException e)
             {
                 TempData["err"] = e.Message;
+                return RedirectToAction("Index", "Verlanglijst");
             }
 
             return RedirectToAction("Index");
