@@ -25,18 +25,41 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HoGentLend.Models.Domain.Gebruiker">
-    <Position X="4" Y="0.5" Width="3" />
+    <Position X="4.75" Y="8.75" Width="7.25" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAACAAAAgAAAAAAABAgAAAAAAAAAAAAAAAAAg=</HashCode>
+      <HashCode>AAACAEAAACAAAEgIAAAAgABBgAAAAAAAAAAAAgiAAAg=</HashCode>
       <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Reservaties" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="HoGentLend.Models.Domain.VerlangLijst">
     <Position X="7.25" Y="0.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAACAAAAgAAAAAAAAAAAAAAAAACAAAAABAAEA=</HashCode>
+      <HashCode>AEACAAAAAAAAAAhAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
       <FileName>Models\Domain\VerlangLijst.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="HoGentLend.Models.Domain.ReservatieLijn">
+    <Position X="12.5" Y="5.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIBAAAAAAAAAAAQAAKAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\ReservatieLijn.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Materiaal" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HoGentLend.Models.Domain.Reservatie">
+    <Position X="12.5" Y="2" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAIACAAAAAAAAAAAAAAAABAAAAAABAAAAAAAEQ=</HashCode>
+      <FileName>Models\Domain\Reservatie.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ReservatieLijnen" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Interface Name="HoGentLend.Models.Domain.IRepository&lt;EntityType, IdType&gt;">
     <Position X="0.5" Y="0.5" Width="3.25" />

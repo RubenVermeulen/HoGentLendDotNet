@@ -92,6 +92,10 @@ namespace HoGentLend.Models.Domain
             {
                 throw new ArgumentException("De reservatie is al verwijderd geweest.");
             }
+            if (reservatie.Opgehaald)
+            {
+                throw new ArgumentException("Een reservatie die is al is opgehaald kan niet geannnuleerd worden.");
+            }
             Reservaties.Remove(reservatie);
             return reservatie;
         }
