@@ -44,7 +44,7 @@
                                 }
 
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
                             </div>
                             <div class="col-md-2">
@@ -56,7 +56,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id"/>
-                                                <input type="number" id="amount" class="form-control" name="reservatiepartmodels[@counter].Amount" value="0" />
+                                                <input type="number" id="amount" class="form-control" name="reservatiepartmodels[@counter].Amount" value="0"/>
                                             </div>
                                         </div>
                                     </div>
@@ -64,6 +64,10 @@
 
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-default" name="bevestig" id="@(item.Id)">
+                                    Verwijder uit verlanglijstje
+                                </button></div>
                         </div>
                     </div>
 
@@ -87,7 +91,9 @@
                 </div>
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Reserveren" />
+           <button type="submit" class="btn btn-primary" name="bevestig" value="-1">
+               Reserveren
+           </button>
 
                 }
                     }

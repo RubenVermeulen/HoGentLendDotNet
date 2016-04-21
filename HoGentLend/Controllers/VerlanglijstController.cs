@@ -36,8 +36,9 @@ namespace HoGentLend.Controllers
 
         // POST: Add
         [HttpPost]
-        public ActionResult Add(Gebruiker gebruiker, int id)
-        {
+        public ActionResult Add(Gebruiker gebruiker, int id) { 
+
+
             Materiaal mat = materiaalRepository.FindBy(id);
             try
             {
