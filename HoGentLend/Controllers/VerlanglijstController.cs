@@ -54,7 +54,7 @@ namespace HoGentLend.Controllers
         }
 
         // POST: Remove
-        [HttpPost]
+        //[HttpPost]
         public ActionResult Remove(Gebruiker gebruiker, int materiaalId)
         {
             Materiaal mat = materiaalRepository.FindBy(materiaalId);
