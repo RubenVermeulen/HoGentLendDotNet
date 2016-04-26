@@ -10,10 +10,10 @@ namespace HoGentLend.Models.Domain
 
         public long Id { get; private set; }
 
-        public virtual Gebruiker Lener { get; set; }
-        public DateTime? Ophaalmoment { get; set; }
-        public DateTime? Indienmoment { get; set; }
-        public DateTime? Reservatiemoment { get; set; }
+        public virtual Gebruiker Lener { get; private set; }
+        public DateTime? Ophaalmoment { get; private set; }
+        public DateTime? Indienmoment { get; private set; }
+        public DateTime? Reservatiemoment { get; private set; }
         public bool Opgehaald { get; set; }
         public virtual List<ReservatieLijn> ReservatieLijnen  { get; set; }
 
@@ -23,8 +23,8 @@ namespace HoGentLend.Models.Domain
         }
 
         public Reservatie(Gebruiker lener,
-            DateTime ophaalMoment,
-            DateTime indienMoment
+            DateTime? ophaalMoment,
+            DateTime? indienMoment
             ) : this()
         {
             if (lener == null)
@@ -47,7 +47,7 @@ namespace HoGentLend.Models.Domain
             this.Reservatiemoment = DateTime.Now;
         }
 
-        internal void AddReservationLine(Materiaal materiaal, long amount, DateTime ophaalDatum, DateTime indienDatum)
+        public void AddReservationLine(Materiaal materiaal, long amount, DateTime ophaalDatum, DateTime indienDatum)
         {
             ReservatieLijn reservatieLijn = new ReservatieLijn(amount, indienDatum, ophaalDatum, materiaal, this);
             ReservatieLijnen.Add(reservatieLijn);
