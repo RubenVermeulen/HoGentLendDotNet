@@ -93,7 +93,7 @@ namespace HoGentLend.Models.DAL.Mapper
             HasOptional(m => m.Firma).WithMany().Map(m =>
             {
                 m.MapKey("FIRMA_ID");
-            });
+            });            
         }
     }
 }

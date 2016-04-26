@@ -24,13 +24,13 @@ namespace HoGentLend.Controllers
         }
 
         // GET: Catalogus
-        public ActionResult Index(Gebruiker gebruiker, String filter="", int doelgroepId = 0,
+        public ActionResult Index(Gebruiker gebruiker, String filter = "", int doelgroepId = 0,
             int leergebiedId = 0)
         {
             IEnumerable<MateriaalViewModel> materialen =
                 materiaalRepository.FindByFilter(filter, doelgroepId, leergebiedId)
                 .Select(m => new MateriaalViewModel(m));
-           
+
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
             ViewBag.doelgroepId = doelgroepId;
@@ -63,32 +63,20 @@ namespace HoGentLend.Controllers
 
             long convertId = Convert.ToInt64(id);
 
-            // Get only the reservations who have the material.
-            IList<Reservatie> reservations = reservatieRepository.FindAll()
-                //.Where(r => r.ReservatieLijnen.Any(rl => rl.Materiaal.Id == convertId))
-                .ToList();
+            int[] chartList = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-            int[] chartList = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-            foreach (Reservatie r in reservations)
+            foreach (ReservatieLijn rl in m.ReservatieLijnen)
             {
-                foreach (ReservatieLijn rl in r.ReservatieLijnen)
+                for (int i = 0; i < 14; i++)
                 {
-                    if (rl.Materiaal.Id == convertId)
+                    if (rl.OphaalMoment <= DateTime.Today.AddDays(i) && rl.IndienMoment >= DateTime.Today.AddDays(i))
                     {
-                        for (int i = 0; i < 14; i++)
-                        {
-                            if (rl.OphaalMoment <= DateTime.Today.AddDays(i) && rl.IndienMoment >= DateTime.Today.AddDays(i))
-                            {
-                                chartList[i]++;
-                            }
-                        }
+                        chartList[i]++;
                     }
                 }
+
             }
-
             ViewBag.chartList = chartList;
-
             return View(new MateriaalViewModel(m));
         }
     }

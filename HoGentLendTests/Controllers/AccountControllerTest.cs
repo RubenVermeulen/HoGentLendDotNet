@@ -27,8 +27,8 @@ namespace HoGentLendTests.Controllers
 
         private const string NEW_VALID_USERNAME = "StudentGebruikersnaam";
         private const string NEW_VALID_PASSWORD = "eenPaswoord123";
-        private const string EXISTING_VALID_USERNAME = "StudentNaam2";
-        private const string EXISTING_VALID_PASSWORD = "NogEENPaswoord123";
+        private const string EXISTING_VALID_USERNAME = "AStudent";
+        private const string EXISTING_VALID_PASSWORD = "StudentPassword";
         private const string NOT_VALID_PASSWORD = "notValidPassword123";
         private HoGentApiLookupResult validHogentLookupResult;
 
@@ -59,17 +59,17 @@ namespace HoGentLendTests.Controllers
             mockHoGentApiLookupProvider
                 .Setup(m => m.Lookup(NEW_VALID_USERNAME, NOT_VALID_PASSWORD))
                 .Returns(new HoGentApiLookupResult());
+            mockHoGentApiLookupProvider
+                .Setup(m => m.Lookup(EXISTING_VALID_USERNAME, EXISTING_VALID_PASSWORD))
+                .Returns(validHogentLookupResult);
             mockApplicationSignInManager
-                .Setup(m => m.PasswordSignInAsync(NEW_VALID_USERNAME, NEW_VALID_PASSWORD, false, false))
-                .Returns(Task.FromResult(SignInStatus.Failure));
-            mockApplicationSignInManager
-                .Setup(m => m.PasswordSignInAsync(NEW_VALID_USERNAME, NOT_VALID_PASSWORD, false, false))
+                .Setup(m => m.PasswordSignInAsync(NEW_VALID_USERNAME, It.IsAny<string>(), false, false))
                 .Returns(Task.FromResult(SignInStatus.Failure));
             mockApplicationSignInManager
                 .Setup(m => m.PasswordSignInAsync(EXISTING_VALID_USERNAME, EXISTING_VALID_PASSWORD, false, false))
                 .Returns(Task.FromResult(SignInStatus.Success));
             mockApplicationUserManager
-                .Setup(m => m.CreateAsync(It.IsAny<ApplicationUser>(), NEW_VALID_PASSWORD))
+                .Setup(m => m.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(IdentityResult.Success));
 
             controller = new AccountController(

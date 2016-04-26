@@ -22,5 +22,11 @@ namespace HoGentLend.Models.Domain
         public virtual List<Groep> Leergebieden { get; set; }
         public virtual Firma Firma { get; set; }
         public byte[] PhotoBytes { get; set; }
+        public virtual List<ReservatieLijn> ReservatieLijnen { get; set; }
+
+        public Materiaal()
+        {
+            this.ReservatieLijnen = new List<ReservatieLijn>();
+        }
     }
 }

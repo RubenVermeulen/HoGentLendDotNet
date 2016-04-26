@@ -149,7 +149,7 @@ namespace HoGentLend.Models.DAL
                     Firma = f1,
                     Doelgroepen = van12tot21,
                     Leergebieden = leergebiedenSet3,
-                    PhotoBytes = new WebClient().DownloadData("https://sportbay.nl/static/files/4/88/488/Basketbal_Nike_Dominate_7.jpg"),
+                    PhotoBytes = null,
                 };
 
                 Materiaal m6 = new Materiaal

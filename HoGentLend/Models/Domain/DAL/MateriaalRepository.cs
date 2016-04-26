@@ -47,11 +47,21 @@ namespace HoGentLend.Models.DAL
                 }
             }
 
-            return materialen.Include(m => m.Firma)
-               .Include(m => m.Doelgroepen)
-               .Include(m => m.Leergebieden)
-               .OrderBy(m => m.Name)
-               .ToList();
+            var mat = materialen.Include(m => m.Firma);
+            try
+            {
+                mat = mat
+                   .Include(m => m.Doelgroepen)
+                   .Include(m => m.Leergebieden);
+
+            }
+            catch (ArgumentNullException e)
+            {
+                return mat;
+            }
+            return mat
+                    .OrderBy(m => m.Name)
+                   .ToList();
         }
 
     }
