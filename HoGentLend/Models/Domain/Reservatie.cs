@@ -39,6 +39,10 @@ namespace HoGentLend.Models.Domain
             {
                 throw new ArgumentNullException("Een indienmoment is verplicht.");
             }
+            if (indienMoment < ophaalMoment)
+            {
+                throw new ArgumentException("Het ophaal moment moet voor het indien moment liggen.");
+            }
             this.Lener = lener;
             this.Ophaalmoment = ophaalMoment;
             this.Indienmoment = indienMoment;

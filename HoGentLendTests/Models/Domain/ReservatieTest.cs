@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace HoGentLendTests.Models.Domain
 {
     [TestClass]
-    class ReservatieTest
+    public class ReservatieTest
     {
 
         private Reservatie reservatie;
@@ -39,7 +39,7 @@ namespace HoGentLendTests.Models.Domain
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void TestLenerVerplicht()
         {
             new Reservatie(null, ophaalMoment, indienMoment);
@@ -47,13 +47,13 @@ namespace HoGentLendTests.Models.Domain
 
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void TestOphaalMomentVerplicht()
         {
             new Reservatie(lener, null, indienMoment);
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void TestIndienMomentVerplicht()
         {
             new Reservatie(lener, ophaalMoment, null);
