@@ -68,6 +68,7 @@ namespace HoGentLendTests.Models.Domain
         {
             new Student(firstName, lastName, email, wishList, null);
         }
+
         [TestMethod]
         public void TestStudentCanNotSeeAllMaterials()
         {
@@ -83,7 +84,48 @@ namespace HoGentLendTests.Models.Domain
         {
             student.AddToWishList(material);
             Assert.AreEqual(1, student.WishList.Materials.Count);
+            lector.AddToWishList(material);
+            Assert.AreEqual(1, lector.WishList.Materials.Count);
         }
-        // TODO de andere testen
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestStudentAddToWishListMateriaalVerplicht()
+        {
+            student.AddToWishList(null);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestLectorAddToWishListMateriaalVerplicht()
+        {
+            lector.AddToWishList(null);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestStudentAddToWishListMateriaalMustBeLendable()
+        {
+            student.AddToWishList(materialNotLendable);
+        }
+        [TestMethod]
+        public void TestStudentAddToWishListMateriaalCanBeUnlendable()
+        {
+            lector.AddToWishList(materialNotLendable);
+            Assert.AreEqual(1, lector.WishList.Materials.Count);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestStudentRemoveFromWishListMateriaalIsVerplicht()
+        {
+            student.RemoveFromWishList(null);
+        }
+
+        [TestMethod]
+        public void TestStudentRemoveFromWishListMateriaalIsRemoved()
+        {
+            student.AddToWishList(material);
+            student.RemoveFromWishList(material);
+            Assert.AreEqual(0, lector.WishList.Materials.Count);
+        }
+        // TODO: test AddReservation, RemoveReservation, RemoveReservationLijn
     }
 }
