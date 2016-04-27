@@ -244,8 +244,8 @@ namespace HoGentLend.Models.DAL
                 context.Materialen.Add(m10);
 
 
-                Gebruiker g1 = new Gebruiker("Offline", "Student", "offline.student@hogent.be", false);
-                Gebruiker g2 = new Gebruiker("Offline", "Lector", "offline.lector@hogent.be", true);
+                Gebruiker g1 = new Student("Offline", "Student", "offline.student@hogent.be");
+                Gebruiker g2 = new Lector("Offline", "Lector", "offline.lector@hogent.be");
                 context.Users.Add(new ApplicationUser()
                 {
                     Id = "95bebdd6-39b7-4ea5-a3fb-996af68af2aa",

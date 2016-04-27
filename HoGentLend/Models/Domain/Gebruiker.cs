@@ -8,42 +8,36 @@ using System.Linq;
 
 namespace HoGentLend.Models.Domain
 {
-    public class Gebruiker
+    public abstract class Gebruiker
     {
         public long Id { get; private set; }
 
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string Email { get; private set; }
-        public bool IsLector { get; private set; }
 
         public virtual VerlangLijst WishList { get; private set; }
         public virtual List<Reservatie> Reservaties { get; private set; }
 
-        private Gebruiker()
+        protected Gebruiker()
         {
             // default for entityframework
         }
         
-        public Gebruiker(string firstName, string lastName, string email, bool isLector) 
-            : this(firstName, lastName, email, isLector, new VerlangLijst(), new List<Reservatie>())
-        {
-        }
+        public Gebruiker(string firstName, string lastName, string email) 
+            : this(firstName, lastName, email, new VerlangLijst(), new List<Reservatie>())
+        { }
 
-        public Gebruiker(string firstName, string lastName, string email, bool isLector, VerlangLijst wishList, List<Reservatie> reservaties)
+        public Gebruiker(string firstName, string lastName, string email, VerlangLijst wishList, List<Reservatie> reservaties)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Email = email;
-            this.IsLector = isLector;
             this.WishList = wishList;
             this.Reservaties = reservaties;
         }
 
-        public bool CanSeeAllMaterials()
-        {
-            return IsLector;
-        }
+        public abstract bool CanSeeAllMaterials();
 
         public void AddToWishList(Materiaal mat)
         {
@@ -139,22 +133,12 @@ namespace HoGentLend.Models.Domain
             ).ToList()
             .Where(rl => MyDateUtil.DoesFirstPairOverlapWithSecond(ophaalDatum, indienDatum, rl.OphaalMoment, rl.IndienMoment));
 
-            long amountReserved;
-            if (IsLector)
-            {
-                amountReserved = reservationLinesWithMaterialThatOverlap.Where(rl => rl.Reservatie.Lener.IsLector).Select(rl => rl.Amount).Sum();
-            }
-            else
-            {
-                amountReserved = reservationLinesWithMaterialThatOverlap.Select(rl => rl.Amount).Sum();
-            }
+            long amountReserved = FilterReservatieLijnenDieOveruledKunnenWorden(reservationLinesWithMaterialThatOverlap).Select(rl => rl.Amount).Sum();
             long amountAvailable = mat.Amount - mat.AmountNotAvailable - amountReserved;
             return amountAvailable;
         }
 
-        private bool CanSeeMaterial(Materiaal mat)
-        {
-            return IsLector || mat.IsLendable;
-        }
+        public abstract bool CanSeeMaterial(Materiaal mat);
+        public abstract IEnumerable<ReservatieLijn> FilterReservatieLijnenDieOveruledKunnenWorden(IEnumerable<ReservatieLijn> lijnen);
     }
 }

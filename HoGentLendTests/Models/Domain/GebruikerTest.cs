@@ -13,7 +13,6 @@ namespace HoGentLendTests.Models.Domain
         private string firstName;
         private string lastName;
         private string email;
-        private bool isLector;
         private VerlangLijst wishList;
         private List<Reservatie> reservaties;
 
@@ -26,11 +25,10 @@ namespace HoGentLendTests.Models.Domain
             this.firstName = "Firstname";
             this.lastName = "Lastname";
             this.email = "Firstname.lastname@hogent.be";
-            this.isLector = false;
             this.wishList = new VerlangLijst();
             this.reservaties = new List<Reservatie>();
-            this.student = new Gebruiker(firstName, lastName, email, isLector);
-            this.lector = new Gebruiker(firstName, lastName, email, true);
+            this.student = new Student(firstName, lastName, email);
+            this.lector = new Lector(firstName, lastName, email);
             this.material = new Materiaal()
             {
                 Amount = 1,
@@ -48,27 +46,27 @@ namespace HoGentLendTests.Models.Domain
         [TestMethod]
         public void TestFirstNameVerplicht()
         {
-            new Gebruiker(null, lastName, email, false);
+            new Student(null, lastName, email);
         }
         [TestMethod]
         public void TestLastNameVerplicht()
         {
-            new Gebruiker(firstName, null, email, false);
+            new Student(firstName, null, email);
         }
         [TestMethod]
         public void TestEmailVerplicht()
         {
-            new Gebruiker(firstName, lastName, null, false);
+            new Student(firstName, lastName, null);
         }
         [TestMethod]
         public void TestWishListVerplicht()
         {
-            new Gebruiker(firstName, lastName, email, false, null, reservaties);
+            new Student(firstName, lastName, email, null, reservaties);
         }
         [TestMethod]
         public void TestReservatiesVerplicht()
         {
-            new Gebruiker(firstName, lastName, email, false, wishList, null);
+            new Student(firstName, lastName, email, wishList, null);
         }
         [TestMethod]
         public void TestStudentCanNotSeeAllMaterials()

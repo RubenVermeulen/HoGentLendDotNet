@@ -21,7 +21,7 @@ namespace HoGentLendTests.Models.Domain
         [TestInitialize]
         public void setup()
         {
-            this.lener = new Gebruiker("Lener", "De Lener", "lener@email.com", false);
+            this.lener = new Student("Lener", "De Lener", "lener@email.com");
 
             this.ophaalMoment = new DateTime(2016, 4, 1);
             this.indienMoment = new DateTime(2016, 4, 8);

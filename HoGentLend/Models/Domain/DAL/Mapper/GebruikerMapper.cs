@@ -13,6 +13,10 @@ namespace HoGentLend.Models.DAL.Mapper
         {
             ToTable("gebruikers");
 
+            // Inheritance
+            Map<Lector>(l => l.Requires("LECTOR").HasValue(true))
+                .Map<Student>(l => l.Requires("LECTOR").HasValue(false));
+
             // Key
             HasKey(g => g.Id);
 
@@ -38,11 +42,6 @@ namespace HoGentLend.Models.DAL.Mapper
                 .HasColumnType("varchar")
                 .IsOptional()
                 .HasMaxLength(255);
-
-            Property(g => g.IsLector)
-                .HasColumnName("LECTOR")
-                .HasColumnType("bit")
-                .IsOptional();
 
             // Relationships
             HasOptional(t => t.WishList)

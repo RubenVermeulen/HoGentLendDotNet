@@ -90,11 +90,11 @@ namespace HoGentLendTests.Controllers
 
 
             /* Users */
-            Gebruiker g1 = new Gebruiker("Ruben", "Vermeulen", "ruben@hogent.be", false, l1, new List<Reservatie>());
+            Gebruiker g1 = new Student("Ruben", "Vermeulen", "ruben@hogent.be", l1, new List<Reservatie>());
 
-            Gebruiker g2 = new Gebruiker("Sven", "Dedeene", "sven@hogent.be", false, l2, new List<Reservatie>());
+            Gebruiker g2 = new Student("Sven", "Dedeene", "sven@hogent.be", l2, new List<Reservatie>());
 
-            Gebruiker g3 = new Gebruiker("Xander", "Berkein", "lector@hogent.be", true, l2, new List<Reservatie>());
+            Gebruiker g3 = new Lector("Xander", "Berkein", "lector@hogent.be", l2, new List<Reservatie>());
 
             GebruikerList = (new Gebruiker[] { g1, g2, g3 }).ToList().AsQueryable();
         }

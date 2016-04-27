@@ -26,7 +26,7 @@ namespace HoGentLendTests.Models.Domain
         {
             this.ophaalMoment = new DateTime(2016, 4, 1);
             this.indienMoment = new DateTime(2016, 4, 8);
-            var lener = new Gebruiker("Lener", "lener@email.com", "De Lener", false);
+            var lener = new Student("Lener", "lener@email.com", "De Lener");
             this.reservatie = new Reservatie(lener, ophaalMoment, indienMoment);
             lener.Reservaties.Add(reservatie);
             this.amount = 1;
