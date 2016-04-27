@@ -30,12 +30,13 @@ namespace HoGentLendTests.Models.Domain
             this.wishList = new VerlangLijst();
             this.reservaties = new List<Reservatie>();
             this.student = new Gebruiker(firstName, lastName, email, isLector);
-            this.lector = new Gebruiker(firstName, lastName, email, isLector);
+            this.lector = new Gebruiker(firstName, lastName, email, true);
             this.material = new Materiaal()
             {
                 Amount = 1,
-                Name = "Materiaal Naam"
-            }
+                Name = "Materiaal Naam",
+                IsLendable = true
+            };
             this.materialNotLendable = new Materiaal()
             {
                 Amount = 1,
@@ -72,7 +73,7 @@ namespace HoGentLendTests.Models.Domain
         [TestMethod]
         public void TestStudentCanNotSeeAllMaterials()
         {
-            Assert.IsFalse(lector.CanSeeAllMaterials());
+            Assert.IsFalse(student.CanSeeAllMaterials());
         }
         [TestMethod]
         public void TestLectorCanSeeAllMaterials()
@@ -83,7 +84,7 @@ namespace HoGentLendTests.Models.Domain
         public void TestAddToWishListAddsMaterialToWishList()
         {
             student.AddToWishList(material);
-            Assert.AreEqual(1, student.WishList.Materials);
+            Assert.AreEqual(1, student.WishList.Materials.Count);
         }
         // TODO de andere testen
     }
