@@ -22,7 +22,7 @@ namespace HoGentLend.Models.Domain
 
         }
 
-        public ReservatieLijn(long amount, DateTime ophaalMoment, DateTime indienMoment, Materiaal mat, Reservatie r) : this()
+        public ReservatieLijn(long amount, DateTime? ophaalMoment, DateTime? indienMoment, Materiaal mat, Reservatie r) : this()
         {
             if (mat == null)
             {
@@ -36,9 +36,17 @@ namespace HoGentLend.Models.Domain
             {
                 throw new ArgumentNullException("Een indienmoment is verplicht.");
             }
-            if (amount < 0)
+            if (amount <= 0)
             {
-                throw new ArgumentException("Aantal mag niet kleiner zijn dan 0.");
+                throw new ArgumentException("Aantal mag niet kleiner of gelijk zijn aan 0.");
+            }
+            if (indienMoment < ophaalMoment)
+            {
+                throw new ArgumentException("Het ophaal moment moet voor het indien moment liggen.");
+            }
+            if (r == null)
+            {
+                throw new ArgumentNullException("Een reservatie is verplicht.");
             }
             this.Amount = amount;
             this.IndienMoment = indienMoment;
