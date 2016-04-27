@@ -52,7 +52,10 @@ namespace HoGentLend.ViewModels
 
             Conflict = conflict;
 
-            ReservatieLijnen = r.ReservatieLijnen.Select(rl => new ReservatieLijnViewModel(rl)).ToList();
+            ReservatieLijnen = r.ReservatieLijnen.
+                OrderBy(rl => rl.Materiaal.Name).
+                Select(rl => new ReservatieLijnViewModel(rl)).
+                ToList();
         }
 
 
