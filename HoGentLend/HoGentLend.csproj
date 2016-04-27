@@ -189,7 +189,10 @@
     <Compile Include="Controllers\ReservatieController.cs" />
     <Compile Include="Controllers\VerlanglijstController.cs" />
     <Compile Include="Infrastructure\GebruikerModelBinder.cs" />
+    <Compile Include="Models\Domain\Config.cs" />
+    <Compile Include="Models\Domain\DAL\ConfigWrapper.cs" />
     <Compile Include="Models\Domain\DAL\GebruikerRepository.cs" />
+    <Compile Include="Models\Domain\DAL\Mapper\ConfigMapper.cs" />
     <Compile Include="Models\Domain\DAL\Mapper\GebruikerMapper.cs" />
     <Compile Include="Models\Domain\DAL\Mapper\ReservatieLijnMapper.cs" />
     <Compile Include="Models\Domain\DAL\Mapper\ReservatieMapper.cs" />
@@ -207,6 +210,7 @@
     <Compile Include="Models\Domain\HoGentApi\HoGentApiLookupProvider.cs" />
     <Compile Include="Models\Domain\HoGentApi\HoGentApiLookupResult.cs" />
     <Compile Include="Models\Domain\HoGentApi\OfflineHoGentApiLookupProvider.cs" />
+    <Compile Include="Models\Domain\IConfigWrapper.cs" />
     <Compile Include="Models\Domain\IGebruikerRepository.cs" />
     <Compile Include="Models\Domain\IGroepRepository.cs" />
     <Compile Include="Models\Domain\IReservatieRepository.cs" />
