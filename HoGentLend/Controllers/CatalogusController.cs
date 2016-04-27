@@ -15,12 +15,14 @@ namespace HoGentLend.Controllers
         private IMateriaalRepository materiaalRepository;
         private IGroepRepository groepRepository;
         private IReservatieRepository reservatieRepository;
+        private Config config;
 
-        public CatalogusController(IMateriaalRepository materiaalRepository, IGroepRepository groepRepository, IReservatieRepository reservatieRepository)
+        public CatalogusController(IMateriaalRepository materiaalRepository, IGroepRepository groepRepository, IReservatieRepository reservatieRepository, IConfigWrapper configWrapper)
         {
             this.materiaalRepository = materiaalRepository;
             this.groepRepository = groepRepository;
             this.reservatieRepository = reservatieRepository;
+            this.config = configWrapper.GetConfig();
         }
 
         // GET: Catalogus
@@ -63,20 +65,25 @@ namespace HoGentLend.Controllers
 
             long convertId = Convert.ToInt64(id);
 
-            int[] chartList = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            int[] chartList = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
             foreach (ReservatieLijn rl in m.ReservatieLijnen)
             {
-                for (int i = 0; i < 14; i++)
+                for (int i = 0; i < 12; i++)
                 {
-                    if (rl.OphaalMoment <= DateTime.Today.AddDays(i) && rl.IndienMoment >= DateTime.Today.AddDays(i))
+                    int days = i * 7 * config.LendingPeriod;
+
+                    if (rl.OphaalMoment <= DateTime.Today.AddDays(days) && rl.IndienMoment >= DateTime.Today.AddDays(days))
                     {
                         chartList[i]++;
                     }
                 }
 
             }
+
             ViewBag.chartList = chartList;
+            ViewBag.lendingPeriod = config.LendingPeriod;
+
             return View(new MateriaalViewModel(m));
         }
     }

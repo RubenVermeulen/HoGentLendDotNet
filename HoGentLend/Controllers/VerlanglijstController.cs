@@ -21,10 +21,6 @@ namespace HoGentLend.Controllers
         // GET: Index
         public ActionResult Index(Gebruiker gebruiker)
         {
-            // Twee materialen toevoegen om te testen
-            //Add(gebruiker, 5);
-            //Add(gebruiker, 3);
-
             IEnumerable<MateriaalViewModel> materials = gebruiker.WishList
                 .Materials
                 .OrderBy(m => m.Name)

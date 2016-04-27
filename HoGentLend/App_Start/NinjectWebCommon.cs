@@ -1,5 +1,6 @@
 using HoGentLend.Models.DAL;
 using HoGentLend.Models.Domain;
+using HoGentLend.Models.Domain.DAL;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(HoGentLend.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(HoGentLend.App_Start.NinjectWebCommon), "Stop")]
@@ -70,6 +71,7 @@ namespace HoGentLend.App_Start
             kernel.Bind<IGroepRepository>().To<GroepRepository>().InRequestScope();
             kernel.Bind<IGebruikerRepository>().To<GebruikerRepository>().InRequestScope();
             kernel.Bind<IReservatieRepository>().To<ReservatieRepository>().InRequestScope();
+            kernel.Bind<IConfigWrapper>().To<ConfigWrapper>().InRequestScope();
 
             kernel.Bind<IHoGentApiLookupProvider>().To<OfflineHoGentApiLookupProvider>().InRequestScope();
           //  kernel.Bind<IHoGentApiLookupProvider>().To<HoGentApiLookupProvider>().InRequestScope();
