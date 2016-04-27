@@ -15,7 +15,8 @@ namespace HoGentLendTests.Models.Domain
 
         private Materiaal material, materialNotLendable;
 
-        private Reservatie rStudent, rLector, rStudentOpgehaald;
+        private Reservatie rStudent, rLector, rStudentOpgehaald, rStudentSingleLine;
+        private ReservatieLijn rStudentLijn, rStudentSingleLineLijn;
 
         [TestInitialize]
         public void setup()
@@ -107,7 +108,8 @@ namespace HoGentLendTests.Models.Domain
 
             rStudent = new Reservatie(student, _13April2016, _20April2016);
             rStudent.ReservatieLijnen = new List<ReservatieLijn>();
-            rStudent.ReservatieLijnen.Add(new ReservatieLijn(2, _13April2016, _20April2016, m1, rStudent));
+            rStudentLijn = new ReservatieLijn(2, _13April2016, _20April2016, m1, rStudent);
+            rStudent.ReservatieLijnen.Add(rStudentLijn);
             rStudent.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m2, rStudent));
             rStudent.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3, rStudent));
 
@@ -120,6 +122,11 @@ namespace HoGentLendTests.Models.Domain
             rStudentOpgehaald.ReservatieLijnen.Add(new ReservatieLijn(3, _1April2016, _8April2016, m2, rStudentOpgehaald));
             rStudentOpgehaald.ReservatieLijnen.Add(new ReservatieLijn(4, _1April2016, _8April2016, m3, rStudentOpgehaald));
 
+            rStudentSingleLine = new Reservatie(student, _13April2016, _20April2016);
+            rStudentSingleLine.ReservatieLijnen = new List<ReservatieLijn>();
+            rStudentSingleLineLijn = new ReservatieLijn(2, _13April2016, _20April2016, m1, rStudentSingleLine);
+            rStudentSingleLine.ReservatieLijnen.Add(rStudentSingleLineLijn);
+
             rLector = new Reservatie(lector, _21April2016, _28April2016);
             rLector.ReservatieLijnen = new List<ReservatieLijn>();
             rLector.ReservatieLijnen.Add(new ReservatieLijn(2, _21April2016, _28April2016, m4, rLector));
@@ -128,6 +135,7 @@ namespace HoGentLendTests.Models.Domain
 
             student.Reservaties.Add(rStudent);
             student.Reservaties.Add(rStudentOpgehaald);
+            student.Reservaties.Add(rStudentSingleLine);
             lector.Reservaties.Add(rLector);
         }
 
@@ -239,6 +247,28 @@ namespace HoGentLendTests.Models.Domain
             student.RemoveReservation(rStudent);
             Assert.AreEqual(beforeCount - 1, student.Reservaties.Count);
         }
-        // TODO: test AddReservation, RemoveReservationLijn
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestRemoveReservationLineReservationLineIsVerplicht()
+        {
+            student.RemoveReservationLijn(null);
+        }
+        [TestMethod]
+        public void TestRemoveReservationLineDeletesReservationLine()
+        {
+            var beforeCount = rStudent.ReservatieLijnen.Count;
+            student.RemoveReservationLijn(rStudentLijn);
+            Assert.AreEqual(beforeCount - 1, rStudent.ReservatieLijnen.Count);
+        }
+        [TestMethod]
+        public void TestRemoveReservationLineAlsoDeletedReservationIfLastLine()
+        {
+            var beforeCount = student.Reservaties.Count;
+            student.RemoveReservationLijn(rStudentSingleLineLijn);
+            Assert.AreEqual(beforeCount - 1, student.Reservaties.Count);
+
+        }
+
+        // TODO: test AddReservation
     }
 }
