@@ -310,7 +310,8 @@ namespace HoGentLend.Models.DAL
 
                 Reservatie r4 = new Reservatie(g2, _21April2016, _28April2016);
                 r4.ReservatieLijnen = new List<ReservatieLijn>();
-                r4.ReservatieLijnen.Add(new ReservatieLijn(14, _21April2016, _28April2016, m4, r4));
+                r4.ReservatieLijnen.Add(new ReservatieLijn(13, _21April2016, _28April2016, m4, r4));
+                r4.ReservatieLijnen.Add(new ReservatieLijn(7, _21April2016, _28April2016, m5, r4));
 
                 context.Reservaties.Add(r1);
                 context.Reservaties.Add(r2);

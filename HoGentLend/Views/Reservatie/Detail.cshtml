@@ -17,9 +17,13 @@
             {
                 <span class="text-success">Opgehaald</span>
             }
+            else if (Model.Conflict)
+            {
+                <span class="text-danger">Conflict!</span>
+            }
             else
             {
-                <span class="text-danger">Nog niet opgehaald</span>
+                <span class="text-warning">Nog niet opgehaald</span>
             }
 
             <hr/>
@@ -78,13 +82,20 @@
                             <input type="hidden" name="reservatieLineId" value="@item.Id"/>
                         </div>
                     </div>
-                    if (item.AantalSlechtsBeschikbaar > 0)
+                    if (item.AantalSlechtsBeschikbaar != 0)
                     {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6 col-md-offset-2">
                                     <span class="text-danger">
-                                        Conflict! Slechts @item.AantalSlechtsBeschikbaar van dit voorwerp meer beschikbaar.
+                                        @if (item.AantalSlechtsBeschikbaar < 0)
+                                        {
+                                            @:Conflict! Dit voorwerp is niet meer beschikbaar.
+                                        }
+                                        else
+                                        {
+                                            @:Conflict! Slechts @item.AantalSlechtsBeschikbaar van dit voorwerp meer beschikbaar.
+                                        }
                                     </span>
                                 </div>
                             </div>

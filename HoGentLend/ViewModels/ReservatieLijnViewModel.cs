@@ -33,13 +33,13 @@ namespace HoGentLend.ViewModels
         {
         }
 
-        public ReservatieLijnViewModel(ReservatieLijn r, int aantalConflicterend)
+        public ReservatieLijnViewModel(ReservatieLijn r, int aantalSlechtBeschikbaar)
         {
             Id = r.Id;
             Amount = r.Amount;
             IndienMoment = r.IndienMoment;
             OphaalMoment = r.OphaalMoment;
-            AantalSlechtsBeschikbaar = (int)r.Amount - aantalConflicterend;
+            AantalSlechtsBeschikbaar = aantalSlechtBeschikbaar;
             Materiaal = new MateriaalViewModel(r.Materiaal);
         }
 
