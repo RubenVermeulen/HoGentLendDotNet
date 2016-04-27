@@ -74,15 +74,25 @@
                                 </button>
 
                             </div>
-                            <input type="hidden" name="reservatieId" value="@Model.Id" />
-                            <input type="hidden" name="reservatieLineId" value="@item.Id" />
+                            <input type="hidden" name="reservatieId" value="@Model.Id"/>
+                            <input type="hidden" name="reservatieLineId" value="@item.Id"/>
                         </div>
                     </div>
-
-
+                    if (item.AantalSlechtsBeschikbaar > 0)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6 col-md-offset-2">
+                                    <span class="text-danger">
+                                        Conflict! Slechts @item.AantalSlechtsBeschikbaar van dit voorwerp meer beschikbaar.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    
                     <hr/>
-
-
+                    
                 }
 
 

@@ -33,22 +33,28 @@ namespace HoGentLend.ViewModels
         [DisplayName("Opgehaald")]
         public bool Opgehaald { get; set; }
 
+        [DisplayName("Conflict")]
+        public bool Conflict { get; set; }
+
         public List<ReservatieLijnViewModel> ReservatieLijnen { get; set; }
 
-
-        public ReservatieViewModel(Reservatie r)
+        public ReservatieViewModel(Reservatie r) : this(r, false)
         {
+        }
 
+        public ReservatieViewModel(Reservatie r, bool conflict)
+        {
             Id = r.Id;
             Ophaalmoment = r.Ophaalmoment;
             Indienmoment = r.Indienmoment;
             Reservatiemoment = r.Reservatiemoment;
             Opgehaald = r.Opgehaald;
 
+            Conflict = conflict;
 
             ReservatieLijnen = r.ReservatieLijnen.Select(rl => new ReservatieLijnViewModel(rl)).ToList();
-
         }
+
 
         public ReservatieViewModel(List<Reservatie> reservaties)
         {

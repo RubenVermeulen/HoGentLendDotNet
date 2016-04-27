@@ -308,9 +308,14 @@ namespace HoGentLend.Models.DAL
                 r2.ReservatieLijnen.Add(new ReservatieLijn(3, _21April2016, _28April2016, m5, r2));
                 r2.ReservatieLijnen.Add(new ReservatieLijn(4, _21April2016, _28April2016, m3, r2));
 
+                Reservatie r4 = new Reservatie(g2, _21April2016, _28April2016);
+                r4.ReservatieLijnen = new List<ReservatieLijn>();
+                r4.ReservatieLijnen.Add(new ReservatieLijn(14, _21April2016, _28April2016, m4, r4));
+
                 context.Reservaties.Add(r1);
                 context.Reservaties.Add(r2);
                 context.Reservaties.Add(r3);
+                context.Reservaties.Add(r4);
 
                 context.SaveChanges();
                 //base.Seed(context);
