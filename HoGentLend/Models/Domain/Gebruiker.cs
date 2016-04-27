@@ -127,7 +127,7 @@ namespace HoGentLend.Models.Domain
             // Verwijder de volledige reservatie wanneer er geen reservatielijnen meer zijn.
             if (r.ReservatieLijnen.Count == 0)
             {
-                Reservaties.Remove(r);
+                reservatieRepository.Delete(r);
             }
         }
 
