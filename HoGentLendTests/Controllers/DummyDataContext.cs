@@ -72,7 +72,7 @@ namespace HoGentLendTests.Controllers
                 IsLendable = false
             };
 
-            IList<Materiaal> mList = (new Materiaal[] {m1, m2}).ToList(); /* all lendable materials */
+            IList<Materiaal> mList = (new Materiaal[] { m1, m2 }).ToList(); /* all lendable materials */
 
             List<Materiaal> mList2 = (new Materiaal[] { m1, m2, m3 }).ToList(); /* all materials */
             MateriaalList = mList2.AsQueryable();
@@ -87,37 +87,16 @@ namespace HoGentLendTests.Controllers
             {
                 Materials = new List<Materiaal>()
             };
-            
+
 
             /* Users */
-            Gebruiker g1 = new Gebruiker()
-            {
-                Email = "ruben@hogent.be",
-                FirstName = "Ruben",
-                LastName = "Vermeulen",
-                IsLector = false,
-                WishList = l1
-            };
+            Gebruiker g1 = new Gebruiker("Ruben", "Vermeulen", "ruben@hogent.be", false, l1, new List<Reservatie>());
 
-            Gebruiker g2 = new Gebruiker() /* Empty wishlist */
-            {
-                Email = "sven@hogent.be",
-                FirstName = "Sven",
-                LastName = "Dedeene",
-                IsLector = false,
-                WishList = l2
-            };
+            Gebruiker g2 = new Gebruiker("Sven", "Dedeene", "sven@hogent.be", false, l2, new List<Reservatie>());
 
-            Gebruiker g3 = new Gebruiker
-            {
-                Email = "lector@hogent.be",
-                FirstName = "Xander",
-                LastName = "Berkein",
-                IsLector = true,
-                WishList = l2
-            };
+            Gebruiker g3 = new Gebruiker("Xander", "Berkein", "lector@hogent.be", true, l2, new List<Reservatie>());
 
             GebruikerList = (new Gebruiker[] { g1, g2, g3 }).ToList().AsQueryable();
-        } 
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace HoGentLend.Controllers
             ViewBag.leergebiedId = leergebiedId;
             ViewBag.filter = filter;
 
-            if (gebruiker.DoShowAllMaterials()) // If lector return all materialen
+            if (gebruiker.CanSeeAllMaterials()) // If lector return all materialen
             {
                 return View(materialen);
             }

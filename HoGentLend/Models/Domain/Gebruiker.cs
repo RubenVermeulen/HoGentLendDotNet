@@ -12,27 +12,37 @@ namespace HoGentLend.Models.Domain
     {
         public long Id { get; private set; }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public bool IsLector { get; set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public string Email { get; private set; }
+        public bool IsLector { get; private set; }
 
-        public virtual VerlangLijst WishList { get; set; }
-        public virtual List<Reservatie> Reservaties { get; set; }
+        public virtual VerlangLijst WishList { get; private set; }
+        public virtual List<Reservatie> Reservaties { get; private set; }
 
-        public Gebruiker()
+        private Gebruiker()
         {
-
+            // default for entityframework
+        }
+        
+        public Gebruiker(string firstName, string lastName, string email, bool isLector) 
+            : this(firstName, lastName, email, isLector, new VerlangLijst(), new List<Reservatie>())
+        {
         }
 
-        public bool DoShowAllMaterials()
+        public Gebruiker(string firstName, string lastName, string email, bool isLector, VerlangLijst wishList, List<Reservatie> reservaties)
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Email = email;
+            this.IsLector = isLector;
+            this.WishList = wishList;
+            this.Reservaties = reservaties;
+        }
+
+        public bool CanSeeAllMaterials()
         {
             return IsLector;
-        }
-
-        public bool CanSeeMaterial(Materiaal mat)
-        {
-            return IsLector || mat.IsLendable;
         }
 
         public void AddToWishList(Materiaal mat)
@@ -142,5 +152,9 @@ namespace HoGentLend.Models.Domain
             return amountAvailable;
         }
 
+        private bool CanSeeMaterial(Materiaal mat)
+        {
+            return IsLector || mat.IsLendable;
+        }
     }
 }

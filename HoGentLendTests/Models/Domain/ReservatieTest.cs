@@ -21,15 +21,7 @@ namespace HoGentLendTests.Models.Domain
         [TestInitialize]
         public void setup()
         {
-            this.lener = new Gebruiker()
-            {
-                FirstName = "Lener",
-                Email = "lener@email.com",
-                IsLector = false,
-                LastName = "De Lener",
-                Reservaties = new List<Reservatie>(),
-                WishList = new VerlangLijst()
-            };
+            this.lener = new Gebruiker("Lener", "De Lener", "lener@email.com", false);
 
             this.ophaalMoment = new DateTime(2016, 4, 1);
             this.indienMoment = new DateTime(2016, 4, 8);
@@ -74,7 +66,7 @@ namespace HoGentLendTests.Models.Domain
         [TestMethod]
         public void TestReservatieMomentIsNowBijNieuweReservatie()
         {
-            DateTime  before = DateTime.Now;
+            DateTime before = DateTime.Now;
             Reservatie r = new Reservatie(lener, ophaalMoment, indienMoment);
             DateTime after = DateTime.Now;
             Assert.IsTrue(before <= r.Reservatiemoment && r.Reservatiemoment >= after);

@@ -107,15 +107,9 @@ namespace HoGentLend.Controllers
                         var registerResult = UserManager.CreateAsync(newUser, PASSWORD_FILLER).Result;
                         if (registerResult.Succeeded)
                         {
-                            Gebruiker nieuweGebruiker = new Gebruiker();
+                            Gebruiker nieuweGebruiker = new Gebruiker(lookupResult.Email, lookupResult.FirstName,
+                                lookupResult.LastName, (lookupResult.Type == "personeel"));
                             gebruikerRepo.Add(nieuweGebruiker);
-                            nieuweGebruiker.Email = lookupResult.Email;
-                            nieuweGebruiker.FirstName = lookupResult.FirstName;
-                            nieuweGebruiker.LastName = lookupResult.LastName;
-                            nieuweGebruiker.IsLector = (lookupResult.Type == "personeel");
-
-                            nieuweGebruiker.WishList = new VerlangLijst();
-                            nieuweGebruiker.Reservaties = new List<Reservatie>();
                             gebruikerRepo.SaveChanges();
                             SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
                             return RedirectToAction("Index", "Catalogus");

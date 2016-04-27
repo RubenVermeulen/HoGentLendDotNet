@@ -63,7 +63,7 @@ namespace HoGentLend.Models.DAL
 
 
 
-                
+
 
 
 
@@ -244,24 +244,8 @@ namespace HoGentLend.Models.DAL
                 context.Materialen.Add(m10);
 
 
-                Gebruiker g1 = new Gebruiker()
-                {
-                    FirstName = "Offline",
-                    LastName = "Student",
-                    Email = "offline.student@hogent.be",
-                    IsLector = false,
-                    WishList = new VerlangLijst(),
-                    Reservaties = new List<Reservatie>()
-                };
-                Gebruiker g2 = new Gebruiker()
-                {
-                    FirstName = "Offline",
-                    LastName = "Lector",
-                    Email = "offline.lector@hogent.be",
-                    IsLector = true,
-                    WishList = new VerlangLijst(),
-                    Reservaties = new List<Reservatie>()
-                };
+                Gebruiker g1 = new Gebruiker("Offline", "Student", "offline.student@hogent.be", false);
+                Gebruiker g2 = new Gebruiker("Offline", "Lector", "offline.lector@hogent.be", true);
                 context.Users.Add(new ApplicationUser()
                 {
                     Id = "95bebdd6-39b7-4ea5-a3fb-996af68af2aa",
