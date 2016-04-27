@@ -9,6 +9,8 @@ using HoGentLend.ViewModels;
 
 namespace HoGentLend.Controllers
 {
+    //dont hate the memer
+    //hate the meme
     [Authorize]
     public class ReservatieController : Controller
     {
