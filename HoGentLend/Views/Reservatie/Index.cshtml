@@ -21,11 +21,6 @@
     else
     {
 
-        using (Html.BeginForm("Remove", "Reservatie", FormMethod.Post))
-        {
-           
-
-
             int i = 1;
             foreach (var item in Model)
             {
@@ -62,23 +57,24 @@
                             @Html.ActionLink("Details", "Detail", "Reservatie", new { id = item.Id }, new {@class = "btn btn-default"})
                         </div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-default" @(item.Opgehaald ? "disabled" : "")>
-                                Annuleer
-                            </button>
+                            @using (Html.BeginForm("Remove", "Reservatie", FormMethod.Post))
+                            {
+                                <input type="hidden" name="reservatieId" value="@item.Id"/>
+                                <button type="submit" class="btn btn-default" @(item.Opgehaald ? "disabled" : "")>
+                                    Annuleer
+                                </button>
+                            }
 
                         </div>
-                        <input type="hidden" name="reservatieId" value="@item.Id" />
+                        
                     </div>
                 </div>
 
 
                 <hr/>
                 i++;
-            
 
         }
-
-    }
     }
 </div>
 
