@@ -96,6 +96,8 @@ namespace HoGentLendTests.Controllers
 
             Gebruiker g3 = new Lector("Xander", "Berkein", "lector@hogent.be", l2, new List<Reservatie>());
 
+            
+
             GebruikerList = (new Gebruiker[] { g1, g2, g3 }).ToList().AsQueryable();
         }
     }

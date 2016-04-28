@@ -23,8 +23,8 @@ namespace HoGentLend.Models.Domain
         {
             // default for entityframework
         }
-        
-        public Gebruiker(string firstName, string lastName, string email) 
+
+        public Gebruiker(string firstName, string lastName, string email)
             : this(firstName, lastName, email, new VerlangLijst(), new List<Reservatie>())
         { }
 
@@ -140,5 +140,7 @@ namespace HoGentLend.Models.Domain
 
         public abstract bool CanSeeMaterial(Materiaal mat);
         public abstract IEnumerable<ReservatieLijn> FilterReservatieLijnenDieOveruledKunnenWorden(IEnumerable<ReservatieLijn> lijnen);
+
+
     }
 }
