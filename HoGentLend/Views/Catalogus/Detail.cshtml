@@ -133,9 +133,6 @@
 
         <hr/>
 
-        @* Chart *@
-        <div id="chart" class="col-md-12 col-sm-12" style="height: 400px;"></div>
-
         @* Information for buying the item *@
         <div class="bg-info info-buying">
             <h3>@Model.Name aankopen</h3>
@@ -189,7 +186,10 @@
             </p>
         </div>
 
+        <hr/>
 
+        @* Chart *@
+        <div id="chart" class="col-md-12 col-sm-12" style="height: 400px;"></div>
         
     </div>
 </div>
@@ -199,6 +199,11 @@
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script>
         $(function () {
+            var week = new Date(new Date().getTime()),
+                day = week.getDay(),
+                diffToMonday = week.getDate() - day + (day === 0 ? -6 : 1),
+                lastMonday = new Date(week.setDate(diffToMonday));
+
             Highcharts.setOptions({
                 global: {
                     useUTC: false
@@ -206,6 +211,7 @@
                 lang: {
                     months: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
                     shortMonths: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+                    weekdays: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
                 }
             });
 
@@ -218,12 +224,10 @@
                 },
                 xAxis: {
                     title: {
-                        text: 'Dagen',
+                        text: 'Weken',
                     },
                     type: 'datetime',
-                    tickInterval: 3600 * 1000 * 24, // 1 dag
-                    //range: 3600 * 1000 * 24 * 14, // 14 dagen
-                    //max: 3600 * 1000 * 24 * 13, // 14 dagen
+                    tickInterval: 3600 * 1000 * 24 * 7 * @ViewBag.lendingPeriod, // 1 week
                 },
                 yAxis: {
                     title: {
@@ -234,7 +238,7 @@
 
                 plotOptions: {
                     series: {
-                        pointStart: Date.now(),
+                        pointStart: lastMonday.getTime(),
                     }
                 },
 
@@ -242,22 +246,22 @@
                     {
                         name: 'Aantal gereserveerd',
                         data: [
-                            @for (var i = 0; i < 14; i++)
+                            @for (var i = 0; i < 12; i++)
                             {
                                 @String.Format("{0},", ViewBag.chartList[i])
                             }
                         ],
-                        pointInterval: 3600 * 1000 * 24,
+                        pointInterval: 3600 * 1000 * 24 * 7 * @ViewBag.lendingPeriod,
                     },
                     {
                         name: 'Aantal beschikbaar',
                         data: [
-                            @for (var i = 0; i < 14; i++)
+                            @for (var i = 0; i < 12; i++)
                             {
                                 @String.Format("{0},", Model.Amount - Model.AmountNotAvailable - ViewBag.chartList[i])
                             }
                         ],
-                        pointInterval: 3600 * 1000 * 24,
+                        pointInterval: 3600 * 1000 * 24 * 7 * @ViewBag.lendingPeriod,
                     }
                 ],
             });

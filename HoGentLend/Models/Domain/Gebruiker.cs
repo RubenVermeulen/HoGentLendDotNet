@@ -5,6 +5,7 @@ using System.Web.Services.Protocols;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
+using HoGentLend.Models.DAL;
 
 namespace HoGentLend.Models.Domain
 {
@@ -104,7 +105,7 @@ namespace HoGentLend.Models.Domain
             return reservatie;
         }
 
-        public void RemoveReservationLijn(ReservatieLijn reservatieLijn)
+        public void RemoveReservationLijn(ReservatieLijn reservatieLijn, ReservatieRepository reservatieRepository)
         {
             if (reservatieLijn == null)
             {
@@ -118,10 +119,15 @@ namespace HoGentLend.Models.Domain
             {
                 throw new ArgumentException("De reservatielijn is al verwijderd geweest.");
             }
-            reservatieLijn.Reservatie.ReservatieLijnen.Remove(reservatieLijn);
-            if (reservatieLijn.Reservatie.ReservatieLijnen.Count == 0)
+
+            Reservatie r = reservatieLijn.Reservatie;
+            //reservatieLijn.Reservatie.ReservatieLijnen.Remove(reservatieLijn);
+            reservatieRepository.RemoveReservationLine(reservatieLijn);
+
+            // Verwijder de volledige reservatie wanneer er geen reservatielijnen meer zijn.
+            if (r.ReservatieLijnen.Count == 0)
             {
-                Reservaties.Remove(reservatieLijn.Reservatie);
+                reservatieRepository.Delete(r);
             }
         }
 
