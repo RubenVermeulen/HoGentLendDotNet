@@ -17,7 +17,7 @@ namespace HoGentLendTests.Controllers
 
         private DummyDataContext ctx;
         private ReservatieController reservatieController;
-        
+
 
         private Mock<IMateriaalRepository> mockMateriaalRepository;
         private Mock<IGebruikerRepository> mockGebruikerRepository;
@@ -71,6 +71,7 @@ namespace HoGentLendTests.Controllers
             mockMateriaalRepository = new Mock<IMateriaalRepository>();
 
             mockMateriaalRepository.Setup(m => m.FindBy(342)).Returns(m1);
+            mockReservatieRepository.Setup(m => m.FindBy(342)).Returns(ctx.reservatie);
 
             reservatieController = new ReservatieController(mockReservatieRepository.Object, mockMateriaalRepository.Object);
         }
@@ -85,11 +86,11 @@ namespace HoGentLendTests.Controllers
             ReservatieViewModel[] reservations = ((IEnumerable<ReservatieViewModel>)result.Model).ToArray();
 
             // Assert
-            Assert.AreEqual(0, reservations.Length);
+            Assert.AreEqual(1, reservations.Length);
         }
 
         [TestMethod]
-        public void AddSetsReservationsForRubenOnOne()
+        public void AddSetsReservationsForRubenOnTwo()
         {
             Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
             List<ReservatiePartModel> rpms = new List<ReservatiePartModel>();
@@ -99,7 +100,7 @@ namespace HoGentLendTests.Controllers
             reservatieController.Add(g, rpms, DateTime.Now);
 
             //Assert
-            Assert.AreEqual(1, g.Reservaties.Count);
+            Assert.AreEqual(2, g.Reservaties.Count);
         }
 
         [TestMethod]
@@ -111,10 +112,10 @@ namespace HoGentLendTests.Controllers
             rpms.Add(rpm);
 
             reservatieController.Add(g, rpms, DateTime.Now);
-            reservatieController.Remove(g, 342);
+            reservatieController.Remove(g, 341);
 
-            Assert.AreNotEqual(0,g.Reservaties.Count);
-            
+            Assert.AreEqual(1, g.Reservaties.Count);
+
 
         }
 
@@ -126,7 +127,6 @@ namespace HoGentLendTests.Controllers
             List<ReservatiePartModel> rpms = new List<ReservatiePartModel>();
             rpms.Add(rpm);
 
-           
             reservatieController.Remove(g, 342);
 
             Assert.AreEqual(0, g.Reservaties.Count);

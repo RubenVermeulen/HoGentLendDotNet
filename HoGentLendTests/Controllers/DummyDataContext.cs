@@ -14,6 +14,8 @@ namespace HoGentLendTests.Controllers
         public IQueryable<Groep> DoelgroepList { get; set; }
         public IQueryable<Groep> LeergebiedList { get; set; }
 
+        public Reservatie reservatie { get; set; }
+
         public DummyDataContext()
         {
 
@@ -72,6 +74,8 @@ namespace HoGentLendTests.Controllers
                 IsLendable = false
             };
 
+
+
             IList<Materiaal> mList = (new Materiaal[] { m1, m2 }).ToList(); /* all lendable materials */
 
             List<Materiaal> mList2 = (new Materiaal[] { m1, m2, m3 }).ToList(); /* all materials */
@@ -96,9 +100,13 @@ namespace HoGentLendTests.Controllers
 
             Gebruiker g3 = new Lector("Xander", "Berkein", "lector@hogent.be", l2, new List<Reservatie>());
 
-            
-
             GebruikerList = (new Gebruiker[] { g1, g2, g3 }).ToList().AsQueryable();
+
+            /* Reservaties */
+            Reservatie rv = new Reservatie(g1, DateTime.Now, DateTime.Now.AddDays(5));
+
+            reservatie = rv;
+            g1.Reservaties.Add(rv);
         }
     }
 }
