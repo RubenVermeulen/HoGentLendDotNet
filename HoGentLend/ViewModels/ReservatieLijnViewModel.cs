@@ -26,17 +26,24 @@ namespace HoGentLend.ViewModels
         [DisplayName("Materiaal")]
         public MateriaalViewModel Materiaal { get; set; }
 
-        public ReservatieLijnViewModel(ReservatieLijn r)
+        public int AantalSlechtsBeschikbaar { get; set; }
+
+
+        public ReservatieLijnViewModel(ReservatieLijn r) : this(r, 0)
+        {
+        }
+
+        public ReservatieLijnViewModel(ReservatieLijn r, int aantalSlechtBeschikbaar)
         {
             Id = r.Id;
             Amount = r.Amount;
             IndienMoment = r.IndienMoment;
             OphaalMoment = r.OphaalMoment;
+            AantalSlechtsBeschikbaar = aantalSlechtBeschikbaar;
             Materiaal = new MateriaalViewModel(r.Materiaal);
-
-            Materiaal = new MateriaalViewModel(r.Materiaal);
-
         }
+
+       
 
         
     }

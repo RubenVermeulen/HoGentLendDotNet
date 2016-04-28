@@ -34,7 +34,7 @@
                             <strong>Ophaalmoment</strong> <br/> @Html.DisplayFor(model => item.Ophaalmoment)
                         </div>
                         <div class="col-md-2">
-                            <strong>Indienmoment</strong> <br /> @Html.DisplayFor(model => item.Indienmoment)
+                            <strong>Indienmoment</strong> <br/> @Html.DisplayFor(model => item.Indienmoment)
                         </div>
                         <div class="col-md-3">
                             @{ int j = 0;}
@@ -44,37 +44,48 @@
                                 {
                                     <text>, </text>
                                 }
-                                <span>@Html.ActionLink(reservatielijn.Materiaal.Name, "Detail", "Catalogus", new { id = reservatielijn.Materiaal.Id}, null) (@(reservatielijn.Amount))</span>
+                                <span>@Html.ActionLink(reservatielijn.Materiaal.Name, "Detail", "Catalogus", new {id = reservatielijn.Materiaal.Id}, null) (@(reservatielijn.Amount))</span>
 
                                 
                                 j++;
                             }
                         </div>
                         <div class="col-md-2">
-                            <strong>Status</strong> <br /> @(item.Opgehaald?"Opgehaald":"Niet opgehaald")
+                            <strong>Status</strong> <br/>
+                            @if (item.Opgehaald)
+                            {
+                                @:Opgehaald
+                            }
+                            else if (item.Conflict)
+                            {
+                                <span class="text-danger">Conflict!</span>
+                            }
+                            else
+                            {
+                                @:Niet opgehaald
+                            }
+
                         </div>
                         <div class="col-md-1">
-                            @Html.ActionLink("Details", "Detail", "Reservatie", new { id = item.Id }, new {@class = "btn btn-default"})
+                            @Html.ActionLink("Details", "Detail", "Reservatie", new {id = item.Id}, new {@class = "btn btn-default"})
                         </div>
                         <div class="col-md-1">
                             @using (Html.BeginForm("Remove", "Reservatie", FormMethod.Post))
                             {
                                 <input type="hidden" name="reservatieId" value="@item.Id"/>
-                                <button type="submit" class="btn btn-default" @(item.Opgehaald ? "disabled" : "")>
-                                    Annuleer
-                                </button>
+                            <button type="submit" class="btn btn-default" @(item.Opgehaald ? "disabled" : "")>
+                                Annuleer
+                            </button>
                             }
 
                         </div>
-                        
+                        <input type="hidden" name="reservatieId" value="@item.Id" />
                     </div>
                 </div>
-
-
                 <hr/>
                 i++;
-
-        }
+            
+    }
     }
 </div>
 
