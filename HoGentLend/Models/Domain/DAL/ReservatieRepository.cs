@@ -16,9 +16,6 @@ namespace HoGentLend.Models.DAL
 {
     public class ReservatieRepository : Repository<Reservatie, int>, IReservatieRepository
     {
-
-        private HoGentLendContext ctx;
-
         public ReservatieRepository(HoGentLendContext ctx) : base(ctx.Reservaties, ctx)
         {
             
@@ -36,6 +33,11 @@ namespace HoGentLend.Models.DAL
         {
             return FindAll()
               .SingleOrDefault(x => x.Id == id);
+        }
+
+        public void RemoveReservationLine(ReservatieLijn rl)
+        {
+            DbContext.Entry(rl).State = EntityState.Deleted;
         }
     }
 }

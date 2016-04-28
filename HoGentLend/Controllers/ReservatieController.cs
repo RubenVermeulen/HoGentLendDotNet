@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HoGentLend.Models.DAL;
 using HoGentLend.Models.Domain;
 using HoGentLend.ViewModels;
 
@@ -116,12 +117,16 @@ namespace HoGentLend.Controllers
         public ActionResult RemoveReservationLine(Gebruiker gebruiker, int reservatieId, int reservatieLineId)
         {
             Reservatie res = reservatieRepository.FindBy(reservatieId);
+
             try
             {
                 ReservatieLijn rl = res.ReservatieLijnen.FirstOrDefault(rll => rll.Id == reservatieLineId);
-                gebruiker.RemoveReservationLijn(rl);
+                String name = rl.Materiaal.Name;
+
+                gebruiker.RemoveReservationLijn(rl, reservatieRepository as ReservatieRepository);
                 reservatieRepository.SaveChanges();
-                TempData["msg"] = "Het materiaal " + rl.Materiaal.Name + " is succesvol uit de reservatie verwijderd.";
+
+                TempData["msg"] = "Het materiaal " + name + " is succesvol uit de reservatie verwijderd.";
             }
             catch (ArgumentException e)
             {

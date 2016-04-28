@@ -12,25 +12,28 @@ namespace HoGentLend.Controllers
     public class VerlanglijstController : Controller
     {
         private IMateriaalRepository materiaalRepository;
+        private IConfigWrapper configWrapper;
 
-        public VerlanglijstController(IMateriaalRepository materiaalRepository)
+        public VerlanglijstController(IMateriaalRepository materiaalRepository, IConfigWrapper configWrapper)
         {
             this.materiaalRepository = materiaalRepository;
+            this.configWrapper = configWrapper;
         }
 
         // GET: Index
         public ActionResult Index(Gebruiker gebruiker)
         {
-            // Twee materialen toevoegen om te testen
-            //Add(gebruiker, 5);
-            //Add(gebruiker, 3);
-
             IEnumerable<MateriaalViewModel> materials = gebruiker.WishList
                 .Materials
                 .OrderBy(m => m.Name)
                 .ToList()
                 .Select(m => new MateriaalViewModel(m));
-
+            Config c = configWrapper.GetConfig();
+            ViewBag.ophaalDag = c.Ophaaldag;
+            ViewBag.indienDag = c.Indiendag;
+            ViewBag.aantalWeken = c.LendingPeriod;
+            ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
+            ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
             return View("Index", materials);
         }
 

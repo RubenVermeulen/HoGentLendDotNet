@@ -16,6 +16,21 @@ namespace HoGentLend.Models.DAL
         {
             try
             {
+                // Config
+                DateTime _10u30 = new DateTime(2016, 4, 13).AddHours(10).AddMinutes(30);
+                DateTime _17u00 = new DateTime(2016, 4, 13).AddHours(17);
+
+                Config c = new Config
+                {
+                    LendingPeriod = 1,
+                    Indiendag = "maandag",
+                    Ophaaldag = "vrijdag",
+                    Indientijd = _10u30,
+                    Ophaaltijd = _17u00
+                };
+
+                context.Configs.Add(c);
+
                 // Hier zetten we database context initializatie
                 Groep d1 = new Groep { Name = "Kleuteronderwijs", IsLeerGebied = false };
                 Groep d2 = new Groep { Name = "Lager onderwijs", IsLeerGebied = false };

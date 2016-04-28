@@ -21,11 +21,6 @@
     else
     {
 
-        using (Html.BeginForm("Remove", "Reservatie", FormMethod.Post))
-        {
-           
-
-
             int i = 1;
             foreach (var item in Model)
             {
@@ -51,7 +46,7 @@
                                 }
                                 <span>@Html.ActionLink(reservatielijn.Materiaal.Name, "Detail", "Catalogus", new {id = reservatielijn.Materiaal.Id}, null) (@(reservatielijn.Amount))</span>
 
-
+                                
                                 j++;
                             }
                         </div>
@@ -75,20 +70,21 @@
                             @Html.ActionLink("Details", "Detail", "Reservatie", new {id = item.Id}, new {@class = "btn btn-default"})
                         </div>
                         <div class="col-md-1">
+                            @using (Html.BeginForm("Remove", "Reservatie", FormMethod.Post))
+                            {
+                                <input type="hidden" name="reservatieId" value="@item.Id"/>
                             <button type="submit" class="btn btn-default" @(item.Opgehaald ? "disabled" : "")>
                                 Annuleer
                             </button>
+                            }
 
                         </div>
-                        <input type="hidden" name="reservatieId" value="@item.Id"/>
+                        <input type="hidden" name="reservatieId" value="@item.Id" />
                     </div>
                 </div>
                 <hr/>
                 i++;
             
-
-        }
-
     }
     }
 </div>
