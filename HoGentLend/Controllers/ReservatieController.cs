@@ -36,7 +36,20 @@ namespace HoGentLend.Controllers
                 ReservatieViewModel rvm = new ReservatieViewModel(reservatie);
                 reservaties.Add(rvm);
 
-                FindConflicts(reservatie, rvm, gebruiker);
+                //FindConflicts(reservatie, rvm, gebruiker);
+
+                // @Svonx: wordt later nog in een aparte methode gestoken, staat hier nu voor izi bugfixing
+                List<ReservatieLijn> reservatielijnen = reservatie.ReservatieLijnen.
+                    OrderBy(rl => rl.Materiaal.Name).ToList();
+                for (int i = 0; i < reservatielijnen.Count; i++)
+                {
+                    int aantalSlechtsBeschikbaar = reservatielijnen[i].FindConflicts(gebruiker.CanSeeAllMaterials());
+                    if (aantalSlechtsBeschikbaar != 0)
+                    {
+                        rvm.Conflict = true;
+                    }
+                    rvm.ReservatieLijnen[i].AantalSlechtsBeschikbaar = aantalSlechtsBeschikbaar;
+                }
 
             };
 
@@ -65,7 +78,7 @@ namespace HoGentLend.Controllers
                     amounts.Add(rpm.Amount);
                     x++;
                 }
-                
+
             }
             try
             {
@@ -132,7 +145,7 @@ namespace HoGentLend.Controllers
             {
                 TempData["err"] = e.Message;
             }
-            return RedirectToAction("Detail",new { id = reservatieId});
+            return RedirectToAction("Detail", new { id = reservatieId });
         }
 
         public ActionResult Detail(Gebruiker gebruiker, int id)
@@ -184,11 +197,12 @@ namespace HoGentLend.Controllers
                     {
                         foreach (var lijn in overlappendeLijnen)
                         {
-                            Reservatie bijhorendeReservatie = reservatieRepository.FindBy((int) lijn.ReservatieId);
+                            Reservatie bijhorendeReservatie = reservatieRepository.FindBy((int)lijn.ReservatieId);
+                            System.Diagnostics.Debug.WriteLine("DetailReservatie van overlappende lijn" + ": " + bijhorendeReservatie);
                             if (bijhorendeReservatie.Lener.CanSeeAllMaterials() ||
                                 (bijhorendeReservatie.Reservatiemoment < reservatie.Reservatiemoment))
                             {
-                                aantalNogBeschikbaar -= (int) lijn.Amount;
+                                aantalNogBeschikbaar -= (int)lijn.Amount;
                             }
                         }
                     }
@@ -199,11 +213,11 @@ namespace HoGentLend.Controllers
                     {
                         foreach (var lijn in overlappendeLijnen)
                         {
-                            Reservatie bijhorendeReservatie = reservatieRepository.FindBy((int) lijn.ReservatieId);
+                            Reservatie bijhorendeReservatie = reservatieRepository.FindBy((int)lijn.ReservatieId);
                             if (bijhorendeReservatie.Lener.CanSeeAllMaterials()
                                 && bijhorendeReservatie.Reservatiemoment < reservatie.Reservatiemoment)
                             {
-                                aantalNogBeschikbaar -= (int) lijn.Amount;
+                                aantalNogBeschikbaar -= (int)lijn.Amount;
                             }
                         }
                     }
