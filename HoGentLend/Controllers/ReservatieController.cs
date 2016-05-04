@@ -149,6 +149,8 @@ namespace HoGentLend.Controllers
             return View(rv);
         }
 
+        //test
+
         private ReservatieViewModel FindConflicts(Reservatie reservatie, ReservatieViewModel rvm, Gebruiker gebruiker)
         {
             List<ReservatieLijn> reservatielijnen = reservatie.ReservatieLijnen.
