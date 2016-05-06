@@ -59,6 +59,7 @@ namespace HoGentLend.Controllers
         public ActionResult Detail(int id)
         {
             Materiaal m = materiaalRepository.FindBy(id);
+            List<ReservatieLijn> reservatieLijnen = m.ReservatieLijnen;
 
             if (m == null)
                 return HttpNotFound();
@@ -67,7 +68,7 @@ namespace HoGentLend.Controllers
 
             int[] chartList = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-            foreach (ReservatieLijn rl in m.ReservatieLijnen)
+            foreach (ReservatieLijn rl in reservatieLijnen)
             {
                 for (int i = 0; i < 12; i++)
                 {
@@ -83,6 +84,8 @@ namespace HoGentLend.Controllers
 
             ViewBag.chartList = chartList;
             ViewBag.lendingPeriod = config.LendingPeriod;
+            ViewBag.reservatielijnen = reservatieLijnen;
+
 
             return View(new MateriaalViewModel(m));
         }
