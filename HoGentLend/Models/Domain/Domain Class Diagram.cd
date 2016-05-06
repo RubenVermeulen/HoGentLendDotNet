@@ -3,7 +3,7 @@
   <Class Name="HoGentLend.Models.Domain.Materiaal">
     <Position X="0.75" Y="5.25" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAAQAQAgAAACAAIAAASAAAAAAAAEAAAACACAAQA=</HashCode>
+      <HashCode>AAACAAAQAQAgAAACAAIAAASAAAAAAAAEAAAACACAAQQ=</HashCode>
       <FileName>Models\Domain\Materiaal.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -27,7 +27,7 @@
   <Class Name="HoGentLend.Models.Domain.Gebruiker">
     <Position X="4.75" Y="8.75" Width="7.25" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAACAAAEgIAAAAgABBgAAAAAAAAAAAAgiAAAg=</HashCode>
+      <HashCode>AQACAEAAACAAAkgIAAAAgABBAAAAAAAAAAAAAgiAAAg=</HashCode>
       <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -61,6 +61,13 @@
       <Property Name="ReservatieLijnen" />
     </ShowAsCollectionAssociation>
   </Class>
+  <Class Name="HoGentLend.Models.Domain.Config">
+    <Position X="1" Y="12.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAEAAAAAAAAAAAAAARAAAAEAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Config.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="HoGentLend.Models.Domain.IRepository&lt;EntityType, IdType&gt;">
     <Position X="0.5" Y="0.5" Width="3.25" />
     <TypeIdentifier>
@@ -87,6 +94,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\IGebruikerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HoGentLend.Models.Domain.IConfigWrapper">
+    <Position X="1" Y="10.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\IConfigWrapper.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

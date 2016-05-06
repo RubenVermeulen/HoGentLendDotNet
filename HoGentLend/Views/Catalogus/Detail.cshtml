@@ -28,8 +28,8 @@
         <p>
             @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post))
             {
-                <button type="submit" class="reserveer col-md-12 col-sm-12 col-sx-12">
-                    <span class="glyphicon glyphicon-star"></span>
+                <button type="submit" class="reserveer col-md-12 col-sm-12 col-sx-12" title="Toevoegen aan verlanglijstje">
+                    <span class="glyphicon glyphicon-heart"></span>
                     Voeg toe aan verlanglijstje
                 </button>
                 @Html.HiddenFor(model => model.Id);

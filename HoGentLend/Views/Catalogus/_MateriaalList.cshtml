@@ -40,12 +40,10 @@
                                 <div>
                                     @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post, new { @class = "voegtoeknop" }))
                                     {
-                                        <button type="submit" class="voegtoe">
+                                        <button type="submit" class="voegtoe"  title="Toevoegen aan verlanglijstje">
                                             <div class="sterretje">
-                                                <span class="glyphicon glyphicon-star"></span>
+                                                <span class="glyphicon glyphicon-heart"></span>
                                             </div>
-
-                                            <span class="amount">Naar verlanglijstje</span>
                                         </button>
                                         <input type="hidden" name="id" value="@item.Id" />
                                     }

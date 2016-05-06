@@ -125,22 +125,22 @@ textarea {
 #catalog .voegtoe {
     display: inline-block;
     padding: 0;
-    padding-right: 5px;
-    line-height: 27px;
-    background: #eeeeee;
-    border: 0;
-    border: #009d7e 1px solid;
-    box-shadow: #000 1px 1px 1  px -1px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #bebebe;
+    border-radius: 3px;
+    box-shadow: #000 1px 1px 5px -4px;
+    transition: all .2s linear;
 }
 
 #catalog .voegtoe:hover {
-    background: #009d7e;
-    transition: 0.1s background linear;
+    background: #fff;
+    border-color: rgb(229, 67, 67);
 }
 
-/*#catalog .voegtoe .sterretje:hover {
-    background: #38C23C !important;
-}*/
+#catalog .voegtoe:hover .sterretje {
+    color: rgb(229, 67, 67);
+}
 
 #catalog .voegtoeknop{
     display: inline;
@@ -152,15 +152,15 @@ textarea {
 
 #catalog .voegtoe .sterretje {
     display: inline-block;
-    line-height: 27px;
-    /*margin-right: 5px;
-    margin-left: -5px;*/
     padding: 0 10px;
-    background: #009d7e;
     text-align: center;
     border: none;
-    color: white;
-    
+    color: #000;
+    transition: all .2s linear;
+}
+
+#catalog .voegtoe .sterretje span {
+    line-height: 20px;
 }
 
 @media (min-width : 1200px) {
