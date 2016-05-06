@@ -1,4 +1,5 @@
-﻿@model HoGentLend.ViewModels.MateriaalViewModel
+﻿@using HoGentLend.Models.Domain
+@model HoGentLend.ViewModels.MateriaalViewModel
 
 @{
     ViewBag.Title = "Detail";
@@ -190,7 +191,34 @@
 
         @* Chart *@
         <div id="chart" class="col-md-12 col-sm-12" style="height: 400px;"></div>
-        
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Ophaaldatum</th>
+                    <th>Indiendatum</th>
+                    <th>E-mailadres</th>
+                    <th>Hoeveelheid</th>
+                </tr>
+
+                @foreach (ReservatieLijn rl in ViewBag.reservatielijnen)
+                {
+                    <tr>
+                        <td>@rl.OphaalMoment</td>
+                        <td>@rl.IndienMoment</td>
+                        <td>@rl.Reservatie.Lener.Email</td>
+                        <td>@rl.Amount</td>
+                    </tr>
+                }
+
+                <tr>
+                    <th>Ophaaldatum</th>
+                    <th>Indiendatum</th>
+                    <th>E-mailadres</th>
+                    <th>Hoeveelheid</th>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 
