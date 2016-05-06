@@ -224,7 +224,6 @@
     <Compile Include="Models\Domain\ReservatieLijn.cs" />
     <Compile Include="Models\Domain\Student.cs" />
     <Compile Include="Models\Domain\VerlangLijst.cs" />
-    <Compile Include="Models\MyDateUtil.cs" />
     <Compile Include="ViewModels\MateriaalViewModel.cs" />
     <Compile Include="ViewModels\ReservatieLijnViewModel.cs" />
     <Compile Include="ViewModels\ReservatiePartModel.cs" />

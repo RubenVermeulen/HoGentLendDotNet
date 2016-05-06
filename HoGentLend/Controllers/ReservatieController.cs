@@ -64,18 +64,17 @@ namespace HoGentLend.Controllers
             DateTime? ophaalDatum)
         {
             double weeks = 1; // dit zal later nog uit de database gehaald worden
+            // TODO  zorgen dat ophaaldatum en indiendatum ook de uren hebben van uit de config
 
-
-            List<Materiaal> materials = new List<Materiaal>();
-            List<int> amounts = new List<int>();
-            int x = 0;
+            
+            var materialenTeReserveren = new Dictionary<Materiaal, long>();
+            var x = 0;
             foreach (ReservatiePartModel rpm in reservatiepartmodels)
             {
-                if (rpm.Amount != 0)
+                if (rpm.Amount > 0)
                 {
-                    materials.Add(materiaalRepository.FindBy(rpm.
-                    MateriaalId));
-                    amounts.Add(rpm.Amount);
+                    materialenTeReserveren.Add(materiaalRepository.FindBy(rpm.
+                    MateriaalId), rpm.Amount);
                     x++;
                 }
 
@@ -93,7 +92,7 @@ namespace HoGentLend.Controllers
                 }
 
                 DateTime indienDatum = ophaalDatum.Value.AddDays(7 * weeks);
-                gebruiker.AddReservation(materials, amounts, ophaalDatum.Value, indienDatum,
+                gebruiker.AddReservation(materialenTeReserveren, ophaalDatum.Value, indienDatum, DateTime.Now,
                     reservatieRepository.FindAll());
                 reservatieRepository.SaveChanges();
                 TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
@@ -136,7 +135,7 @@ namespace HoGentLend.Controllers
                 ReservatieLijn rl = res.ReservatieLijnen.FirstOrDefault(rll => rll.Id == reservatieLineId);
                 String name = rl.Materiaal.Name;
 
-                gebruiker.RemoveReservationLijn(rl, reservatieRepository as ReservatieRepository);
+                gebruiker.RemoveReservationLijn(rl, reservatieRepository);
                 reservatieRepository.SaveChanges();
 
                 TempData["msg"] = "Het materiaal " + name + " is succesvol uit de reservatie verwijderd.";

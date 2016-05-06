@@ -8,5 +8,6 @@ namespace HoGentLend.Models.Domain
 {
    public interface IReservatieRepository : IRepository<Reservatie, int>
     {
+        void RemoveReservationLine(ReservatieLijn rl);
     }
 }
