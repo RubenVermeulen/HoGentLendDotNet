@@ -23,8 +23,8 @@ namespace HoGentLend.Models.DAL
                 Config c = new Config
                 {
                     LendingPeriod = 1,
-                    Indiendag = "maandag",
-                    Ophaaldag = "vrijdag",
+                    Indiendag = "vrijdag",
+                    Ophaaldag = "maandag",
                     Indientijd = _10u30,
                     Ophaaltijd = _17u00
                 };

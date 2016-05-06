@@ -75,7 +75,7 @@ namespace HoGentLend.Controllers
                     int days = i * 7 * config.LendingPeriod;
 
                     if (rl.OphaalMoment <= DateTime.Today.AddDays(days) && rl.IndienMoment >= DateTime.Today.AddDays(days))
-                    {
+                    {// TODO FIX THIS
                         chartList[i]++;
                     }
                 }
