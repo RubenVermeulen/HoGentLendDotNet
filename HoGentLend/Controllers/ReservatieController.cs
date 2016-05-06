@@ -67,7 +67,7 @@ namespace HoGentLend.Controllers
             // TODO  zorgen dat ophaaldatum en indiendatum ook de uren hebben van uit de config
 
             
-            var materialenTeReserveren = new Dictionary<Materiaal, long>();
+            var materialenTeReserveren = new Dictionary<Materiaal, int>();
             var x = 0;
             foreach (ReservatiePartModel rpm in reservatiepartmodels)
             {

@@ -58,7 +58,7 @@ namespace HoGentLend.Models.Domain
             WishList.RemoveMaterial(mat);
         }
 
-        public void AddReservation(Dictionary<Materiaal, long> teReserverenMaterialen,
+        public void AddReservation(Dictionary<Materiaal, int> teReserverenMaterialen,
             DateTime ophaalDatum, DateTime indienDatum, DateTime today,
             IQueryable<Reservatie> allReservations)
         {
@@ -72,10 +72,10 @@ namespace HoGentLend.Models.Domain
             }
             Reservatie reservatie = new Reservatie(this, ophaalDatum, indienDatum);
             reservatie.ReservatieLijnen = new List<ReservatieLijn>();
-            foreach (KeyValuePair<Materiaal, long> entry in teReserverenMaterialen)
+            foreach (KeyValuePair<Materiaal, int> entry in teReserverenMaterialen)
             {
                 Materiaal mat = entry.Key;
-                long amount = entry.Value;
+                int amount = entry.Value;
                 long availableAmount = GetAmountAvailableForReservation(mat, allReservations, ophaalDatum, indienDatum);
                 if (amount > availableAmount)
                 {

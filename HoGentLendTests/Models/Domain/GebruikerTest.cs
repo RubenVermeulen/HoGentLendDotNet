@@ -322,7 +322,7 @@ namespace HoGentLendTests.Models.Domain
         [ExpectedException(typeof(ArgumentException))]
         public void TestAddReservationTeReserverenMaterialenNietLeeg()
         {
-            student.AddReservation(new Dictionary<Materiaal, long>(), _13April2016, _20April2016, _1April2016, allReservations);
+            student.AddReservation(new Dictionary<Materiaal, int>(), _13April2016, _20April2016, _1April2016, allReservations);
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
@@ -375,12 +375,12 @@ namespace HoGentLendTests.Models.Domain
             lector.AddReservation(CreateDic(m4, 15), _13April2016, _21April2016, _28April2016, allReservations);
         }
 
-        private Dictionary<Materiaal, long> CreateDic(params Object[] objs)
+        private Dictionary<Materiaal, int> CreateDic(params Object[] objs)
         {
-            var dic = new Dictionary<Materiaal, long>();
+            var dic = new Dictionary<Materiaal, int>();
             for(int i = 0; i < objs.Length; i++)
             {
-                dic.Add(objs[i] as Materiaal, Convert.ToInt64(objs[++i]));
+                dic.Add(objs[i] as Materiaal, Convert.ToInt32(objs[++i]));
             }
             return dic;
         }
