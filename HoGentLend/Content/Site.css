@@ -333,3 +333,8 @@ textarea {
     background: #d9edf7;
 }
 
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}

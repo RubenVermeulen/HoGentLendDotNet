@@ -59,7 +59,7 @@ namespace HoGentLend.Models.Domain
         }
 
         public void AddReservation(List<Materiaal> materials,
-            List<long> amounts,
+            List<int> amounts,
             DateTime ophaalDatum, DateTime indienDatum,
             IQueryable<Reservatie> allReservations)
         {

@@ -16,6 +16,14 @@ namespace HoGentLend.Models.DAL
         {
         }
 
+        public override Materiaal FindBy(int id)
+        {
+            return
+                dbSet.Include(m => m.ReservatieLijnen)
+                    .Include(m => m.ReservatieLijnen.Select(rl => rl.Reservatie.Lener))
+                    .SingleOrDefault(m => m.Id == id);
+        }
+
         public IEnumerable<Materiaal> FindByFilter(String filter, int doelgroepId, int leergebiedId)
         {
             IQueryable<Materiaal> materialen;

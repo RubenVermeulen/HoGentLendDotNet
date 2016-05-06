@@ -18,7 +18,7 @@ namespace HoGentLendTests.Models.Domain
         private DateTime ophaalMoment;
         private DateTime indienMoment;
         private Materiaal materiaal;
-        private long amount;
+        private int amount;
 
 
         [TestInitialize]

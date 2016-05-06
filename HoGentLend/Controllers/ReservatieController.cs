@@ -67,7 +67,7 @@ namespace HoGentLend.Controllers
 
 
             List<Materiaal> materials = new List<Materiaal>();
-            List<long> amounts = new List<long>();
+            List<int> amounts = new List<int>();
             int x = 0;
             foreach (ReservatiePartModel rpm in reservatiepartmodels)
             {

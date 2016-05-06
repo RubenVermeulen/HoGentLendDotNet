@@ -37,8 +37,8 @@
                             }
                         </p>
 
-                                <div>
-                                    @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post, new { @class = "voegtoeknop" }))
+                                <div class="clearfix">
+                                    @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post, new { @class = "voegtoeknop pull-right" }))
                                     {
                                         <button type="submit" class="voegtoe"  title="Toevoegen aan verlanglijstje">
                                             <div class="sterretje">

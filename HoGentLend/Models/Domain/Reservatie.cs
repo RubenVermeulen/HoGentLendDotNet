@@ -51,7 +51,7 @@ namespace HoGentLend.Models.Domain
             this.Reservatiemoment = DateTime.Now;
         }
 
-        public void AddReservationLine(Materiaal materiaal, long amount, DateTime ophaalDatum, DateTime indienDatum)
+        public void AddReservationLine(Materiaal materiaal, int amount, DateTime ophaalDatum, DateTime indienDatum)
         {
             ReservatieLijn reservatieLijn = new ReservatieLijn(amount, ophaalDatum, indienDatum, materiaal, this);
             ReservatieLijnen.Add(reservatieLijn);

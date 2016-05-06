@@ -1,4 +1,5 @@
 ﻿@using HoGentLend.Models.Domain
+@using HoGentLend.ViewModels
 @model HoGentLend.ViewModels.MateriaalViewModel
 
 @{
@@ -189,8 +190,7 @@
 
         <hr/>
 
-        @* Chart *@
-        <div id="chart" class="col-md-12 col-sm-12" style="height: 400px;"></div>
+        <h3>Overzicht reservaties van @Model.Name</h3>
 
         <div class="table-responsive">
             <table class="table table-bordered">
@@ -201,14 +201,22 @@
                     <th>Hoeveelheid</th>
                 </tr>
 
-                @foreach (ReservatieLijn rl in ViewBag.reservatielijnen)
+                @foreach (List<ReservatieLijnViewModel> rlv in ViewBag.reservaties.Values)
                 {
+
                     <tr>
-                        <td>@rl.OphaalMoment</td>
-                        <td>@rl.IndienMoment</td>
-                        <td>@rl.Reservatie.Lener.Email</td>
-                        <td>@rl.Amount</td>
+                        <td rowspan="@(rlv.Count + 1)">@Html.DisplayFor(model => rlv[0].OphaalMoment)</td>
                     </tr>
+
+                    foreach (ReservatieLijnViewModel rl in rlv)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(model => rl.IndienMoment)</td>
+                            <td><a href="mailto:@Html.DisplayFor(model => rl.LenerEmail)">@Html.DisplayFor(model => rl.LenerEmail)</a></td>
+                            <td>@Html.DisplayFor(model => rl.Amount)</td>
+                        </tr>
+                    }
+
                 }
 
                 <tr>
@@ -219,6 +227,11 @@
                 </tr>
             </table>
         </div>
+
+        <hr/>
+
+        @* Chart *@
+        <div id="chart" class="col-md-12 col-sm-12" style="height: 400px;"></div>
     </div>
 </div>
 

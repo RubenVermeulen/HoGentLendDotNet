@@ -9,7 +9,7 @@ namespace HoGentLend.ViewModels
     {
 
         public int MateriaalId { get; set; }
-        public long Amount { get; set; }
+        public int Amount { get; set; }
 
         public ReservatiePartModel()
         {

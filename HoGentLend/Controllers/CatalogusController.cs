@@ -67,6 +67,9 @@ namespace HoGentLend.Controllers
             long convertId = Convert.ToInt64(id);
 
             int[] chartList = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            
+            Dictionary<string, List<ReservatieLijnViewModel>> reservaties = new Dictionary<string, List<ReservatieLijnViewModel>>();
+
 
             foreach (ReservatieLijn rl in reservatieLijnen)
             {
@@ -75,16 +78,25 @@ namespace HoGentLend.Controllers
                     int days = i * 7 * config.LendingPeriod;
 
                     if (rl.OphaalMoment <= DateTime.Today.AddDays(days) && rl.IndienMoment >= DateTime.Today.AddDays(days))
-                    {// TODO FIX THIS
-                        chartList[i]++;
+                    {
+                        chartList[i] = chartList[i] + rl.Amount;
                     }
+                }
+
+                if (reservaties.ContainsKey(rl.OphaalMoment.ToString()))
+                {
+                    reservaties[rl.OphaalMoment.ToString()].Add(new ReservatieLijnViewModel(rl));
+                }
+                else
+                {
+                    reservaties.Add(rl.OphaalMoment.ToString(), new List<ReservatieLijnViewModel>() {new ReservatieLijnViewModel(rl)});
                 }
 
             }
 
             ViewBag.chartList = chartList;
             ViewBag.lendingPeriod = config.LendingPeriod;
-            ViewBag.reservatielijnen = reservatieLijnen;
+            ViewBag.reservaties = reservaties;
 
 
             return View(new MateriaalViewModel(m));
