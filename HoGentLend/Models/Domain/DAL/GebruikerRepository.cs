@@ -19,6 +19,10 @@ namespace HoGentLend.Models.DAL
                 .Include(g => g.Reservaties.Select(r => r.ReservatieLijnen))
                 .Include(g => g.Reservaties.Select(r => r.ReservatieLijnen.Select(rl => rl.Reservatie)))
                 .Include(g => g.Reservaties.Select(r => r.ReservatieLijnen.Select(rl => rl.Materiaal)))
+                .Include(g => g.Reservaties.Select(r => r.ReservatieLijnen
+                    .Select(rl => rl.Materiaal.ReservatieLijnen.Select(rll => rll.Reservatie))))
+                .Include(g => g.Reservaties.Select(r => r.ReservatieLijnen
+                    .Select(rl => rl.Materiaal.ReservatieLijnen.Select(rll => rll.Reservatie.Lener))))
                 .FirstOrDefault(g => g.Email == email);
         }
     }
