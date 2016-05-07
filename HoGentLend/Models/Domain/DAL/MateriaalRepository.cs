@@ -42,7 +42,8 @@ namespace HoGentLend.Models.DAL
                         (m.ArticleCode.ToLower().Contains(filter)) ||
                         (m.Firma.Email.ToLower().Contains(filter)) ||
                         (m.Firma.Name.ToLower().Contains(filter)) ||
-                        (m.Location.ToLower().Contains(filter))
+                        (m.Location.ToLower().Contains(filter))|| 
+                        (m.Description.ToLower().Contains(filter))
                     );
 
                 if (doelgroepId != 0)
