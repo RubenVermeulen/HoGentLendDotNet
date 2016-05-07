@@ -70,7 +70,7 @@
                             @*<button type="submit" class="btn btn-default" name="bevestig" id="@(item.Id)">
                                     Verwijder uit verlanglijstje
                                 </button>*@
-                            @Html.ActionLink("Verwijder uit verlanglijstje", "Remove", "Verlanglijst", new {materiaalId = item.Id}, new {@class = "btn btn-default"})
+                            @Html.ActionLink("Verwijder uit verlanglijstje", "Remove", "Verlanglijst", new {materiaalId = item.Id}, new {@class = "btn btn-default confirmation-delete", @data_name = item.Name})
                         </div>
                     </div>
                 </div>
@@ -103,10 +103,70 @@
     }
 
 </div>
-    
+
+<!-- Modal box -->
+<div id="confirmation-delete" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Bevestiging</h4>
+            </div>
+            <div class="modal-body">
+                <p>Je staat op het punt "<strong><span class="name"></span></strong>" uit je verlanglijstje te verwijderen. Ben je zeker?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm" type="button" class="btn btn-primary">Ja</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Nee</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- --- -->
+
 @section scripts
 {
     <script>
+        // Confirmation Delete
+        $('.confirmation-delete').click(function(e) {
+            var a = $(this);
+
+            var confirmationDelete = $('#confirmation-delete');
+            confirmationDelete.find('.name').html(a.attr('data-name'));
+            confirmationDelete.modal('show');
+
+            $('#confirm').click(function() {
+                window.location.replace(a.attr('href'));
+            });
+
+            e.preventDefault();
+        });
+        
+
+        // Ajax Post Call Wishlist
+        $('button.reserveer').click(function (e) {
+            var button = $(this);
+            var id = button.attr('id');
+
+            $.post("/Verlanglijst/Add", {id: id}, function(data) {
+                if (data.status === 'success') {
+                    button.attr('disabled', 'disabled');
+                    button.addClass('reserveer-active');
+                    button.html('<span class="glyphicon glyphicon-heart"></span> In verlanglijstje');
+                    
+                    var success = $("#success");
+                    success.html(data.message);
+                    success.slideDown();
+
+                    setTimeout(function() {
+                        success.slideUp();
+                    }, 3500);
+                }
+            });
+        });
+        
+        // Date picker
         Date.prototype.addDays = function(days) {
             var dat = new Date(this.valueOf());
             dat.setDate(dat.getDate() + days);
