@@ -28,7 +28,14 @@ namespace HoGentLendTests.Controllers
             mockConfigWrapper = new Mock<IConfigWrapper>();
 
             //mockMateriaalRepository.Setup(m => m.FindAll()).Returns(ctx.MateriaalList);
-
+            mockConfigWrapper.Setup(c => c.GetConfig()).Returns(new Config()
+            {
+                Indiendag = "vrijdag",
+                Ophaaldag = "maandag",
+                Indientijd = new DateTime(1,1,1,17,30,0),
+                Ophaaltijd = new DateTime(1, 1, 1, 10, 30, 0),
+                LendingPeriod = 1
+            });
             controller = new VerlanglijstController(mockMateriaalRepository.Object, mockConfigWrapper.Object);
         }
 
