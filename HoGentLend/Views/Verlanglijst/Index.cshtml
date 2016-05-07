@@ -46,19 +46,19 @@
                             }
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             @Html.ActionLink(item.Name, "Detail", "Catalogus", new {id = item.Id}, null)
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="col-md-4 col-md-offset-2">
                                             <label for="amount">Aantal</label>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6"   >
                                             <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id"/>
-                                            <input type="number" id="amount" class="form-control" name="reservatiepartmodels[@counter].Amount" value="0"/>
+                                            <input type="number" id="amount" class="form-control" min="0" name="reservatiepartmodels[@counter].Amount" value="0"/>
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +192,8 @@
                 language: "nl-BE",
                 daysOfWeekDisabled: "0,1,2,3,4,5,6".replace("," + ophaaldagNr, ""),
                 daysOfWeekHighlighted: String(ophaaldagNr),
-                todayHighlight: true
+                todayHighlight: true,
+                startDate: "@ViewBag.vandaag"
             });
             $("#date").change(function() {
                 var dt = $("#date").datepicker("getDate");

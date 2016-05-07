@@ -53,26 +53,13 @@ namespace HoGentLend.Models.Domain
             this.OphaalMoment = ophaalMoment;
             this.Materiaal = mat;
             this.Reservatie = r;
-            System.Diagnostics.Debug.WriteLine("Reservatielijn aangemaakt, Reservatieid = " + Reservatie.Id + 
-                ", IndienMoment = " + Reservatie.Indienmoment);
-            System.Diagnostics.Debug.WriteLine("^Reservatielijn aangemaakt, Materiaalid = " + Materiaal.Id +
-                ", MateriaalNaam = " + Materiaal.Name);
         }
 
         public int FindConflicts(bool isLector)
         {
-            System.Diagnostics.Debug.WriteLine("ReservatieLijn->FindConflicts->isLector?" + ": " + isLector);
-            //ReservatieLijn rl = this;
-            //Materiaal m = Materiaal;
-
-            //DateTime? indienmoment = rl.IndienMoment;
-            //DateTime? ophaalmoment = rl.OphaalMoment;
-
             //alle overlappende reservaties in 1 lijst
             List<ReservatieLijn> overlappendeLijnen = Materiaal.ReservatieLijnen.Where(r => (
-                (r.IndienMoment <= this.IndienMoment && r.OphaalMoment > this.IndienMoment)
-                || (r.IndienMoment <= this.OphaalMoment && r.OphaalMoment > this.OphaalMoment)
-                || (r.IndienMoment >= this.IndienMoment && r.OphaalMoment <= this.OphaalMoment)
+                (r.IndienMoment > this.OphaalMoment && r.OphaalMoment < this.IndienMoment)
                 )).ToList();
 
             int totaalAantalBeschikbaar = Materiaal.Amount - Materiaal.AmountNotAvailable;
@@ -118,18 +105,14 @@ namespace HoGentLend.Models.Domain
                 //wordt er berekend hoeveel hij er slechts krijgt
                 if (aantalNogBeschikbaar < this.Amount)
                 {
-                    System.Diagnostics.Debug.WriteLine(aantalNogBeschikbaar + ", " + this.Amount);
-                    //rvm.Conflict = true;
                     //laat view weten dat er geen materialen meer beschikbaar zijn voor gebruiker
                     if (aantalNogBeschikbaar <= 0)
                     {
-                        //rvm.ReservatieLijnen[i].AantalSlechtsBeschikbaar = -1;
                         return -1;
                     }
                     else
                     {
-                        //rvm.ReservatieLijnen[i].AantalSlechtsBeschikbaar = (int)rl.Amount - aantalNogBeschikbaar;
-                        return (int) this.Amount - aantalNogBeschikbaar;
+                        return (int) aantalNogBeschikbaar;
                     }
                 }
 

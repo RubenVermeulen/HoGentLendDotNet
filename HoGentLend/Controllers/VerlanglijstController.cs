@@ -34,6 +34,7 @@ namespace HoGentLend.Controllers
             ViewBag.aantalWeken = c.LendingPeriod;
             ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
             ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
+            ViewBag.vandaag = DateTime.Now.ToString("dd/mm/yyyy");
             return View("Index", materials);
         }
 
@@ -70,6 +71,24 @@ namespace HoGentLend.Controllers
                 TempData["err"] = e.Message;
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ActionName("Remove")]
+        public JsonResult RemovePost(Gebruiker gebruiker, int id)
+        {
+            Materiaal mat = materiaalRepository.FindBy(id);
+            try
+            {
+                gebruiker.WishList.RemoveMaterial(mat);
+                materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
+                return Json(new { status = "success", message = "Het materiaal " + mat.Name + " is verwijderd uit uw verlanglijst." });
+
+            }
+            catch (ArgumentException e)
+            {
+                return Json(new { status = "error", message = e.Message });
+            }
         }
 
     }
