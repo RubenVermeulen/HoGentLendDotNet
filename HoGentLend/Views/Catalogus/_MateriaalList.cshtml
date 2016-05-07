@@ -1,4 +1,5 @@
-﻿@model IEnumerable<HoGentLend.ViewModels.MateriaalViewModel>
+﻿@using HoGentLend.Models.Domain
+@model IEnumerable<HoGentLend.ViewModels.MateriaalViewModel>
 
 <div id="catalog" class="row">
     @foreach (var item in Model)
@@ -37,17 +38,25 @@
                             }
                         </p>
 
-                                <div class="clearfix">
-                                    @using (Html.BeginForm("Add", "Verlanglijst", FormMethod.Post, new { @class = "voegtoeknop pull-right" }))
-                                    {
-                                        <button type="submit" class="voegtoe"  title="Toevoegen aan verlanglijstje">
-                                            <div class="sterretje">
-                                                <span class="glyphicon glyphicon-heart"></span>
-                                            </div>
-                                        </button>
-                                        <input type="hidden" name="id" value="@item.Id" />
-                                    }
-                                </div>
+                        <div class="clearfix">
+                            @if (ViewBag.verlanglijst.Exists(item.Id))
+                            {
+                                <button id="@item.Id" class="voegtoe voegtoe-active" title="Toevoegen aan verlanglijstje" disabled="disabled">
+                                    <div class="sterretje">
+                                        <span class="glyphicon glyphicon-heart"></span>
+                                    </div>
+                                </button>
+                            }
+                            else
+                            {
+                                <button id="@item.Id" class="voegtoe" title="Toevoegen aan verlanglijstje">
+                                    <div class="sterretje">
+                                        <span class="glyphicon glyphicon-heart"></span>
+                                    </div>
+                                </button>
+                            }
+
+                        </div>
                     </div>
                 </div>
             </div>

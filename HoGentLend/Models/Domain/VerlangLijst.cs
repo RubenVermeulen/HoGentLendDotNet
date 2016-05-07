@@ -25,6 +25,10 @@ namespace HoGentLend.Models.Domain
 
         public void RemoveMaterial(Materiaal material)
         {
+            if (material == null)
+            {
+                throw new ArgumentException(string.Format("Het materiaal is niet beschikbaar en kan dus niet verwijderd worden."));
+            }
             if (!Materials.Contains(material))
                 throw new ArgumentException(string.Format("De verlanglijst bevat het materiaal {0} niet.", material.Name));
             Materials.Remove(material);
@@ -35,5 +39,9 @@ namespace HoGentLend.Models.Domain
             return Materials.FirstOrDefault(m => m.Id == materiaalId);
         }
 
+        public bool Exists(long id)
+        {
+            return Materials.Any(m => m.Id == id);
+        }
     }
 }

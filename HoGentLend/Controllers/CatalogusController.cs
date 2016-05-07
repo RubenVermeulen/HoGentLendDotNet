@@ -38,6 +38,7 @@ namespace HoGentLend.Controllers
             ViewBag.doelgroepId = doelgroepId;
             ViewBag.leergebiedId = leergebiedId;
             ViewBag.filter = filter;
+            ViewBag.verlanglijst = gebruiker.WishList;
 
             if (gebruiker.CanSeeAllMaterials()) // If lector return all materialen
             {
@@ -56,7 +57,7 @@ namespace HoGentLend.Controllers
             return new SelectList(groepen.OrderBy(g => g.Name), "Id", "Name");
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(Gebruiker gebruiker, int id)
         {
             Materiaal m = materiaalRepository.FindBy(id);
             List<ReservatieLijn> reservatieLijnen = m.ReservatieLijnen;
@@ -97,7 +98,7 @@ namespace HoGentLend.Controllers
             ViewBag.chartList = chartList;
             ViewBag.lendingPeriod = config.LendingPeriod;
             ViewBag.reservaties = reservaties;
-
+            ViewBag.InWishlist = gebruiker.WishList.Exists(m.Id);
 
             return View(new MateriaalViewModel(m));
         }

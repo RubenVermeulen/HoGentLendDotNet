@@ -47,7 +47,7 @@
 
                         </div>
                         <div class="col-md-6">
-                            @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
+                            @Html.ActionLink(item.Name, "Detail", "Catalogus", new {id = item.Id}, null)
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
@@ -57,8 +57,8 @@
                                             <label for="amount">Aantal</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id" />
-                                            <input type="number" id="amount" class="form-control" name="reservatiepartmodels[@counter].Amount" value="0" />
+                                            <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id"/>
+                                            <input type="number" id="amount" class="form-control" name="reservatiepartmodels[@counter].Amount" value="0"/>
                                         </div>
                                     </div>
                                 </div>
@@ -70,76 +70,23 @@
                             @*<button type="submit" class="btn btn-default" name="bevestig" id="@(item.Id)">
                                     Verwijder uit verlanglijstje
                                 </button>*@
-                            @Html.ActionLink("Verwijder uit verlanglijstje", "Remove", "Verlanglijst", new { materiaalId = item.Id }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Verwijder uit verlanglijstje", "Remove", "Verlanglijst", new {materiaalId = item.Id}, new {@class = "btn btn-default"})
                         </div>
                     </div>
                 </div>
 
-                    <hr />
+                <hr/>
             }
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-6 col-sm-6 padding-0">
                         <div class="form-group">
                             <label for="date">Ophaaldatum (om @ViewBag.ophaalTijd)</label>
-                            <input type="text" id="date" name="ophaalDatum" class="form-control" required />
-                            <script>
-                                Date.prototype.addDays = function(days)
-                                {
-                                    var dat = new Date(this.valueOf());
-                                    dat.setDate(dat.getDate() + days);
-                                    return dat;
-                                }
-                                window.addEventListener("load", function () {
-                                    var ophaalDag = "@ViewBag.ophaalDag";
-                                    ophaalDag = ophaalDag.toLowerCase();
-                                    var dagToNr = {
-                                        maandag: 1,
-                                        dinsdag: 2,
-                                        woensdag: 3,
-                                        donderdag: 4,
-                                        vrijdag: 5,
-                                        zaterdag: 6,
-                                        zondag: 0
-                                    };
-                                    var ophaaldagNr = dagToNr[ophaalDag];
-
-                                    $('#date').datepicker({
-                                        format: "dd/mm/yyyy",
-                                        weekStart: 1,
-                                        language: "nl-BE",
-                                        daysOfWeekDisabled: "0,1,2,3,4,5,6".replace(","+ophaaldagNr, ""),
-                                        daysOfWeekHighlighted: String(ophaaldagNr),
-                                        todayHighlight: true
-                                    });
-                                    $("#date").change(function () {
-                                        var dt = $("#date").datepicker("getDate");
-                                        if (dt == null){
-                                            $("#indienDatum").text("-");
-                                            return;
-                                        }
-                                        var nrOfWeeks = @ViewBag.aantalWeken;
-                                        dt = dt.addDays(nrOfWeeks * 7);
-                                        dt.setDate(dt.getDate() + (dagToNr["@ViewBag.indienDag"] - dt.getDay()));
-                                        var dd = dt.getDate();
-                                        var mm = dt.getMonth()+1;
-
-                                        var yyyy = dt.getFullYear();
-                                        if(dd<10){
-                                            dd='0'+dd
-                                        } 
-                                        if(mm<10){
-                                            mm='0'+mm
-                                        } 
-                                        var indienDatumStr = dd+'/'+mm+'/'+yyyy;
-                                        $("#indienDatum").text(indienDatumStr);
-                                    });
-                                });
-                            </script>
+                            <input type="text" id="date" name="ophaalDatum" class="form-control" required/>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-6 col-sm-6 padding-0">
                         <div class="form-group">
                             <label for="date">Indiendatum (om @ViewBag.indienTijd)</label>
                             <p id="indienDatum">-</p>
@@ -156,3 +103,59 @@
     }
 
 </div>
+    
+@section scripts
+{
+    <script>
+        Date.prototype.addDays = function(days) {
+            var dat = new Date(this.valueOf());
+            dat.setDate(dat.getDate() + days);
+            return dat;
+        }
+        window.addEventListener("load", function() {
+            var ophaalDag = "@ViewBag.ophaalDag";
+            ophaalDag = ophaalDag.toLowerCase();
+            var dagToNr = {
+                maandag: 1,
+                dinsdag: 2,
+                woensdag: 3,
+                donderdag: 4,
+                vrijdag: 5,
+                zaterdag: 6,
+                zondag: 0
+            };
+            var ophaaldagNr = dagToNr[ophaalDag];
+
+            $('#date').datepicker({
+                format: "dd/mm/yyyy",
+                weekStart: 1,
+                language: "nl-BE",
+                daysOfWeekDisabled: "0,1,2,3,4,5,6".replace("," + ophaaldagNr, ""),
+                daysOfWeekHighlighted: String(ophaaldagNr),
+                todayHighlight: true
+            });
+            $("#date").change(function() {
+                var dt = $("#date").datepicker("getDate");
+                if (dt == null) {
+                    $("#indienDatum").text("-");
+                    return;
+                }
+                var nrOfWeeks = @ViewBag.aantalWeken;
+                dt = dt.addDays(nrOfWeeks * 7);
+                dt.setDate(dt.getDate() + (dagToNr["@ViewBag.indienDag"] - dt.getDay()));
+                var dd = dt.getDate();
+                var mm = dt.getMonth() + 1;
+
+                var yyyy = dt.getFullYear();
+                if (dd < 10) {
+                    dd = '0' + dd
+                }
+                if (mm < 10) {
+                    mm = '0' + mm
+                }
+                var indienDatumStr = dd + '/' + mm + '/' + yyyy;
+                $("#indienDatum").text(indienDatumStr);
+            });
+        });
+    </script>
+}

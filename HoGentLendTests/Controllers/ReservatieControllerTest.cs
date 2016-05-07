@@ -92,15 +92,20 @@ namespace HoGentLendTests.Controllers
         [TestMethod]
         public void AddSetsReservationsForRubenOnTwo()
         {
+
+
             Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
             List<ReservatiePartModel> rpms = new List<ReservatiePartModel>();
+            //mockReservatieRepository.Setup(m => m.SaveChanges());
             rpms.Add(rpm);
 
             // Act
-            reservatieController.Add(g, rpms, DateTime.Now);
+
+            reservatieController.Add(g, rpms, DateTime.Now.AddDays(12));
 
             //Assert
             Assert.AreEqual(2, g.Reservaties.Count);
+
         }
 
         [TestMethod]
@@ -108,15 +113,12 @@ namespace HoGentLendTests.Controllers
         {
             Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
 
-            List<ReservatiePartModel> rpms = new List<ReservatiePartModel>();
-            rpms.Add(rpm);
+            ViewResult result = reservatieController.Index(g) as ViewResult;
 
-            reservatieController.Add(g, rpms, DateTime.Now);
             reservatieController.Remove(g, 341);
 
             Assert.AreEqual(1, g.Reservaties.Count);
-
-
+            Assert.AreEqual("De reservatie is niet beschikbaar of mogelijk al verwijderd.", result.TempData.Peek("err"));
         }
 
         [TestMethod]
@@ -130,8 +132,6 @@ namespace HoGentLendTests.Controllers
             reservatieController.Remove(g, 342);
 
             Assert.AreEqual(0, g.Reservaties.Count);
-
-
         }
 
     }

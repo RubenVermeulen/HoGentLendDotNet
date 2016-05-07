@@ -35,6 +35,7 @@ namespace HoGentLendTests.Models.Domain.DAL
             mockSet.As<IQueryable<Materiaal>>().Setup(m => m.Provider).Returns(materialen.Provider);
             mockSet.As<IQueryable<Materiaal>>().Setup(m => m.Expression).Returns(materialen.Expression);
             mockSet.As<IQueryable<Materiaal>>().Setup(m => m.ElementType).Returns(materialen.ElementType);
+         
             //mockSet.As<IQueryable<Materiaal>>().Setup(m => m.GetEnumerator()).Returns(0 => materialen.GetEnumerator());
 
 
@@ -43,14 +44,6 @@ namespace HoGentLendTests.Models.Domain.DAL
 
 
             repository = new MateriaalRepository(mockHogentLendContext.Object);
-        }
-
-        [TestMethod]
-        public void FindByFilterNoFilterReturnsAll()
-        {
-            IEnumerable<Materiaal> materials = repository.FindByFilter("", 0, 0);
-
-            Assert.AreEqual(3, materials.Count());
         }
 
         public void FindByFilterString()

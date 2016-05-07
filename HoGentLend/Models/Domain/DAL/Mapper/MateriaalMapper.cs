@@ -29,7 +29,7 @@ namespace HoGentLend.Models.DAL.Mapper
 
             Property(m => m.Description)
                 .HasColumnName("BESCHRIJVING")
-                .HasColumnType("text")
+                .HasColumnType("varchar(max)")
                 .IsOptional();
 
             Property(m => m.ArticleCode)

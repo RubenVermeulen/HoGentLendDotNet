@@ -135,6 +135,19 @@ textarea {
     transition: all .2s linear;
 }
 
+#catalog .voegtoe .sterretje {
+    display: inline-block;
+    padding: 0 10px;
+    text-align: center;
+    border: none;
+    color: #000;
+    transition: all .2s linear;
+}
+
+#catalog .voegtoe:focus {
+    outline:0;
+}
+
 #catalog .voegtoe:hover {
     background: #fff;
     border-color: rgb(229, 67, 67);
@@ -144,21 +157,23 @@ textarea {
     color: rgb(229, 67, 67);
 }
 
+/* When material is in wishlist the add button is colored */
+#catalog .voegtoe-active {
+    background: #fff;
+    border-color: rgb(229, 67, 67);
+}
+
+#catalog .voegtoe-active .sterretje {
+    color: rgb(229, 67, 67);
+}
+/* --- */
+
 #catalog .voegtoeknop{
     display: inline;
 }
 
 #catalog .voegtoe .amount{
     display: inline-block
-}
-
-#catalog .voegtoe .sterretje {
-    display: inline-block;
-    padding: 0 10px;
-    text-align: center;
-    border: none;
-    color: #000;
-    transition: all .2s linear;
 }
 
 #catalog .voegtoe .sterretje span {
@@ -217,18 +232,25 @@ textarea {
 
 #details .reserveer {
     display: block;
+    margin-top: 15px;
     padding: 5px 10px;
     line-height: 30px;
-    background: #38C23C;
-    color: #ffffff;
-    border:none;
-    box-shadow: #000 1px 1px 3px -1px;
-    transition: background .2s linear;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 3px;
+    box-shadow: #000 1px 1px 5px -4px;
+    transition: all .2s linear;
 }
 
-#details .reserveer:hover{
+#details .reserveer:hover,
+#details .reserveer-active {
     text-decoration: none;
-    background: #33b437;
+    border-color: rgb(229, 67, 67);
+    color: rgb(229, 67, 67);
+}
+
+#details .reserveer .glyphicon {
+    margin-right: 5px;
 }
 
 #details .description {
@@ -339,4 +361,23 @@ textarea {
   content: "";
   display: table;
   clear: both;
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+#success {
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    margin: 0;
+    display: none;
+    z-index: 100; 
+    text-align: center; 
 }
