@@ -39,22 +39,17 @@ namespace HoGentLend.Controllers
 
         // POST: Add
         [HttpPost]
-        public ActionResult Add(Gebruiker gebruiker, int id) { 
-
-
+        public JsonResult Add(Gebruiker gebruiker, int id) { 
             Materiaal mat = materiaalRepository.FindBy(id);
             try
             {
                 gebruiker.AddToWishList(mat);
                 materiaalRepository.SaveChanges();
-                //TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
 
                 return Json(new { status = "success", message = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst." });
             }
             catch (ArgumentException e)
             {
-                //TempData["err"] = e.Message;
-
                 return Json(new { status = "error", message = e.Message });
             }
         }
