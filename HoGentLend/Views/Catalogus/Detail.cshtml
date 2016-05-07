@@ -199,41 +199,48 @@
 
         <h3>Overzicht reservaties van @Model.Name</h3>
 
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <tr>
-                    <th>Ophaaldatum</th>
-                    <th>Indiendatum</th>
-                    <th>E-mailadres</th>
-                    <th>Hoeveelheid</th>
-                </tr>
-
-                @foreach (List<ReservatieLijnViewModel> rlv in ViewBag.reservaties.Values)
-                {
-
+        @if (ViewBag.reservaties.Count == 0)
+        {
+            <p>Er zijn nog geen reservaties voor "@Html.DisplayFor(model => model.Name)".</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered">
                     <tr>
-                        <td rowspan="@(rlv.Count + 1)">@Html.DisplayFor(model => rlv[0].OphaalMoment)</td>
+                        <th>Ophaaldatum</th>
+                        <th>Indiendatum</th>
+                        <th>E-mailadres</th>
+                        <th>Hoeveelheid</th>
                     </tr>
 
-                    foreach (ReservatieLijnViewModel rl in rlv)
-                    {
+                    @foreach (List<ReservatieLijnViewModel> rlv in ViewBag.reservaties.Values)
+                {
+
                         <tr>
-                            <td>@Html.DisplayFor(model => rl.IndienMoment)</td>
-                            <td><a href="mailto:@Html.DisplayFor(model => rl.LenerEmail)">@Html.DisplayFor(model => rl.LenerEmail)</a></td>
-                            <td>@Html.DisplayFor(model => rl.Amount)</td>
+                            <td rowspan="@(rlv.Count + 1)">@Html.DisplayFor(model => rlv[0].OphaalMoment)</td>
                         </tr>
+
+                        foreach (ReservatieLijnViewModel rl in rlv)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(model => rl.IndienMoment)</td>
+                                <td><a href="mailto:@Html.DisplayFor(model => rl.LenerEmail)">@Html.DisplayFor(model => rl.LenerEmail)</a></td>
+                                <td>@Html.DisplayFor(model => rl.Amount)</td>
+                            </tr>
+                        }
+
                     }
 
-                }
-
-                <tr>
-                    <th>Ophaaldatum</th>
-                    <th>Indiendatum</th>
-                    <th>E-mailadres</th>
-                    <th>Hoeveelheid</th>
-                </tr>
-            </table>
-        </div>
+                    <tr>
+                        <th>Ophaaldatum</th>
+                        <th>Indiendatum</th>
+                        <th>E-mailadres</th>
+                        <th>Hoeveelheid</th>
+                    </tr>
+                </table>
+            </div>
+        }
 
         <hr/>
 
