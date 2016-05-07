@@ -371,7 +371,7 @@ textarea {
     padding: 0;
 }
 
-#success {
+#success, #error {
     position: fixed; 
     bottom: 0; 
     left: 0; 

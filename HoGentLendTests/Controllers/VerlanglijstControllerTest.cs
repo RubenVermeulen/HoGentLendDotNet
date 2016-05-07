@@ -154,5 +154,46 @@ namespace HoGentLendTests.Controllers
             mockMateriaalRepository.Verify(m => m.SaveChanges(), Times.Never);
             Assert.IsTrue(controller.TempData["err"] != null);
         }
+
+        [TestMethod]
+        public void TestRemovePostRemovesMaterialsFromWishListAndSavesAndReturnsMsg()
+        {
+            student.WishList.Materials.Add(wereldbol);
+
+            JsonResult result = controller.RemovePost(student, WERELDBOL_ID);
+            var jsonData = result.Data.GetType().GetProperty("status");
+            var propertyStatus = jsonData.GetValue(result.Data, null);
+            
+
+            Assert.AreEqual(0, student.WishList.Materials.Count);
+            mockMateriaalRepository.Verify(m => m.SaveChanges(), Times.Once);
+            Assert.IsTrue(propertyStatus.Equals("success"));
+        }
+        [TestMethod]
+        public void TestRemovePostDoesNotRemoveIfMaterialsIsInvalidAndDoesNotSaveAndReturnsError()
+        {
+            student.WishList.Materials.Add(wereldbol);
+
+            JsonResult result = controller.RemovePost(student, ONGELDIG_ID);
+            var jsonData = result.Data.GetType().GetProperty("status");
+            var propertyStatus = jsonData.GetValue(result.Data, null);
+
+            Assert.AreEqual(1, student.WishList.Materials.Count);
+            mockMateriaalRepository.Verify(m => m.SaveChanges(), Times.Never);
+            Assert.IsTrue(propertyStatus.Equals("error"));
+        }
+        [TestMethod]
+        public void TestRemovePostDoesNotRemoveIfMaterialsIsNotInListAndDoesNotSaveAndReturnsError()
+        {
+            student.WishList.Materials.Add(wereldbol);
+
+            JsonResult result = controller.RemovePost(student, ONBESCHKBAAR_ID);
+            var jsonData = result.Data.GetType().GetProperty("status");
+            var propertyStatus = jsonData.GetValue(result.Data, null);
+
+            Assert.AreEqual(1, student.WishList.Materials.Count);
+            mockMateriaalRepository.Verify(m => m.SaveChanges(), Times.Never);
+            Assert.IsTrue(propertyStatus.Equals("error"));
+        }
     }
 }

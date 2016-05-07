@@ -10,19 +10,20 @@
 }
 
 <div id="success" class="alert alert-success"></div>
+<div id="error" class="alert alert-warning"></div>
 
-    
+
 
 
 
 <h2>Catalogus</h2>
 
 <p>Dit is de catalogus met alle materialen die kunnen gereserveerd worden. U kan klikken op de ster bij het materiaal om het toe te voegen bij uw verlanglijstje. Door het klikken op de naam van de materialen zal u naar een detail pagina met extra uitleg over de materialen gebracht worden.</p>
-<hr/>
+<hr />
 
 @Html.Partial("_PartialFilter")
 
-<hr/>
+<hr />
 
 @Html.Partial("_MateriaalList")
 
@@ -35,17 +36,37 @@
             var button = $(this);
             var id = button.attr('id');
 
-            $.post("/Verlanglijst/Add", {id: id}, function(data) {
+            var isInList = button.hasClass("voegtoe-active");
+
+            $.post((isInList ? "/Verlanglijst/Remove" : "/Verlanglijst/Add"), { id: id }, function (data) {
                 if (data.status === 'success') {
-                    button.addClass('voegtoe-active');
-                    button.attr('disabled', 'disabled');
+                    if (isInList) {
+                        button.removeClass('voegtoe-active');
+                        button.find(".sterretje span").removeClass('glyphicon-heart');
+                        button.find(".sterretje span").addClass('glyphicon-heart-empty');
+                    }
+                    else {
+                        button.addClass('voegtoe-active');
+                        button.find(".sterretje span").removeClass('glyphicon-heart-empty');
+                        button.find(".sterretje span").addClass('glyphicon-heart');
+                    }
 
                     var success = $("#success");
                     success.html(data.message);
                     success.slideDown();
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         success.slideUp();
+                    }, 3500);
+
+                } else if (data.status === "error") {
+
+                    var error = $("#error");
+                    error.html(data.message);
+                    error.slideDown();
+
+                    setTimeout(function () {
+                        error.slideUp();
                     }, 3500);
                 }
             });
