@@ -35,5 +35,9 @@ namespace HoGentLend.Models.Domain
             return Materials.FirstOrDefault(m => m.Id == materiaalId);
         }
 
+        public bool Exists(long id)
+        {
+            return Materials.Any(m => m.Id == id);
+        }
     }
 }

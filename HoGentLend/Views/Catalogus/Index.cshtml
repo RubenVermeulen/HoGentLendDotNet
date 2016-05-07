@@ -9,6 +9,12 @@
     <link href="~/Content/lightbox.css" rel="stylesheet" />
 }
 
+<div id="success" class="alert alert-success"></div>
+
+    
+
+
+
 <h2>Catalogus</h2>
 
 <p>Dit is de catalogus met alle materialen die kunnen gereserveerd worden. U kan klikken op de ster bij het materiaal om het toe te voegen bij uw verlanglijstje. Door het klikken op de naam van de materialen zal u naar een detail pagina met extra uitleg over de materialen gebracht worden.</p>
@@ -23,4 +29,26 @@
 @section scripts
 {
     <script src="~/Scripts/lightbox.js"></script>
+
+    <script>
+        $('button.voegtoe').click(function (e) {
+            var button = $(this);
+            var id = button.attr('id');
+
+            $.post("/Verlanglijst/Add", {id: id}, function(data) {
+                if (data.status === 'success') {
+                    button.addClass('voegtoe-active');
+                    button.attr('disabled', 'disabled');
+
+                    var success = $("#success");
+                    success.html(data.message);
+                    success.slideDown();
+
+                    setTimeout(function() {
+                        success.slideUp();
+                    }, 3500);
+                }
+            });
+        });
+    </script>
 }

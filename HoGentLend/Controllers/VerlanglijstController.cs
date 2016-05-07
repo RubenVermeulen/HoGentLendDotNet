@@ -47,13 +47,16 @@ namespace HoGentLend.Controllers
             {
                 gebruiker.AddToWishList(mat);
                 materiaalRepository.SaveChanges();
-                TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
+                //TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
+
+                return Json(new { status = "success", message = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst." });
             }
             catch (ArgumentException e)
             {
-                TempData["err"] = e.Message;
+                //TempData["err"] = e.Message;
+
+                return Json(new { status = "error", message = e.Message });
             }
-            return RedirectToAction("Index");
         }
 
         // POST: Remove
