@@ -13,7 +13,7 @@ namespace HoGentLend.Models.Domain
         public virtual Gebruiker Lener { get; private set; }
         public DateTime? Ophaalmoment { get; private set; }
         public DateTime? Indienmoment { get; private set; }
-        public DateTime? Reservatiemoment { get; private set; }
+        public DateTime? Reservatiemoment { get; set; }
         public bool Opgehaald { get; set; }
         public virtual List<ReservatieLijn> ReservatieLijnen  { get; set; }
 
