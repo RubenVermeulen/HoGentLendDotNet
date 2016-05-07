@@ -34,6 +34,7 @@ namespace HoGentLend.Controllers
             ViewBag.aantalWeken = c.LendingPeriod;
             ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
             ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
+            ViewBag.vandaag = DateTime.Now.ToString("dd/mm/yyyy");
             return View("Index", materials);
         }
 

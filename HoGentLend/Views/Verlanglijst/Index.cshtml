@@ -132,7 +132,8 @@
                 language: "nl-BE",
                 daysOfWeekDisabled: "0,1,2,3,4,5,6".replace("," + ophaaldagNr, ""),
                 daysOfWeekHighlighted: String(ophaaldagNr),
-                todayHighlight: true
+                todayHighlight: true,
+                startDate: "@ViewBag.vandaag"
             });
             $("#date").change(function() {
                 var dt = $("#date").datepicker("getDate");
