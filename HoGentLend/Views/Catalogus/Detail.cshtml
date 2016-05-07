@@ -253,9 +253,10 @@
 
             $.post("/Verlanglijst/Add", {id: id}, function(data) {
                 if (data.status === 'success') {
-                    button.addClass('reserveer-active');
                     button.attr('disabled', 'disabled');
-
+                    button.addClass('reserveer-active');
+                    button.html('<span class="glyphicon glyphicon-heart"></span> In verlanglijstje');
+                    
                     var success = $("#success");
                     success.html(data.message);
                     success.slideDown();
