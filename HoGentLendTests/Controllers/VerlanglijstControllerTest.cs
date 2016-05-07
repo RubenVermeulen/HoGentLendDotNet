@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 using HoGentLend.Controllers;
 using HoGentLend.Models.Domain;
 using HoGentLend.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Microsoft.CSharp;
 
 namespace HoGentLendTests.Controllers
 {
@@ -82,31 +84,41 @@ namespace HoGentLendTests.Controllers
         [TestMethod]
         public void AddSuccesfulAddsToWishListAndSavesAndReturnsMessage()
         {
-            ActionResult result = controller.Add(student, WERELDBOL_ID);
+            JsonResult result = controller.Add(student, WERELDBOL_ID);
+            var jsonData = result.Data.GetType().GetProperty("status");
+            var propertyStatus = jsonData.GetValue(result.Data, null);
 
             Assert.AreEqual(1, student.WishList.Materials.Count);
             mockMateriaalRepository.Verify(m => m.SaveChanges(), Times.Once);
-            Assert.IsTrue(controller.TempData["msg"] != null);
+
+            Assert.IsTrue(propertyStatus.Equals("success"));
         }
 
         [TestMethod]
         public void AddInvalidIdDoesNotToWishListAndDoesNotSavAndReturnsError()
         {
-            ActionResult result = controller.Add(student, ONGELDIG_ID);
+            JsonResult result = controller.Add(student, ONGELDIG_ID);
+            var jsonData = result.Data.GetType().GetProperty("status");
+            var propertyStatus = jsonData.GetValue(result.Data, null);
 
             Assert.AreEqual(0, student.WishList.Materials.Count);
             mockMateriaalRepository.Verify(m => m.SaveChanges(), Times.Never);
-            Assert.IsTrue(controller.TempData["err"] != null);
+
+            Assert.IsTrue(propertyStatus.Equals("error"));
         }
 
         [TestMethod]
         public void TestAddCanNotAddToStudentWishListIfMaterialIsUnavailable()
         {
-            ActionResult result = controller.Add(student, ONBESCHKBAAR_ID);
+            JsonResult result = controller.Add(student, ONBESCHKBAAR_ID);
+            var jsonData = result.Data.GetType().GetProperty("status");
+            var propertyStatus = jsonData.GetValue(result.Data, null);
 
             Assert.AreEqual(0, student.WishList.Materials.Count);
             mockMateriaalRepository.Verify(m => m.SaveChanges(), Times.Never);
-            Assert.IsTrue(controller.TempData["err"] != null);
+
+            Assert.IsTrue(propertyStatus.Equals("error"));
+
         }
 
         [TestMethod]
