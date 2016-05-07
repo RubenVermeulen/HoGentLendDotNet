@@ -237,5 +237,11 @@ namespace HoGentLendTests.Models.Domain
             Assert.AreEqual(4, rvlOverlapLector1.FindConflicts(true));
         }
 
+        [TestMethod]
+        public void FindConflictsConflictBetweenTwoLectorsEarlierReservation()
+        {
+            Assert.AreEqual(0, rvlOverlapLector2.FindConflicts(true));
+        }
+
     }
 }
