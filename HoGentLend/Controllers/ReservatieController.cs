@@ -39,17 +39,7 @@ namespace HoGentLend.Controllers
                 //FindConflicts(reservatie, rvm, gebruiker);
 
                 // @Svonx: wordt later nog in een aparte methode gestoken, staat hier nu voor izi bugfixing
-                List<ReservatieLijn> reservatielijnen = reservatie.ReservatieLijnen.
-                    OrderBy(rl => rl.Materiaal.Name).ToList();
-                for (int i = 0; i < reservatielijnen.Count; i++)
-                {
-                    int aantalSlechtsBeschikbaar = reservatielijnen[i].FindConflicts(gebruiker.CanSeeAllMaterials());
-                    if (aantalSlechtsBeschikbaar != 0)
-                    {
-                        rvm.Conflict = true;
-                    }
-                    rvm.ReservatieLijnen[i].AantalSlechtsBeschikbaar = aantalSlechtsBeschikbaar;
-                }
+                ConstructReservatieViewModels(reservatie, rvm, gebruiker);
 
             };
 
@@ -156,93 +146,27 @@ namespace HoGentLend.Controllers
 
             ReservatieViewModel rv = new ReservatieViewModel(r);
 
-            FindConflicts(r, rv, gebruiker);
+            ConstructReservatieViewModels(r, rv, gebruiker);
 
             return View(rv);
         }
 
         //test
-
-        private ReservatieViewModel FindConflicts(Reservatie reservatie, ReservatieViewModel rvm, Gebruiker gebruiker)
+        private void ConstructReservatieViewModels(Reservatie reservatie, ReservatieViewModel rvm, Gebruiker gebruiker)
         {
             List<ReservatieLijn> reservatielijnen = reservatie.ReservatieLijnen.
-                OrderBy(rl => rl.Materiaal.Name).ToList();
+                    OrderBy(rl => rl.Materiaal.Name).ToList();
             for (int i = 0; i < reservatielijnen.Count; i++)
             {
-                ReservatieLijn rl = reservatielijnen[i];
-                Materiaal m = rl.Materiaal;
-
-                DateTime? indienmoment = rl.IndienMoment;
-                DateTime? ophaalmoment = rl.OphaalMoment;
-
-                //alle overlappende reservaties in 1 lijst
-                List<ReservatieLijn> overlappendeLijnen = m.ReservatieLijnen.Where(r => (
-                    (r.IndienMoment <= indienmoment && r.OphaalMoment > indienmoment)
-                    || (r.IndienMoment <= ophaalmoment && r.OphaalMoment > ophaalmoment)
-                    || (r.IndienMoment >= indienmoment && r.OphaalMoment <= ophaalmoment)
-                    )).ToList();
-
-                int totaalAantalBeschikbaar = m.Amount - m.AmountNotAvailable;
-
-                //als er meer gereserveerd zijn dan beschikbaar
-                if (overlappendeLijnen.Sum(r => r.Amount) > totaalAantalBeschikbaar)
+                int aantalSlechtsBeschikbaar = reservatielijnen[i].FindConflicts(gebruiker.CanSeeAllMaterials());
+                if (aantalSlechtsBeschikbaar != 0)
                 {
-                    int aantalNogBeschikbaar = totaalAantalBeschikbaar;
-
-                    //als geen lector is
-                    //verminder aantalNogBeschikbare Reservaties indien een lijn wordt tegengekomen met 
-                    //vroegere reservatiedatum
-                    if (!gebruiker.CanSeeAllMaterials())
-                    {
-                        foreach (var lijn in overlappendeLijnen)
-                        {
-                            Reservatie bijhorendeReservatie = reservatieRepository.FindBy((int)lijn.ReservatieId);
-                            System.Diagnostics.Debug.WriteLine("DetailReservatie van overlappende lijn" + ": " + bijhorendeReservatie);
-                            if (bijhorendeReservatie.Lener.CanSeeAllMaterials() ||
-                                (bijhorendeReservatie.Reservatiemoment < reservatie.Reservatiemoment))
-                            {
-                                aantalNogBeschikbaar -= (int)lijn.Amount;
-                            }
-                        }
-                    }
-                    //als wel lector is
-                    //verminder aantalNogBeschikbare enkel wanneer de lijn met vroegere reservatiedatum
-                    //ook van een lector was
-                    else
-                    {
-                        foreach (var lijn in overlappendeLijnen)
-                        {
-                            Reservatie bijhorendeReservatie = reservatieRepository.FindBy((int)lijn.ReservatieId);
-                            if (bijhorendeReservatie.Lener.CanSeeAllMaterials()
-                                && bijhorendeReservatie.Reservatiemoment < reservatie.Reservatiemoment)
-                            {
-                                aantalNogBeschikbaar -= (int)lijn.Amount;
-                            }
-                        }
-                    }
-
-                    //Indien gebruiker laatste was om te reserveren, en dus materiaal niet kan meekrijgen,
-                    //wordt er berekend hoeveel hij er slechts krijgt
-                    if (aantalNogBeschikbaar < rl.Amount)
-                    {
-                        System.Diagnostics.Debug.WriteLine(aantalNogBeschikbaar + ", " + rl.Amount);
-                        rvm.Conflict = true;
-                        //laat view weten dat er geen materialen meer beschikbaar zijn voor gebruiker
-                        if (aantalNogBeschikbaar <= 0)
-                        {
-                            rvm.ReservatieLijnen[i].AantalSlechtsBeschikbaar = -1;
-                        }
-                        else
-                        {
-                            rvm.ReservatieLijnen[i].AantalSlechtsBeschikbaar = (int)rl.Amount - aantalNogBeschikbaar;
-                        }
-                    }
-
+                    rvm.Conflict = true;
                 }
+                rvm.ReservatieLijnen[i].AantalSlechtsBeschikbaar = aantalSlechtsBeschikbaar;
             }
-
-            return rvm;
         }
+
     }
 
 }
