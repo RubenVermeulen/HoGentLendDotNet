@@ -67,7 +67,7 @@ namespace HoGentLendTests.Controllers
         }
 
         [TestMethod]
-        public void IndexReturnsAllMaterialsWishList()
+        public void IndexReturnsAllMaterialsWishListAnViewBag()
         {
             Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
             // Act
@@ -79,6 +79,13 @@ namespace HoGentLendTests.Controllers
             Assert.AreEqual(2, materials.Length);
             Assert.AreEqual("Rekenmachine", materials[0].Name);
             Assert.AreEqual(2, materials[0].Amount);
+            var vb = result.ViewBag;
+            Assert.AreEqual("10:30", vb.ophaalTijd);
+            Assert.AreEqual("17:30", vb.indienTijd);
+            Assert.AreEqual("maandag", vb.ophaalDag);
+            Assert.AreEqual("vrijdag", vb.indienDag);
+            Assert.AreEqual(0, vb.aantalWeken);
+            Assert.AreEqual(DateTime.Now.ToString("dd/MM/yyyy"), vb.vandaag);
         }
 
         [TestMethod]
