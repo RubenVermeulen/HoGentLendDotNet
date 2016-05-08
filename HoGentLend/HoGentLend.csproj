@@ -244,6 +244,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\enlarge-icon.png" />
+    <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\Lightbox\close.png" />
     <Content Include="Content\Images\default-placeholder.png" />
     <Content Include="Content\Images\Lightbox\loading.gif" />

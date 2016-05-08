@@ -55,10 +55,10 @@
                             <strong>Aantal</strong> <br/> @Html.DisplayFor(model => item.Amount)
                         </div>
                         <div class="col-md-2">
-                            <strong>Ophaalmoment</strong> <br/> @Html.DisplayFor(model => item.OphaalMoment)
+                            <strong>Ophaalmoment</strong> <br/> @Html.DisplayFor(model => item.OphaalMoment) @ViewBag.ophaalTijd
                         </div>
                         <div class="col-md-2">
-                            <strong>Indienmoment</strong> <br/> @Html.DisplayFor(model => item.IndienMoment)
+                            <strong>Indienmoment</strong> <br/> @Html.DisplayFor(model => item.IndienMoment) @ViewBag.indienTijd
                         </div>
                         <div class="col-md-1">
 

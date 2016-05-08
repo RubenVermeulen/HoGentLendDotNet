@@ -45,6 +45,11 @@ namespace HoGentLend.Controllers
 
             };
 
+            Config c = configWrapper.GetConfig();
+
+            ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
+            ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
+
             reservatiesGesorteerd = reservaties.OrderBy(o => o.Ophaalmoment).ToList();
 
             return View(reservatiesGesorteerd);
@@ -149,6 +154,11 @@ namespace HoGentLend.Controllers
             ReservatieViewModel rv = new ReservatieViewModel(r);
 
             ConstructReservatieViewModels(r, rv, gebruiker);
+
+            Config c = configWrapper.GetConfig();
+
+            ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
+            ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
 
             return View(rv);
         }
