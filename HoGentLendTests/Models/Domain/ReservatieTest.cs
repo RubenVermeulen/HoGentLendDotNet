@@ -82,5 +82,44 @@ namespace HoGentLendTests.Models.Domain
             }, 1, ophaalMoment, indienMoment);
             Assert.AreEqual(1, reservatie.ReservatieLijnen.Count);
         }
+
+        [TestMethod]
+        public void CalculateAmountMondayToFridaySameWeekReturns4()
+        {
+            int maandag = 1;
+            int vrijdag = 5;
+            int eenweek = 1;
+
+            int verschil =Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(vrijdag, eenweek, maandag);
+
+            Assert.AreEqual(4, verschil);
+        }
+
+        [TestMethod]
+        public void CalculateAmountMondayToFridayNotSameWeekReturns11() {
+            int maandag = 1;
+            int vrijdag = 5;
+            int tweeweken = 2;
+
+            int verschil = Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(vrijdag, tweeweken, maandag);
+
+            Assert.AreEqual(11, verschil);
+        }
+
+        [TestMethod]
+        public void CalculateAmountMondayToMondayNextWeekReturns11()
+        {
+            int maandag = 1;
+            int vrijdag = 1;
+            int eenweek = 1;
+
+            int verschil = Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(vrijdag, eenweek, maandag);
+
+            Assert.AreEqual(7, verschil);
+        }
+
+
+
+
     }
 }
