@@ -108,7 +108,7 @@ namespace HoGentLend.Controllers
                 ophaalDag = 4;
             }
 
-            verschilDagen = ophaalDag - indienDag;
+            verschilDagen =indienDag-ophaalDag;
 
             if (verschilDagen == 0) {
                 aantalDagen = c.LendingPeriod * 7;
@@ -221,7 +221,7 @@ namespace HoGentLend.Controllers
         }
 
         //test
-        private void ConstructReservatieViewModels(Reservatie reservatie, ReservatieViewModel rvm, Gebruiker gebruiker)
+        public void ConstructReservatieViewModels(Reservatie reservatie, ReservatieViewModel rvm, Gebruiker gebruiker)
         {
             List<ReservatieLijn> reservatielijnen = reservatie.ReservatieLijnen.
                     OrderBy(rl => rl.Materiaal.Name).ToList();
