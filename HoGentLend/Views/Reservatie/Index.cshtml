@@ -31,10 +31,10 @@
                         @i
                     </div>
                     <div class="col-md-2">
-                        <strong>Ophaalmoment</strong> <br/> @Html.DisplayFor(model => item.Ophaalmoment)
+                        <strong>Ophaalmoment</strong> <br/> @Html.DisplayFor(model => item.Ophaalmoment) @ViewBag.ophaalTijd
                     </div>
                     <div class="col-md-2">
-                        <strong>Indienmoment</strong> <br/> @Html.DisplayFor(model => item.Indienmoment)
+                        <strong>Indienmoment</strong> <br/> @Html.DisplayFor(model => item.Indienmoment) @ViewBag.indienTijd
                     </div>
                     <div class="col-md-3">
                         @{ int j = 0;}
