@@ -28,6 +28,10 @@ namespace HoGentLend.ViewModels
 
         public int AantalSlechtsBeschikbaar { get; set; }
 
+        public string LenerEmail { get; set; }
+
+        [DisplayName("Opgehaald")]
+        public bool Opgehaald { get; set; }
 
         public ReservatieLijnViewModel(ReservatieLijn r) : this(r, 0)
         {
@@ -41,6 +45,8 @@ namespace HoGentLend.ViewModels
             OphaalMoment = r.OphaalMoment;
             AantalSlechtsBeschikbaar = aantalSlechtBeschikbaar;
             Materiaal = new MateriaalViewModel(r.Materiaal);
+            LenerEmail = r.Reservatie.Lener.Email;
+            Opgehaald = r.Reservatie.Opgehaald;
         }
 
        

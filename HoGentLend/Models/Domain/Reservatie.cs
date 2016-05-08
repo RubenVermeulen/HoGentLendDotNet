@@ -13,9 +13,9 @@ namespace HoGentLend.Models.Domain
         public virtual Gebruiker Lener { get; private set; }
         public DateTime? Ophaalmoment { get; private set; }
         public DateTime? Indienmoment { get; private set; }
-        public DateTime? Reservatiemoment { get; private set; }
+        public DateTime? Reservatiemoment { get; set; }
         public bool Opgehaald { get; set; }
-        public virtual List<ReservatieLijn> ReservatieLijnen  { get; set; }
+        public virtual List<ReservatieLijn> ReservatieLijnen { get; set; }
 
         private Reservatie()
         {
@@ -35,7 +35,7 @@ namespace HoGentLend.Models.Domain
             {
                 throw new ArgumentNullException("Een ophaalmoment is verplicht.");
             }
-            if(indienMoment == null)
+            if (indienMoment == null)
             {
                 throw new ArgumentNullException("Een indienmoment is verplicht.");
             }
@@ -48,13 +48,35 @@ namespace HoGentLend.Models.Domain
             this.Indienmoment = indienMoment;
 
             this.Opgehaald = false;
-            this.Reservatiemoment = DateTime.Now;
+            this.Reservatiemoment = DateTime.UtcNow.ToLocalTime();
         }
 
-        public void AddReservationLine(Materiaal materiaal, long amount, DateTime ophaalDatum, DateTime indienDatum)
+        public void AddReservationLine(Materiaal materiaal, int amount, DateTime ophaalDatum, DateTime indienDatum)
         {
             ReservatieLijn reservatieLijn = new ReservatieLijn(amount, ophaalDatum, indienDatum, materiaal, this);
             ReservatieLijnen.Add(reservatieLijn);
+        }
+
+        public static int CalculateAmountDaysOphaalDatumFromIndienDatum(int indienDag,
+            int aantalWeken, int ophaalDag)
+        {
+            int aantalDagen;
+            int verschilDagen;
+
+            verschilDagen = indienDag - ophaalDag;
+
+            if (verschilDagen == 0)
+            {
+                aantalDagen = aantalWeken* 7;
+            }
+            else if (aantalWeken == 1)
+            {
+                aantalDagen = verschilDagen;
+            }
+            else {
+                aantalDagen = (aantalWeken - 1) * 7 + verschilDagen;
+            }
+            return aantalDagen;
         }
     }
 }

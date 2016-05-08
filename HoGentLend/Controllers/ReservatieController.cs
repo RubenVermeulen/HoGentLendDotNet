@@ -17,12 +17,14 @@ namespace HoGentLend.Controllers
     {
         private IReservatieRepository reservatieRepository;
         private IMateriaalRepository materiaalRepository;
+        private IConfigWrapper configWrapper;
 
         public ReservatieController(IReservatieRepository reservatieRepository,
-            IMateriaalRepository materiaalRepository)
+            IMateriaalRepository materiaalRepository, IConfigWrapper configWrapper)
         {
             this.reservatieRepository = reservatieRepository;
             this.materiaalRepository = materiaalRepository;
+            this.configWrapper = configWrapper;
         }
 
         // GET: Reservatie
@@ -36,9 +38,17 @@ namespace HoGentLend.Controllers
                 ReservatieViewModel rvm = new ReservatieViewModel(reservatie);
                 reservaties.Add(rvm);
 
-                FindConflicts(reservatie, rvm, gebruiker);
+                //FindConflicts(reservatie, rvm, gebruiker);
+
+                // @Svonx: wordt later nog in een aparte methode gestoken, staat hier nu voor izi bugfixing
+                ConstructReservatieViewModels(reservatie, rvm, gebruiker);
 
             };
+
+            Config c = configWrapper.GetConfig();
+
+            ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
+            ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
 
             reservatiesGesorteerd = reservaties.OrderBy(o => o.Ophaalmoment).ToList();
 
@@ -50,22 +60,33 @@ namespace HoGentLend.Controllers
         public ActionResult Add(Gebruiker gebruiker, List<ReservatiePartModel> reservatiepartmodels,
             DateTime? ophaalDatum)
         {
-            double weeks = 1; // dit zal later nog uit de database gehaald worden
+            Config c = configWrapper.GetConfig();
 
+            int aantalDagen;
 
-            List<Materiaal> materials = new List<Materiaal>();
-            List<long> amounts = new List<long>();
-            int x = 0;
+            var dayToNr = new Dictionary<string, int>();
+            dayToNr.Add("maandag", 1);
+            dayToNr.Add("dinsdag", 2);
+            dayToNr.Add("woensdag", 3);
+            dayToNr.Add("donderdag", 4);
+            dayToNr.Add("vrijdag", 5);
+            dayToNr.Add("zaterdag", 6);
+            dayToNr.Add("zondag", 7);
+
+            aantalDagen = Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(dayToNr[c.Indiendag],
+                dayToNr[c.Ophaaldag], c.LendingPeriod);
+
+            var materialenTeReserveren = new Dictionary<Materiaal, int>();
+            var x = 0;
             foreach (ReservatiePartModel rpm in reservatiepartmodels)
             {
-                if (rpm.Amount != 0)
+                if (rpm.Amount > 0)
                 {
-                    materials.Add(materiaalRepository.FindBy(rpm.
-                    MateriaalId));
-                    amounts.Add(rpm.Amount);
+                    materialenTeReserveren.Add(materiaalRepository.FindBy(rpm.
+                    MateriaalId), rpm.Amount);
                     x++;
                 }
-                
+
             }
             try
             {
@@ -79,8 +100,8 @@ namespace HoGentLend.Controllers
                     throw new ArgumentException("Er moet minstens 1 materiaal zijn waarbij het aantal groter is dan 0.");
                 }
 
-                DateTime indienDatum = ophaalDatum.Value.AddDays(7 * weeks);
-                gebruiker.AddReservation(materials, amounts, ophaalDatum.Value, indienDatum,
+                DateTime indienDatum = ophaalDatum.Value.AddDays(aantalDagen);
+                gebruiker.AddReservation(materialenTeReserveren, ophaalDatum.Value, indienDatum, DateTime.UtcNow.ToLocalTime(),
                     reservatieRepository.FindAll());
                 reservatieRepository.SaveChanges();
                 TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
@@ -93,6 +114,65 @@ namespace HoGentLend.Controllers
 
             return RedirectToAction("Index");
         }
+
+        /**
+         // POST: Add
+        [HttpPost]
+        public ActionResult Add(Gebruiker gebruiker, List<ReservatiePartModel> reservatiepartmodels,
+            int dag = 1, int maand = 1, int jaar = 1)
+        {
+            Config c = configWrapper.GetConfig();
+            DateTime ophaalDatum = new DateTime(jaar, maand, dag);
+            
+
+            int aantalDagen;
+
+            var dayToNr = new Dictionary<string, int>();
+            dayToNr.Add("maandag", 1);
+            dayToNr.Add("dinsdag", 2);
+            dayToNr.Add("woensdag", 3);
+            dayToNr.Add("donderdag", 4);
+            dayToNr.Add("vrijdag", 5);
+            dayToNr.Add("zaterdag", 6);
+            dayToNr.Add("zondag", 7);
+
+            aantalDagen = Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(dayToNr[c.Indiendag],
+                dayToNr[c.Ophaaldag], c.LendingPeriod);
+
+            var materialenTeReserveren = new Dictionary<Materiaal, int>();
+            var x = 0;
+            foreach (ReservatiePartModel rpm in reservatiepartmodels)
+            {
+                if (rpm.Amount > 0)
+                {
+                    materialenTeReserveren.Add(materiaalRepository.FindBy(rpm.
+                    MateriaalId), rpm.Amount);
+                    x++;
+                }
+
+            }
+            try
+            {
+                if (x == 0)
+                {
+                    throw new ArgumentException("Er moet minstens 1 materiaal zijn waarbij het aantal groter is dan 0.");
+                }
+
+                DateTime indienDatum = ophaalDatum.AddDays(aantalDagen);
+                gebruiker.AddReservation(materialenTeReserveren, ophaalDatum, indienDatum, DateTime.Now,
+                    reservatieRepository.FindAll());
+                reservatieRepository.SaveChanges();
+                TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
+            }
+            catch (ArgumentException e)
+            {
+                TempData["err"] = e.Message;
+                return RedirectToAction("Index", "Verlanglijst");
+            }
+
+            return RedirectToAction("Index");
+        }
+    **/
 
         // POST: Remove
         [HttpPost]
@@ -121,9 +201,13 @@ namespace HoGentLend.Controllers
             try
             {
                 ReservatieLijn rl = res.ReservatieLijnen.FirstOrDefault(rll => rll.Id == reservatieLineId);
+                if(rl == null)
+                {
+                    throw new ArgumentException("De reservatielijn is niet beschikbaar of mogelijk al verwijderd.");
+                }
                 String name = rl.Materiaal.Name;
 
-                gebruiker.RemoveReservationLijn(rl, reservatieRepository as ReservatieRepository);
+                gebruiker.RemoveReservationLijn(rl, reservatieRepository);
                 reservatieRepository.SaveChanges();
 
                 TempData["msg"] = "Het materiaal " + name + " is succesvol uit de reservatie verwijderd.";
@@ -132,7 +216,7 @@ namespace HoGentLend.Controllers
             {
                 TempData["err"] = e.Message;
             }
-            return RedirectToAction("Detail",new { id = reservatieId});
+            return RedirectToAction("Detail", new { id = reservatieId });
         }
 
         public ActionResult Detail(Gebruiker gebruiker, int id)
@@ -144,90 +228,32 @@ namespace HoGentLend.Controllers
 
             ReservatieViewModel rv = new ReservatieViewModel(r);
 
-            FindConflicts(r, rv, gebruiker);
+            ConstructReservatieViewModels(r, rv, gebruiker);
+
+            Config c = configWrapper.GetConfig();
+
+            ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
+            ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
 
             return View(rv);
         }
 
-        private ReservatieViewModel FindConflicts(Reservatie reservatie, ReservatieViewModel rvm, Gebruiker gebruiker)
+        //test
+        public void ConstructReservatieViewModels(Reservatie reservatie, ReservatieViewModel rvm, Gebruiker gebruiker)
         {
             List<ReservatieLijn> reservatielijnen = reservatie.ReservatieLijnen.
-                OrderBy(rl => rl.Materiaal.Name).ToList();
+                    OrderBy(rl => rl.Materiaal.Name).ToList();
             for (int i = 0; i < reservatielijnen.Count; i++)
             {
-                ReservatieLijn rl = reservatielijnen[i];
-                Materiaal m = rl.Materiaal;
-
-                DateTime? indienmoment = rl.IndienMoment;
-                DateTime? ophaalmoment = rl.OphaalMoment;
-
-                //alle overlappende reservaties in 1 lijst
-                List<ReservatieLijn> overlappendeLijnen = m.ReservatieLijnen.Where(r => (
-                    (r.IndienMoment <= indienmoment && r.OphaalMoment > indienmoment)
-                    || (r.IndienMoment <= ophaalmoment && r.OphaalMoment > ophaalmoment)
-                    || (r.IndienMoment >= indienmoment && r.OphaalMoment <= ophaalmoment)
-                    )).ToList();
-
-                int totaalAantalBeschikbaar = m.Amount - m.AmountNotAvailable;
-
-                //als er meer gereserveerd zijn dan beschikbaar
-                if (overlappendeLijnen.Sum(r => r.Amount) > totaalAantalBeschikbaar)
+                int aantalSlechtsBeschikbaar = reservatielijnen[i].FindConflicts(gebruiker.CanSeeAllMaterials());
+                if (aantalSlechtsBeschikbaar != 0)
                 {
-                    int aantalNogBeschikbaar = totaalAantalBeschikbaar;
-
-                    //als geen lector is
-                    //verminder aantalNogBeschikbare Reservaties indien een lijn wordt tegengekomen met 
-                    //vroegere reservatiedatum
-                    if (!gebruiker.CanSeeAllMaterials())
-                    {
-                        foreach (var lijn in overlappendeLijnen)
-                        {
-                            Reservatie bijhorendeReservatie = reservatieRepository.FindBy((int) lijn.ReservatieId);
-                            if (bijhorendeReservatie.Lener.CanSeeAllMaterials() ||
-                                (bijhorendeReservatie.Reservatiemoment < reservatie.Reservatiemoment))
-                            {
-                                aantalNogBeschikbaar -= (int) lijn.Amount;
-                            }
-                        }
-                    }
-                    //als wel lector is
-                    //verminder aantalNogBeschikbare enkel wanneer de lijn met vroegere reservatiedatum
-                    //ook van een lector was
-                    else
-                    {
-                        foreach (var lijn in overlappendeLijnen)
-                        {
-                            Reservatie bijhorendeReservatie = reservatieRepository.FindBy((int) lijn.ReservatieId);
-                            if (bijhorendeReservatie.Lener.CanSeeAllMaterials()
-                                && bijhorendeReservatie.Reservatiemoment < reservatie.Reservatiemoment)
-                            {
-                                aantalNogBeschikbaar -= (int) lijn.Amount;
-                            }
-                        }
-                    }
-
-                    //Indien gebruiker laatste was om te reserveren, en dus materiaal niet kan meekrijgen,
-                    //wordt er berekend hoeveel hij er slechts krijgt
-                    if (aantalNogBeschikbaar < rl.Amount)
-                    {
-                        System.Diagnostics.Debug.WriteLine(aantalNogBeschikbaar + ", " + rl.Amount);
-                        rvm.Conflict = true;
-                        //laat view weten dat er geen materialen meer beschikbaar zijn voor gebruiker
-                        if (aantalNogBeschikbaar <= 0)
-                        {
-                            rvm.ReservatieLijnen[i].AantalSlechtsBeschikbaar = -1;
-                        }
-                        else
-                        {
-                            rvm.ReservatieLijnen[i].AantalSlechtsBeschikbaar = (int)rl.Amount - aantalNogBeschikbaar;
-                        }
-                    }
-
+                    rvm.Conflict = true;
                 }
+                rvm.ReservatieLijnen[i].AantalSlechtsBeschikbaar = aantalSlechtsBeschikbaar;
             }
-
-            return rvm;
         }
+
     }
 
 }

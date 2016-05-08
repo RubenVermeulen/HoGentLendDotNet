@@ -18,6 +18,9 @@ namespace HoGentLend.ViewModels
         [DisplayName("Lener")]
         public string Lener { get; set; }
 
+        [DisplayName("Lener e-mailadres")]
+        public string LenerEmail { get; set; }
+
         [DisplayName("Ophaalmoment")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? Ophaalmoment { get; set; }
@@ -27,7 +30,7 @@ namespace HoGentLend.ViewModels
         public DateTime? Indienmoment { get; set; }
 
         [DisplayName("Reservatiemoment")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime? Reservatiemoment { get; set; }
 
         [DisplayName("Opgehaald")]
@@ -45,6 +48,8 @@ namespace HoGentLend.ViewModels
         public ReservatieViewModel(Reservatie r, bool conflict)
         {
             Id = r.Id;
+            Lener = r.Lener.FirstName + " " + r.Lener.LastName;
+            LenerEmail = r.Lener.Email;
             Ophaalmoment = r.Ophaalmoment;
             Indienmoment = r.Indienmoment;
             Reservatiemoment = r.Reservatiemoment;

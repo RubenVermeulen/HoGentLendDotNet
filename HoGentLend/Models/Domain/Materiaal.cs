@@ -8,7 +8,7 @@ namespace HoGentLend.Models.Domain
 {
     public class Materiaal
     {
-        public long Id { get; private set; }
+        public long Id { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }

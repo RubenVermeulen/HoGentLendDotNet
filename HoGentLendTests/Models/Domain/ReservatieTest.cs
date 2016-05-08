@@ -16,6 +16,12 @@ namespace HoGentLendTests.Models.Domain
         private Gebruiker lener;
         private DateTime ophaalMoment;
         private DateTime indienMoment;
+        private int maandag;
+        private int maandag2;
+        private int vrijdag;
+        private int eenweek;
+        private int tweeweken;
+
 
 
         [TestInitialize]
@@ -28,6 +34,12 @@ namespace HoGentLendTests.Models.Domain
 
             this.reservatie = new Reservatie(lener, ophaalMoment, indienMoment);
             this.lener.Reservaties.Add(reservatie);
+
+            this.maandag = 1;
+            this.maandag2 = 1;
+            this.vrijdag = 5;
+            this.eenweek = 1;
+            this.tweeweken = 2;
         }
 
         [TestMethod]
@@ -81,6 +93,38 @@ namespace HoGentLendTests.Models.Domain
                 Amount = 1,
             }, 1, ophaalMoment, indienMoment);
             Assert.AreEqual(1, reservatie.ReservatieLijnen.Count);
+        }
+
+        [TestMethod]
+        public void CalculateAmountMondayToFridaySameWeekReturns4()
+        {
+            int verschil = Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(vrijdag, eenweek, maandag);
+
+            Assert.AreEqual(4, verschil);
+        }
+
+        [TestMethod]
+        public void CalculateAmountMondayToFridayNotSameWeekReturns11()
+        {
+            int verschil = Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(vrijdag, tweeweken, maandag);
+
+            Assert.AreEqual(11, verschil);
+        }
+
+        [TestMethod]
+        public void CalculateAmountMondayToMondayNextWeekReturns7()
+        {
+            int verschil = Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(maandag2, eenweek, maandag);
+
+            Assert.AreEqual(7, verschil);
+        }
+
+        [TestMethod]
+        public void CalculateAmountMondayToMondayTwoWeeksReturns14()
+        {
+            int verschil = Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(maandag2, tweeweken, maandag);
+
+            Assert.AreEqual(14, verschil);
         }
     }
 }

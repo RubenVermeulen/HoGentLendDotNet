@@ -31,7 +31,10 @@ namespace HoGentLend.Controllers
         {
             IEnumerable<MateriaalViewModel> materialen =
                 materiaalRepository.FindByFilter(filter, doelgroepId, leergebiedId)
-                .Select(m => new MateriaalViewModel(m));
+                .Select(m => new MateriaalViewModel(m)
+                {
+                    IsInWishList = gebruiker.WishList.Contains(m)
+                });
 
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
@@ -56,33 +59,64 @@ namespace HoGentLend.Controllers
             return new SelectList(groepen.OrderBy(g => g.Name), "Id", "Name");
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(Gebruiker gebruiker, int id)
         {
             Materiaal m = materiaalRepository.FindBy(id);
-
+            
             if (m == null)
                 return HttpNotFound();
+
+            List<ReservatieLijn> reservatieLijnen = m.ReservatieLijnen
+                .Where(r => (r.IndienMoment >= DateTime.Today ))
+                .ToList();
 
             long convertId = Convert.ToInt64(id);
 
             int[] chartList = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            
+            Dictionary<string, List<ReservatieLijnViewModel>> reservaties = new Dictionary<string, List<ReservatieLijnViewModel>>();
 
-            foreach (ReservatieLijn rl in m.ReservatieLijnen)
+
+            foreach (ReservatieLijn rl in reservatieLijnen)
             {
                 for (int i = 0; i < 12; i++)
                 {
                     int days = i * 7 * config.LendingPeriod;
 
-                    if (rl.OphaalMoment <= DateTime.Today.AddDays(days) && rl.IndienMoment >= DateTime.Today.AddDays(days))
+                    DateTime dateTime = DateTime.Today.AddDays(days);
+
+                    // Calculate last monday
+                    int delta = DayOfWeek.Monday - DateTime.Now.DayOfWeek;
+
+                    if (delta > 0)
+                        delta -= 7;
+
+                    DateTime startOfWeek = DateTime.Now.AddDays(delta + i * 7 * config.LendingPeriod);
+
+                    if (
+                        (rl.OphaalMoment <= startOfWeek && rl.IndienMoment >= startOfWeek) || 
+                        (rl.OphaalMoment <= startOfWeek && rl.OphaalMoment > startOfWeek.AddDays(7 * config.LendingPeriod))
+                        )
                     {
-                        chartList[i]++;
+                        chartList[i] = chartList[i] + rl.Amount;
                     }
+                }
+
+                if (reservaties.ContainsKey(rl.OphaalMoment.ToString()))
+                {
+                    reservaties[rl.OphaalMoment.ToString()].Add(new ReservatieLijnViewModel(rl));
+                }
+                else
+                {
+                    reservaties.Add(rl.OphaalMoment.ToString(), new List<ReservatieLijnViewModel>() {new ReservatieLijnViewModel(rl)});
                 }
 
             }
 
             ViewBag.chartList = chartList;
             ViewBag.lendingPeriod = config.LendingPeriod;
+            ViewBag.reservaties = reservaties;
+            ViewBag.InWishlist = gebruiker.WishList.Contains(m);
 
             return View(new MateriaalViewModel(m));
         }

@@ -85,6 +85,7 @@ textarea {
     border: 1px solid #eeeeee;
     box-shadow: #000 1px 1px 5px -4px;
     transition: 0.1s background linear;
+    height: 175px;
 }
 
 #catalog .catalog-item:hover {
@@ -122,68 +123,73 @@ textarea {
     height: 60px;
 }
 
-#catalog .voegtoe {
+
+/* Add to wishlist button */
+
+.voegtoe {
+    float: right;
     display: inline-block;
     padding: 0;
-    padding-right: 5px;
-    line-height: 27px;
-    background: #eeeeee;
-    border: 0;
-    border: #009d7e 1px solid;
-    box-shadow: #000 1px 1px 1  px -1px;
+    margin-right:15px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #bebebe;
+    border-radius: 3px;
+    box-shadow: #000 1px 1px 5px -4px;
+    transition: all .2s linear;
+    width: 100%;
+    margin: 10px 0 0 0;
 }
 
-#catalog .voegtoe:hover {
-    background: #009d7e;
-    transition: 0.1s background linear;
-}
-
-/*#catalog .voegtoe .sterretje:hover {
-    background: #38C23C !important;
-}*/
-
-#catalog .voegtoeknop{
-    display: inline;
-}
-
-#catalog .voegtoe .amount{
-    display: inline-block
-}
-
-#catalog .voegtoe .sterretje {
+.voegtoe .heart {
     display: inline-block;
-    line-height: 27px;
-    /*margin-right: 5px;
-    margin-left: -5px;*/
     padding: 0 10px;
-    background: #009d7e;
     text-align: center;
     border: none;
-    color: white;
-    
+    color: #000;
+    transition: all .2s linear;
 }
 
-@media (min-width : 1200px) {
-    #catalog .catalog-item p {
-        height: 40px;
-    }
+.voegtoe:focus {
+    outline:0;
 }
 
-@media (max-width : 992px) {
-    #catalog .catalog-item p {
-        height: 40px;
-    }
+.voegtoe:hover {
+    background: #fff;
+    border-color: rgb(229, 67, 67);
 }
 
-@media (max-width : 400px) {
-    #catalog .catalog-item p {
-        height: 60px;
-    }
+.voegtoe:hover .heart {
+    color: rgb(229, 67, 67);
+}
 
-    #catalog .voegtoe{
-        font-size: 0.8em;
-    }
 
+/* When material is in wishlist the add button is colored */
+.voegtoe-active {
+    background: #fff;
+    border-color: rgb(229, 67, 67);
+}
+
+.voegtoe-active .heart {
+    color: rgb(229, 67, 67);
+}
+/* --- */
+
+.voegtoe .heart span {
+    line-height: 20px;
+}
+
+#details .voegtoe {
+    height: 40px;
+    margin: 15px 0 0 0;
+}   
+
+.heart .glyphicon {
+    top: 0;
+}
+
+.heart {
+    width: 100%;
 }
 
 
@@ -215,18 +221,25 @@ textarea {
 
 #details .reserveer {
     display: block;
+    margin-top: 15px;
     padding: 5px 10px;
     line-height: 30px;
-    background: #38C23C;
-    color: #ffffff;
-    border:none;
-    box-shadow: #000 1px 1px 3px -1px;
-    transition: background .2s linear;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 3px;
+    box-shadow: #000 1px 1px 5px -4px;
+    transition: all .2s linear;
 }
 
-#details .reserveer:hover{
+#details .reserveer:hover,
+#details .reserveer-active {
     text-decoration: none;
-    background: #33b437;
+    border-color: rgb(229, 67, 67);
+    color: rgb(229, 67, 67);
+}
+
+#details .reserveer .glyphicon {
+    margin-right: 5px;
 }
 
 #details .description {
@@ -245,11 +258,17 @@ textarea {
 
 #login {
     padding: 0;
-    background: #ffffff url('Images/login-bg.jpg') left no-repeat;
 }
 
 #login > .row {
     margin: 0;
+}
+
+#login .branding {
+    position: fixed;
+    min-height: 100%;
+    background: #ffffff url('Images/login-bg.jpg') left no-repeat;
+    background-size: cover;
 }
 
 #login .hogent-lend-brand {
@@ -293,8 +312,8 @@ textarea {
 
 #wishlist .wishlist-item .wishlist-img {
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     background: url("Images/default-placeholder.png") no-repeat center;
     background-size: contain;
 }
@@ -333,3 +352,82 @@ textarea {
     background: #d9edf7;
 }
 
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+.padding-0 {
+    padding: 0;
+}
+
+#success, #error {
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    margin: 0;
+    display: none;
+    z-index: 100; 
+    text-align: center; 
+}
+
+@media (min-width : 1200px) {
+    #catalog .catalog-item p {
+        height: 40px;
+    }
+}
+
+@media (min-width : 400px) {
+    .heart .glyphicon {
+        left: -1px;
+        top: 1px;
+    }
+}
+
+@media (max-width : 992px) {
+    #catalog .catalog-item p {
+        height: 40px;
+    }
+    .wishlist-item [class*="col-"] {
+        margin-bottom: 5px;
+    }
+    #wishlist .wishlist-item .wishlist-img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width : 400px) {
+    #catalog .catalog-item p {
+        height: 60px;
+    }
+
+    #catalog .voegtoe{
+        font-size: 0.8em;
+    }
+
+    #login .login-aside {
+    padding-top: 30px;
+    padding-left: 15px;
+    background: #ffffff;
+}
+
+}
+
+@media (max-width : 767px) {
+
+    #catalog .catalog-item {
+        height: 275px;
+    }
+
+    #catalog .voegtoe{
+        width: 40%;
+        margin: 5px 30% 0 30%;
+    }
+}

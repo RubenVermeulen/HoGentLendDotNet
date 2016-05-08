@@ -31,29 +31,28 @@ namespace HoGentLend.Controllers
             Config c = configWrapper.GetConfig();
             ViewBag.ophaalDag = c.Ophaaldag;
             ViewBag.indienDag = c.Indiendag;
-            ViewBag.aantalWeken = c.LendingPeriod;
+            ViewBag.aantalWeken = c.LendingPeriod - 1;
             ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
             ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
+            ViewBag.vandaag = DateTime.Now.ToString("dd/MM/yyyy");
             return View("Index", materials);
         }
 
         // POST: Add
         [HttpPost]
-        public ActionResult Add(Gebruiker gebruiker, int id) { 
-
-
+        public JsonResult Add(Gebruiker gebruiker, int id) { 
             Materiaal mat = materiaalRepository.FindBy(id);
             try
             {
                 gebruiker.AddToWishList(mat);
                 materiaalRepository.SaveChanges();
-                TempData["msg"] = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst.";
+
+                return Json(new { status = "success", message = "Het materiaal " + mat.Name + " is toegevoegd aan je verlanglijst." });
             }
             catch (ArgumentException e)
             {
-                TempData["err"] = e.Message;
+                return Json(new { status = "error", message = e.Message });
             }
-            return RedirectToAction("Index");
         }
 
         // POST: Remove
@@ -65,13 +64,31 @@ namespace HoGentLend.Controllers
             {
                 gebruiker.WishList.RemoveMaterial(mat);
                 materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
-                TempData["msg"] = "Het materiaal " + mat.Name + " is verwijderd uit uw verlanglijst.";
+                TempData["msg"] = "Het materiaal " + mat.Name + " is verwijderd uit je verlanglijst.";
             }
             catch (ArgumentException e)
             {
                 TempData["err"] = e.Message;
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ActionName("Remove")]
+        public JsonResult RemovePost(Gebruiker gebruiker, int id)
+        {
+            Materiaal mat = materiaalRepository.FindBy(id);
+            try
+            {
+                gebruiker.WishList.RemoveMaterial(mat);
+                materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
+                return Json(new { status = "success", message = "Het materiaal " + mat.Name + " is verwijderd uit je verlanglijstje." });
+
+            }
+            catch (ArgumentException e)
+            {
+                return Json(new { status = "error", message = e.Message });
+            }
         }
 
     }

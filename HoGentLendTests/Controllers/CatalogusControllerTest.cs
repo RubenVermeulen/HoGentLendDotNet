@@ -21,6 +21,7 @@ namespace HoGentLendTests.Controllers
         private Mock<IMateriaalRepository> mockMateriaalRepository;
         private Mock<IGroepRepository> mockGroepRepository;
         private Mock<IReservatieRepository> mockReservatieRepository;
+        private Mock<IConfigWrapper> mockConfigWrapper;
 
         private Gebruiker student;
         private Gebruiker lector;
@@ -38,6 +39,7 @@ namespace HoGentLendTests.Controllers
             mockMateriaalRepository = new Mock<IMateriaalRepository>();
             mockGroepRepository = new Mock<IGroepRepository>();
             mockReservatieRepository = new Mock<IReservatieRepository>();
+            mockConfigWrapper = new Mock<IConfigWrapper>();
 
             student = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
             lector = ctx.GebruikerList.First(u => u.Email.Equals("lector@hogent.be"));
@@ -54,11 +56,25 @@ namespace HoGentLendTests.Controllers
             mockMateriaalRepository
                 .Setup(m => m.FindByFilter("", ID_KLEUTERONDERWIJS, ID_WISKUNDE))
                 .Returns(ctx.MateriaalList
-                    .Where(mat => mat.Doelgroepen.Any(d => d.Name.Equals("Kleuteronderwijs")))
-                    .Where(mat => mat.Leergebieden.Any(d => d.Name.Equals("Wiskunde")))
-                );
+                    .Where(mat => mat.Name.Equals("Rekenmachine")));
 
-            controller = new CatalogusController(mockMateriaalRepository.Object, mockGroepRepository.Object, mockReservatieRepository.Object);
+            mockMateriaalRepository
+                .Setup(m => m.FindBy(1))
+                .Returns(ctx.MateriaalList.FirstOrDefault(mat => mat.Id.Equals(1)));
+
+            mockMateriaalRepository
+                .Setup(m => m.FindBy(2))
+                .Returns(ctx.MateriaalList.FirstOrDefault(mat => mat.Id.Equals(2)));
+
+            mockMateriaalRepository
+                .Setup(m => m.FindBy(3))
+                .Returns(ctx.MateriaalList.FirstOrDefault(mat => mat.Id.Equals(3)));
+
+            mockConfigWrapper
+                .Setup(c => c.GetConfig())
+                .Returns(ctx.Config);
+
+            controller = new CatalogusController(mockMateriaalRepository.Object, mockGroepRepository.Object, mockReservatieRepository.Object, mockConfigWrapper.Object);
         }
 
         [TestMethod]
@@ -98,6 +114,121 @@ namespace HoGentLendTests.Controllers
 
             Assert.AreEqual(1, materials.Length);
             Assert.AreEqual("Rekenmachine", materials[0].Name);
+        }
+
+        [TestMethod]
+        public void IndexViewBagDoelgroepId()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(lector, "", ID_KLEUTERONDERWIJS, ID_WISKUNDE) as ViewResult;
+
+            var DoelgroepId= result.ViewBag.DoelgroepId;
+
+            Assert.AreEqual(ID_KLEUTERONDERWIJS, DoelgroepId);
+        }
+
+        [TestMethod]
+        public void IndexViewBagLeergebiedId()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(lector, "", ID_KLEUTERONDERWIJS, ID_WISKUNDE) as ViewResult;
+
+            var LeergebiedId = result.ViewBag.LeergebiedId;
+
+            Assert.AreEqual(ID_WISKUNDE, LeergebiedId);
+        }
+
+        [TestMethod]
+        public void IndexViewBagFilter()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(lector, "telraam", ID_KLEUTERONDERWIJS, ID_WISKUNDE) as ViewResult;
+
+            var filter = result.ViewBag.filter;
+
+            Assert.AreEqual("telraam", filter);
+        }
+
+        [TestMethod]
+        public void DetailReturnsMaterial()
+        {
+            ViewResult result = controller.Detail(student, 1) as ViewResult;
+
+            MateriaalViewModel m = result.Model as MateriaalViewModel;
+
+            Assert.AreEqual(1, m.Id);
+            Assert.AreEqual("Wereldbol", m.Name);
+        }
+
+        [TestMethod]
+        public void DetailReturnsHttpNotFoundWhenMaterialIsNull()
+        {
+            HttpNotFoundResult result = controller.Detail(student, 10) as HttpNotFoundResult;
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void DetailViewBagLendingPeriod()
+        {
+            ViewResult result = controller.Detail(student, 1) as ViewResult;
+
+            var lendingPeriod = result.ViewBag.lendingPeriod;
+
+            Assert.AreEqual(1, lendingPeriod);
+        }
+
+        [TestMethod]
+        public void DetailViewBagInWishListTrue()
+        {
+            ViewResult result = controller.Detail(student, 1) as ViewResult;
+
+            var inWishList = result.ViewBag.InWishList;
+
+            Assert.IsTrue(inWishList);
+        }
+
+        [TestMethod]
+        public void DetailViewBagInWishListFalse()
+        {
+            ViewResult result = controller.Detail(lector, 1) as ViewResult;
+
+            var inWishList = result.ViewBag.InWishList;
+
+            Assert.IsFalse(inWishList);
+        }
+
+        [TestMethod]
+        public void DetailViewBagReservatiesCountIsOne()
+        {
+            ViewResult result = controller.Detail(student, 1) as ViewResult;
+
+            var reservaties = result.ViewBag.reservaties;
+
+            Assert.AreEqual(1, reservaties.Count);
+        }
+
+        [TestMethod]
+        public void DetailViewBagReservatiesCountIsNull()
+        {
+            ViewResult result = controller.Detail(lector, 3) as ViewResult;
+
+            var reservaties = result.ViewBag.reservaties;
+
+            Assert.AreEqual(0, reservaties.Count);
+        }
+
+        [TestMethod]
+        public void DetailViewBagChartList()
+        {
+            ViewResult result = controller.Detail(lector, 3) as ViewResult;
+
+            int[] chartList = result.ViewBag.chartList;
+
+            Assert.AreEqual(15, chartList.Count());
         }
     }
 }

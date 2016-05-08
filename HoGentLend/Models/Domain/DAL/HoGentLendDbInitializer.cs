@@ -10,7 +10,7 @@ using HoGentLend.Models.Domain;
 
 namespace HoGentLend.Models.DAL
 {
-    public class HoGentLendDbInitializer : System.Data.Entity.DropCreateDatabaseAlways<HoGentLendContext>
+    public class HoGentLendDbInitializer : System.Data.Entity.CreateDatabaseIfNotExists<HoGentLendContext>
     {
         protected override void Seed(HoGentLendContext context)
         {
@@ -23,8 +23,8 @@ namespace HoGentLend.Models.DAL
                 Config c = new Config
                 {
                     LendingPeriod = 1,
-                    Indiendag = "maandag",
-                    Ophaaldag = "vrijdag",
+                    Indiendag = "vrijdag",
+                    Ophaaldag = "maandag",
                     Indientijd = _10u30,
                     Ophaaltijd = _17u00
                 };
@@ -90,7 +90,7 @@ namespace HoGentLend.Models.DAL
 
                 Materiaal m1 = new Materiaal
                 {
-                    Name = "Wereldbol",
+                    Name = "Wereldbol Caran D'Ache Supra 80 sdqf sdqf dsqf qsdf qds sdq qsdfqsdff qsdf qsfdqf sqdf sqdf dsqf sdq f",
                     //Description = "Alle landen van de wereld in één handomdraai.",
                     //ArticleCode = "abc123",
                     //Price = 12.85,

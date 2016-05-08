@@ -16,6 +16,14 @@ namespace HoGentLend.Models.DAL
         {
         }
 
+        public override Materiaal FindBy(int id)
+        {
+            return
+                dbSet.Include(m => m.ReservatieLijnen)
+                    .Include(m => m.ReservatieLijnen.Select(rl => rl.Reservatie.Lener))
+                    .SingleOrDefault(m => m.Id == id);
+        }
+
         public IEnumerable<Materiaal> FindByFilter(String filter, int doelgroepId, int leergebiedId)
         {
             IQueryable<Materiaal> materialen;
@@ -34,7 +42,8 @@ namespace HoGentLend.Models.DAL
                         (m.ArticleCode.ToLower().Contains(filter)) ||
                         (m.Firma.Email.ToLower().Contains(filter)) ||
                         (m.Firma.Name.ToLower().Contains(filter)) ||
-                        (m.Location.ToLower().Contains(filter))
+                        (m.Location.ToLower().Contains(filter))|| 
+                        (m.Description.ToLower().Contains(filter))
                     );
 
                 if (doelgroepId != 0)

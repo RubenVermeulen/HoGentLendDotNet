@@ -44,7 +44,7 @@ namespace HoGentLend.Models.Domain
         {
             if (mat == null || !CanSeeMaterial(mat))
             {
-                throw new ArgumentException("Het materiaal dat u wenste toe te voegen aan uw verlanglijst is niet beschikbaar.");
+                throw new ArgumentException("Het materiaal dat je wenste toe te voegen aan je verlanglijstje is niet beschikbaar.");
             }
             WishList.AddMaterial(mat);
         }
@@ -53,32 +53,35 @@ namespace HoGentLend.Models.Domain
         {
             if (mat == null)
             {
-                throw new ArgumentException("Het materiaal dat u wenste te verwijderen uit uw verlanglijst is niet beschikbaar.");
+                throw new ArgumentException("Het materiaal dat je wenste te verwijderen uit je verlanglijstje is niet beschikbaar.");
             }
             WishList.RemoveMaterial(mat);
         }
 
-        public void AddReservation(List<Materiaal> materials,
-            List<long> amounts,
-            DateTime ophaalDatum, DateTime indienDatum,
+        public void AddReservation(Dictionary<Materiaal, int> teReserverenMaterialen,
+            DateTime ophaalDatum, DateTime indienDatum, DateTime today,
             IQueryable<Reservatie> allReservations)
         {
-            if (materials == null || amounts == null || materials.Count != amounts.Count)
+            if (teReserverenMaterialen == null || teReserverenMaterialen.Count == 0)
             {
-                throw new ArgumentException("Materialen en hoeveelheden zijn verplicht en er moeten evenveel van elk gegeven worden.");
+                throw new ArgumentException("Er moet ten minste 1 materiaal gereserveerd worden.");
+            }
+            if (today > ophaalDatum)
+            {
+                throw new ArgumentException("De ophaaldatum moet na vandaag zijn.");
             }
             Reservatie reservatie = new Reservatie(this, ophaalDatum, indienDatum);
             reservatie.ReservatieLijnen = new List<ReservatieLijn>();
-            for (int i = 0; i < materials.Count; i++)
+            foreach (KeyValuePair<Materiaal, int> entry in teReserverenMaterialen)
             {
-                Materiaal mat = materials[i];
-                long amount = amounts[i];
+                Materiaal mat = entry.Key;
+                int amount = entry.Value;
                 long availableAmount = GetAmountAvailableForReservation(mat, allReservations, ophaalDatum, indienDatum);
                 if (amount > availableAmount)
                 {
                     throw new ArgumentException(string.Format("Het materiaal {0} heeft nog maar {1} exemplaren beschikbaar.", mat.Name, availableAmount));
                 }
-                reservatie.AddReservationLine(materials[i], amounts[i], ophaalDatum, indienDatum);
+                reservatie.AddReservationLine(mat, amount, ophaalDatum, indienDatum);
             }
             if (reservatie.ReservatieLijnen.Count == 0)
             {
@@ -105,7 +108,7 @@ namespace HoGentLend.Models.Domain
             return reservatie;
         }
 
-        public void RemoveReservationLijn(ReservatieLijn reservatieLijn, ReservatieRepository reservatieRepository)
+        public void RemoveReservationLijn(ReservatieLijn reservatieLijn, IReservatieRepository reservatieRepository)
         {
             if (reservatieLijn == null)
             {
@@ -120,13 +123,19 @@ namespace HoGentLend.Models.Domain
                 throw new ArgumentException("De reservatielijn is al verwijderd geweest.");
             }
 
+            if (reservatieLijn.Reservatie.Opgehaald)
+            {
+                throw new ArgumentException("De reservatie is al opgehaald. Je kan geen wijzigingen meer aanbrengen.");
+            }
+
             Reservatie r = reservatieLijn.Reservatie;
-            //reservatieLijn.Reservatie.ReservatieLijnen.Remove(reservatieLijn);
+            reservatieLijn.Reservatie.ReservatieLijnen.Remove(reservatieLijn);
             reservatieRepository.RemoveReservationLine(reservatieLijn);
 
             // Verwijder de volledige reservatie wanneer er geen reservatielijnen meer zijn.
             if (r.ReservatieLijnen.Count == 0)
             {
+                Reservaties.Remove(r);
                 reservatieRepository.Delete(r);
             }
         }
@@ -137,7 +146,7 @@ namespace HoGentLend.Models.Domain
             IEnumerable<ReservatieLijn> reservationLinesWithMaterialThatOverlap = allReservations.SelectMany(
                 r => r.ReservatieLijnen.Where(rl => rl.Materiaal.Id == mat.Id)
             ).ToList()
-            .Where(rl => MyDateUtil.DoesFirstPairOverlapWithSecond(ophaalDatum, indienDatum, rl.OphaalMoment, rl.IndienMoment));
+            .Where(rl => rl.OphaalMoment < indienDatum && rl.IndienMoment > ophaalDatum);
 
             long amountReserved = FilterReservatieLijnenDieOveruledKunnenWorden(reservationLinesWithMaterialThatOverlap).Select(rl => rl.Amount).Sum();
             long amountAvailable = mat.Amount - mat.AmountNotAvailable - amountReserved;

@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HoGentLend.Models.Domain;
 using System.Collections.Generic;
+using Moq;
+using System.Linq;
 
 namespace HoGentLendTests.Models.Domain
 {
@@ -15,8 +17,23 @@ namespace HoGentLendTests.Models.Domain
 
         private Materiaal material, materialNotLendable;
 
-        private Reservatie rStudent, rLector, rStudentOpgehaald, rStudentSingleLine;
-        private ReservatieLijn rStudentLijn, rStudentSingleLineLijn;
+        private Reservatie reservatieStudent1, reservatieLector1, reservatieStudent2Opgehaald, reservatieStudent3;
+        private ReservatieLijn reservatieLijnStudentR1, reservatieLijnStudentR3;
+
+        private Mock<IReservatieRepository> mockReservatieRepository;
+        private DateTime _13April2016;
+        private DateTime _20April2016;
+        private DateTime _21April2016;
+        private DateTime _28April2016;
+        private DateTime _1April2016;
+        private DateTime _8April2016;
+        private IQueryable<Reservatie> allReservations;
+        private Materiaal m1;
+        private Materiaal m2;
+        private Materiaal m3;
+        private Materiaal m4;
+        private Materiaal m5;
+        private Materiaal m6;
 
         [TestInitialize]
         public void setup()
@@ -28,6 +45,7 @@ namespace HoGentLendTests.Models.Domain
             this.reservaties = new List<Reservatie>();
             this.student = new Student(firstName, lastName, email);
             this.lector = new Lector(firstName, lastName, email);
+            this.mockReservatieRepository = new Mock<IReservatieRepository>();
             this.material = new Materiaal()
             {
                 Amount = 1,
@@ -41,14 +59,13 @@ namespace HoGentLendTests.Models.Domain
                 IsLendable = false
             };
 
-            Materiaal m1 = new Materiaal
+            m1 = new Materiaal
             {
                 Name = "Wereldbol",
                 Amount = 10,
                 IsLendable = true
             };
-
-            Materiaal m2 = new Materiaal
+            m2 = new Materiaal
             {
                 Name = "Rekenmachine",
                 Description = "Reken er op los met deze grafische rekenmachine.",
@@ -59,8 +76,7 @@ namespace HoGentLendTests.Models.Domain
                 IsLendable = true,
                 Location = "GSCHB 4.021"
             };
-
-            Materiaal m3 = new Materiaal
+            m3 = new Materiaal
             {
                 Name = "Kleurpotloden",
                 Description = "Alle kleuren van de regenboog.",
@@ -71,20 +87,17 @@ namespace HoGentLendTests.Models.Domain
                 IsLendable = true,
                 Location = "GSCHB 4.021"
             };
-
-            Materiaal m4 = new Materiaal
+            m4 = new Materiaal
             {
                 Name = "Voetbal",
                 Description = "Voetballen voor in het lager onderwijs.",
                 ArticleCode = "abc147",
                 Price = 25.99,
                 Amount = 15,
-                AmountNotAvailable = 3,
                 IsLendable = false,
                 Location = "GSCHB 4.021"
             };
-
-            Materiaal m5 = new Materiaal
+            m5 = new Materiaal
             {
                 Name = "Basketbal",
                 Description = "De NBA Allstar biedt de perfecte oplossing op het vlak van duurzaamheid en spelprestaties. Zowel geschikt voor indoor als outdoor. Uitstekende grip!",
@@ -96,47 +109,65 @@ namespace HoGentLendTests.Models.Domain
                 Location = "GSCHB 4.021",
                 PhotoBytes = null
             };
+            m6 = new Materiaal
+            {
+                Name = "Voetbal",
+                Description = "Voetballen voor in het lager onderwijs.",
+                ArticleCode = "abc147",
+                Price = 25.99,
+                Amount = 15,
+                AmountNotAvailable = 3,
+                IsLendable = false,
+                Location = "GSCHB 4.021"
+            };
 
-            DateTime _13April2016 = new DateTime(2016, 4, 13);
-            DateTime _20April2016 = new DateTime(2016, 4, 20);
+            _13April2016 = new DateTime(2016, 4, 13);
+            _20April2016 = new DateTime(2016, 4, 20);
 
-            DateTime _21April2016 = new DateTime(2016, 4, 21);
-            DateTime _28April2016 = new DateTime(2016, 4, 28);
+            _21April2016 = new DateTime(2016, 4, 21);
+            _28April2016 = new DateTime(2016, 4, 28);
 
-            DateTime _1April2016 = new DateTime(2016, 4, 1);
-            DateTime _8April2016 = new DateTime(2016, 4, 8);
+            _1April2016 = new DateTime(2016, 4, 1);
+            _8April2016 = new DateTime(2016, 4, 8);
+            
+            reservatieStudent1 = new Reservatie(student, _13April2016, _20April2016);
+            reservatieStudent1.ReservatieLijnen = new List<ReservatieLijn>();
+            reservatieLijnStudentR1 = new ReservatieLijn(2, _13April2016, _20April2016, m1, reservatieStudent1);
+            reservatieStudent1.ReservatieLijnen.Add(reservatieLijnStudentR1);
+            reservatieStudent1.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m2, reservatieStudent1));
+            reservatieStudent1.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3, reservatieStudent1));
 
-            rStudent = new Reservatie(student, _13April2016, _20April2016);
-            rStudent.ReservatieLijnen = new List<ReservatieLijn>();
-            rStudentLijn = new ReservatieLijn(2, _13April2016, _20April2016, m1, rStudent);
-            rStudent.ReservatieLijnen.Add(rStudentLijn);
-            rStudent.ReservatieLijnen.Add(new ReservatieLijn(3, _13April2016, _20April2016, m2, rStudent));
-            rStudent.ReservatieLijnen.Add(new ReservatieLijn(4, _13April2016, _20April2016, m3, rStudent));
-
-            rStudentOpgehaald = new Reservatie(student, _1April2016, _8April2016)
+            reservatieStudent2Opgehaald = new Reservatie(student, _1April2016, _8April2016)
             {
                 Opgehaald = true
             };
-            rStudentOpgehaald.ReservatieLijnen = new List<ReservatieLijn>();
-            rStudentOpgehaald.ReservatieLijnen.Add(new ReservatieLijn(2, _1April2016, _8April2016, m1, rStudentOpgehaald));
-            rStudentOpgehaald.ReservatieLijnen.Add(new ReservatieLijn(3, _1April2016, _8April2016, m2, rStudentOpgehaald));
-            rStudentOpgehaald.ReservatieLijnen.Add(new ReservatieLijn(4, _1April2016, _8April2016, m3, rStudentOpgehaald));
+            reservatieStudent2Opgehaald.ReservatieLijnen = new List<ReservatieLijn>();
+            reservatieStudent2Opgehaald.ReservatieLijnen.Add(new ReservatieLijn(2, _1April2016, _8April2016, m1, reservatieStudent2Opgehaald));
+            reservatieStudent2Opgehaald.ReservatieLijnen.Add(new ReservatieLijn(3, _1April2016, _8April2016, m2, reservatieStudent2Opgehaald));
+            reservatieStudent2Opgehaald.ReservatieLijnen.Add(new ReservatieLijn(4, _1April2016, _8April2016, m3, reservatieStudent2Opgehaald));
 
-            rStudentSingleLine = new Reservatie(student, _13April2016, _20April2016);
-            rStudentSingleLine.ReservatieLijnen = new List<ReservatieLijn>();
-            rStudentSingleLineLijn = new ReservatieLijn(2, _13April2016, _20April2016, m1, rStudentSingleLine);
-            rStudentSingleLine.ReservatieLijnen.Add(rStudentSingleLineLijn);
+            reservatieStudent3 = new Reservatie(student, _13April2016, _20April2016);
+            reservatieStudent3.ReservatieLijnen = new List<ReservatieLijn>();
+            reservatieLijnStudentR3 = new ReservatieLijn(2, _13April2016, _20April2016, m1, reservatieStudent3);
+            reservatieStudent3.ReservatieLijnen.Add(reservatieLijnStudentR3);
 
-            rLector = new Reservatie(lector, _21April2016, _28April2016);
-            rLector.ReservatieLijnen = new List<ReservatieLijn>();
-            rLector.ReservatieLijnen.Add(new ReservatieLijn(2, _21April2016, _28April2016, m4, rLector));
-            rLector.ReservatieLijnen.Add(new ReservatieLijn(3, _21April2016, _28April2016, m5, rLector));
-            rLector.ReservatieLijnen.Add(new ReservatieLijn(4, _21April2016, _28April2016, m3, rLector));
+            reservatieLector1 = new Reservatie(lector, _21April2016, _28April2016);
+            reservatieLector1.ReservatieLijnen = new List<ReservatieLijn>();
+            reservatieLector1.ReservatieLijnen.Add(new ReservatieLijn(2, _21April2016, _28April2016, m4, reservatieLector1));
+            reservatieLector1.ReservatieLijnen.Add(new ReservatieLijn(3, _21April2016, _28April2016, m5, reservatieLector1));
+            reservatieLector1.ReservatieLijnen.Add(new ReservatieLijn(4, _21April2016, _28April2016, m3, reservatieLector1));
 
-            student.Reservaties.Add(rStudent);
-            student.Reservaties.Add(rStudentOpgehaald);
-            student.Reservaties.Add(rStudentSingleLine);
-            lector.Reservaties.Add(rLector);
+            student.Reservaties.Add(reservatieStudent1);
+            student.Reservaties.Add(reservatieStudent2Opgehaald);
+            student.Reservaties.Add(reservatieStudent3);
+            lector.Reservaties.Add(reservatieLector1);
+
+            List<Reservatie> listAllReservations = new List<Reservatie>();
+            listAllReservations.AddRange(student.Reservaties);
+            listAllReservations.AddRange(lector.Reservaties);
+
+            allReservations = listAllReservations.AsQueryable();
+
         }
 
         [TestMethod]
@@ -162,7 +193,7 @@ namespace HoGentLendTests.Models.Domain
         [TestMethod]
         public void TestReservatiesVerplicht()
         {
-            new Student(firstName, lastName, email, wishList, null);
+            new Lector(firstName, lastName, email, wishList, null);
         }
 
         [TestMethod]
@@ -232,43 +263,126 @@ namespace HoGentLendTests.Models.Domain
         [ExpectedException(typeof(ArgumentException))]
         public void TestRemoveReservationReservationMustBeAdded()
         {
-            student.RemoveReservation(rLector);
+            student.RemoveReservation(reservatieLector1);
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestRemoveReservationReservationMagNietOpgehaaldZijn()
         {
-            student.RemoveReservation(rStudentOpgehaald);
+            student.RemoveReservation(reservatieStudent2Opgehaald);
         }
         [TestMethod]
         public void TestRemoveReservationDidRemoveTheReservation()
         {
             var beforeCount = student.Reservaties.Count;
-            student.RemoveReservation(rStudent);
+            student.RemoveReservation(reservatieStudent1);
             Assert.AreEqual(beforeCount - 1, student.Reservaties.Count);
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestRemoveReservationLineReservationLineIsVerplicht()
         {
-            student.RemoveReservationLijn(null);
+            student.RemoveReservationLijn(null, mockReservatieRepository.Object);
         }
         [TestMethod]
         public void TestRemoveReservationLineDeletesReservationLine()
         {
-            var beforeCount = rStudent.ReservatieLijnen.Count;
-            student.RemoveReservationLijn(rStudentLijn);
-            Assert.AreEqual(beforeCount - 1, rStudent.ReservatieLijnen.Count);
+            var beforeCount = reservatieStudent1.ReservatieLijnen.Count;
+            student.RemoveReservationLijn(reservatieLijnStudentR1, mockReservatieRepository.Object);
+            Assert.AreEqual(beforeCount - 1, reservatieStudent1.ReservatieLijnen.Count);
         }
         [TestMethod]
         public void TestRemoveReservationLineAlsoDeletedReservationIfLastLine()
         {
             var beforeCount = student.Reservaties.Count;
-            student.RemoveReservationLijn(rStudentSingleLineLijn);
+            student.RemoveReservationLijn(reservatieLijnStudentR3, mockReservatieRepository.Object);
             Assert.AreEqual(beforeCount - 1, student.Reservaties.Count);
-
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestRemoveReservationLijnDeGebruikerBevatDeReservatieNiet()
+        {
+            student.RemoveReservationLijn(reservatieLector1.ReservatieLijnen.ElementAt(0), mockReservatieRepository.Object);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestRemoveReservationLijnReservatieLijnNietMeerInResevatie()
+        {
+            reservatieStudent1.ReservatieLijnen.Remove(reservatieLijnStudentR1);
+            student.RemoveReservationLijn(reservatieLijnStudentR1, mockReservatieRepository.Object);
         }
 
-        // TODO: test AddReservation
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddReservationTeReserverenMaterialenVerplicht()
+        {
+            student.AddReservation(null, _13April2016, _20April2016, _1April2016, allReservations);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddReservationTeReserverenMaterialenNietLeeg()
+        {
+            student.AddReservation(new Dictionary<Materiaal, int>(), _13April2016, _20April2016, _1April2016, allReservations);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddReservationMateriaalNietGenoegBeschikbaarDoorAndereReservaties()
+        {
+            // m1 4 keer gereserveerd, maar 10 beschikbaar
+            student.AddReservation(CreateDic(m1, 7), _13April2016, _20April2016, _1April2016, allReservations);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddReservationMateriaalNietGenoegBeschikbaar()
+        {
+            // m6 niet gereserveerd, maar 15 beschikbaar
+            student.AddReservation(CreateDic(m6, 16), _13April2016, _20April2016, _1April2016, allReservations);
+        }
+        [TestMethod]
+        public void TestAddReservationKonTochToegevoegdWordenAlsLectorOmStudentTeOverlappen()
+        {
+            // m1 4 keer gereserveerd door studenten, maar 10 beschikbaar
+            int beforeCount = lector.Reservaties.Count;
+            lector.AddReservation(CreateDic(m1, 10), _13April2016, _20April2016, _1April2016, allReservations);
+            Assert.AreEqual(beforeCount + 1, lector.Reservaties.Count);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddReservationLectoKanLectorNietOverlappen()
+        {
+            // m4 2 keer gereserveerd door lector, maar 15 beschikbaar
+            lector.AddReservation(CreateDic(m4, 13), _21April2016, _28April2016, _1April2016, allReservations);
+        }
+
+        [TestMethod]
+        public void TestAddReservationLuktInWeekZonderOverlappingen()
+        {
+            int beforeCount = lector.Reservaties.Count;
+            lector.AddReservation(CreateDic(m4, 15), _13April2016, _21April2016, _1April2016, allReservations);
+            Assert.AreEqual(beforeCount + 1, lector.Reservaties.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddReservationNoLijnen()
+        {
+            lector.AddReservation(CreateDic(), _21April2016, _28April2016, _1April2016, allReservations);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddReservationOphaalDatumBeforeToday()
+        {
+            lector.AddReservation(CreateDic(m4, 15), _13April2016, _21April2016, _28April2016, allReservations);
+        }
+
+        private Dictionary<Materiaal, int> CreateDic(params Object[] objs)
+        {
+            var dic = new Dictionary<Materiaal, int>();
+            for(int i = 0; i < objs.Length; i++)
+            {
+                dic.Add(objs[i] as Materiaal, Convert.ToInt32(objs[++i]));
+            }
+            return dic;
+        }
     }
 }
