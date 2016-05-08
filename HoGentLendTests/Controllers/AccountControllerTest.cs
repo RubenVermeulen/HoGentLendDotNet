@@ -18,6 +18,12 @@ namespace HoGentLendTests.Controllers
     [TestClass]
     public class AccountControllerTest
     {
+        /*
+            Er is geen 80%+ code coverage bij deze controller omdat de code
+            voor het meeste gegenereerde code was door visual studio zelf, dus
+            mag men ervanuit gaan dat die geen fouten bevat.
+    */
+
         private AccountController controller;
 
         private Mock<IGebruikerRepository> mockGebruikerRepository;
@@ -29,8 +35,11 @@ namespace HoGentLendTests.Controllers
         private const string NEW_VALID_PASSWORD = "eenPaswoord123";
         private const string EXISTING_VALID_USERNAME = "AStudent";
         private const string EXISTING_VALID_PASSWORD = "StudentPassword";
+        private const string NEW_VALID_USERNAME_LECTOR = "ALector";
+        private const string NEW_VALID_PASSWORD_LECTOR = "ALectorPassword";
         private const string NOT_VALID_PASSWORD = "notValidPassword123";
         private HoGentApiLookupResult validHogentLookupResult;
+        private HoGentApiLookupResult validHogentLookupResultLector;
 
         [TestInitialize]
         public void TestInitialize()
@@ -52,10 +61,22 @@ namespace HoGentLendTests.Controllers
                 Type = "student",
                 Base64Foto = null
             };
+            validHogentLookupResultLector = new HoGentApiLookupResult()
+            {
+                FirstName = "Bob",
+                LastName = "De Bouwer",
+                Email = "Bob_DeBouwer@kunnenwijhetmaken.ja",
+                Faculteit = "faculteit",
+                Type = "personeel",
+                Base64Foto = null
+            };
 
             mockHoGentApiLookupProvider
                 .Setup(m => m.Lookup(NEW_VALID_USERNAME, NEW_VALID_PASSWORD))
                 .Returns(validHogentLookupResult);
+            mockHoGentApiLookupProvider
+                .Setup(m => m.Lookup(NEW_VALID_USERNAME_LECTOR, NEW_VALID_PASSWORD_LECTOR))
+                .Returns(validHogentLookupResultLector);
             mockHoGentApiLookupProvider
                 .Setup(m => m.Lookup(NEW_VALID_USERNAME, NOT_VALID_PASSWORD))
                 .Returns(new HoGentApiLookupResult());
@@ -64,6 +85,9 @@ namespace HoGentLendTests.Controllers
                 .Returns(validHogentLookupResult);
             mockApplicationSignInManager
                 .Setup(m => m.PasswordSignInAsync(NEW_VALID_USERNAME, It.IsAny<string>(), false, false))
+                .Returns(Task.FromResult(SignInStatus.Failure));
+            mockApplicationSignInManager
+                .Setup(m => m.PasswordSignInAsync(NEW_VALID_USERNAME_LECTOR, It.IsAny<string>(), false, false))
                 .Returns(Task.FromResult(SignInStatus.Failure));
             mockApplicationSignInManager
                 .Setup(m => m.PasswordSignInAsync(EXISTING_VALID_USERNAME, EXISTING_VALID_PASSWORD, false, false))
@@ -81,14 +105,21 @@ namespace HoGentLendTests.Controllers
         }
 
         [TestMethod]
-        public void POST_Login_NewValid_PersistsGebruikerAndSignsIn()
+        public void POST_Login_NewValidStudent_PersistsGebruikerAndSignsIn()
         {
             controller.Login(CreateViewModel(NEW_VALID_USERNAME, NEW_VALID_PASSWORD), "");
-            mockGebruikerRepository.Verify(m => m.Add(It.IsAny<Gebruiker>()), Times.Once);
+            mockGebruikerRepository.Verify(m => m.Add(It.IsAny<Student>()), Times.Once);
             mockGebruikerRepository.Verify(m => m.SaveChanges(), Times.Once);
             mockApplicationSignInManager.Verify(m => m.SignInAsync(It.IsAny<ApplicationUser>(), false, false), Times.Once);
         }
-
+        [TestMethod]
+        public void POST_Login_NewValidLector_PersistsGebruikerAndSignsIn()
+        {
+            controller.Login(CreateViewModel(NEW_VALID_USERNAME_LECTOR, NEW_VALID_PASSWORD_LECTOR), "");
+            mockGebruikerRepository.Verify(m => m.Add(It.IsAny<Lector>()), Times.Once);
+            mockGebruikerRepository.Verify(m => m.SaveChanges(), Times.Once);
+            mockApplicationSignInManager.Verify(m => m.SignInAsync(It.IsAny<ApplicationUser>(), false, false), Times.Once);
+        }
         [TestMethod]
         public void POST_Login_NewValid_RedirectsToCatalogus()
         {

@@ -316,9 +316,16 @@
                         name: 'Aantal beschikbaar',
                         data: [
                             @for (var i = 0; i < 12; i++)
+                            {
+                                if (Model.Amount - Model.AmountNotAvailable - ViewBag.chartList[i] > -1)
                                 {
                                     @String.Format("{0},", Model.Amount - Model.AmountNotAvailable - ViewBag.chartList[i])
                                 }
+                                else
+                                {
+                                    @:0
+                                }
+                            }
                         ],
                         pointInterval: 3600 * 1000 * 24 * 7 * @ViewBag.lendingPeriod,
                     }
