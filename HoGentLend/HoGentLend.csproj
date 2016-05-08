@@ -261,6 +261,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\Domain\Domain Class Diagram.cd" />
     <Content Include="Controllers\Controller Class Diagram.cd" />
+    <None Include="Properties\PublishProfiles\hogentlend-p2g02.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
