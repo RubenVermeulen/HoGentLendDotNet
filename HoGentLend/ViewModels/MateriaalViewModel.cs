@@ -69,7 +69,7 @@ namespace HoGentLend.ViewModels
         [DisplayName("Aantal onbeschikbaar")]
         public int AmountNotAvailable { get; private set; }
 
-        [DisplayName("Uitleenbaar")]
+        [DisplayName("Uitleenbaarheid")]
         public bool IsLendable { get; private set; }
 
         [DisplayName("Locatie")]
