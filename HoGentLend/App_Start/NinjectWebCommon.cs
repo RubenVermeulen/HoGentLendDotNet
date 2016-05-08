@@ -73,7 +73,7 @@ namespace HoGentLend.App_Start
             kernel.Bind<IReservatieRepository>().To<ReservatieRepository>().InRequestScope();
             kernel.Bind<IConfigWrapper>().To<ConfigWrapper>().InRequestScope();
 
-            kernel.Bind<IHoGentApiLookupProvider>().To<OfflineHoGentApiLookupProvider>().InRequestScope();
+            kernel.Bind<IHoGentApiLookupProvider>().To<HoGentApiLookupProvider>().InRequestScope();
           //  kernel.Bind<IHoGentApiLookupProvider>().To<HoGentApiLookupProvider>().InRequestScope();
         }        
     }
