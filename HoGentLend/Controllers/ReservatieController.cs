@@ -110,8 +110,10 @@ namespace HoGentLend.Controllers
 
             verschilDagen = ophaalDag - indienDag;
 
-
-            if (c.LendingPeriod == 1)
+            if (verschilDagen == 0) {
+                aantalDagen = c.LendingPeriod * 7;
+            }
+            else if (c.LendingPeriod == 1)
             {
                 aantalDagen = verschilDagen;
             }
