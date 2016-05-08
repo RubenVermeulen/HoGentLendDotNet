@@ -85,6 +85,7 @@ textarea {
     border: 1px solid #eeeeee;
     box-shadow: #000 1px 1px 5px -4px;
     transition: 0.1s background linear;
+    height: 175px;
 }
 
 #catalog .catalog-item:hover {
@@ -136,6 +137,8 @@ textarea {
     border-radius: 3px;
     box-shadow: #000 1px 1px 5px -4px;
     transition: all .2s linear;
+    width: 100%;
+    margin: 10px 0 0 0;
 }
 
 .voegtoe .heart {
@@ -403,4 +406,16 @@ textarea {
         font-size: 0.8em;
     }
 
+}
+
+@media (max-width : 767px) {
+
+    #catalog .catalog-item {
+        height: 275px;
+    }
+
+    #catalog .voegtoe{
+        width: 40%;
+        margin: 5px 30% 0 30%;
+    }
 }
