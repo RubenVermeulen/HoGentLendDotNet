@@ -47,7 +47,7 @@ namespace HoGentLend.Controllers
                 gebruiker.AddToWishList(mat);
                 materiaalRepository.SaveChanges();
 
-                return Json(new { status = "success", message = "Het materiaal " + mat.Name + " is toegevoegd aan uw verlanglijst." });
+                return Json(new { status = "success", message = "Het materiaal " + mat.Name + " is toegevoegd aan je verlanglijst." });
             }
             catch (ArgumentException e)
             {

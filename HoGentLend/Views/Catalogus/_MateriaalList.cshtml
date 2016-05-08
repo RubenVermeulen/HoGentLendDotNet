@@ -41,8 +41,8 @@
                         <div class="clearfix">
                             @if (ViewBag.verlanglijst.Exists(item.Id))
                             {
-                                <button id="@item.Id" class="voegtoe voegtoe-active" title="Toevoegen aan verlanglijstje">
-                                    <div class="sterretje">
+                                <button id="@item.Id" class="voegtoe voegtoe-active">
+                                    <div class="heart">
                                         <span class="glyphicon glyphicon-heart"></span>
                                     </div>
                                 </button>
@@ -50,7 +50,7 @@
                             else
                             {
                                 <button id="@item.Id" class="voegtoe" title="Toevoegen aan verlanglijstje">
-                                    <div class="sterretje">
+                                    <div class="heart">
                                         <span class="glyphicon glyphicon-heart-empty"></span>
                                     </div>
                                 </button>

@@ -122,64 +122,6 @@ textarea {
     height: 60px;
 }
 
-#catalog .voegtoe {
-    float: right;
-    display: inline-block;
-    padding: 0;
-    margin-right:15px;
-    height: 30px;
-    background: #fff;
-    border: 1px solid #bebebe;
-    border-radius: 3px;
-    box-shadow: #000 1px 1px 5px -4px;
-    transition: all .2s linear;
-}
-
-#catalog .voegtoe .sterretje {
-    display: inline-block;
-    padding: 0 10px;
-    text-align: center;
-    border: none;
-    color: #000;
-    transition: all .2s linear;
-}
-
-#catalog .voegtoe:focus {
-    outline:0;
-}
-
-#catalog .voegtoe:hover {
-    background: #fff;
-    border-color: rgb(229, 67, 67);
-}
-
-#catalog .voegtoe:hover .sterretje {
-    color: rgb(229, 67, 67);
-}
-
-/* When material is in wishlist the add button is colored */
-#catalog .voegtoe-active {
-    background: #fff;
-    border-color: rgb(229, 67, 67);
-}
-
-#catalog .voegtoe-active .sterretje {
-    color: rgb(229, 67, 67);
-}
-/* --- */
-
-#catalog .voegtoeknop{
-    display: inline;
-}
-
-#catalog .voegtoe .amount{
-    display: inline-block
-}
-
-#catalog .voegtoe .sterretje span {
-    line-height: 20px;
-}
-
 @media (min-width : 1200px) {
     #catalog .catalog-item p {
         height: 40px;
@@ -203,6 +145,62 @@ textarea {
 
 }
 
+/* Add to wishlist button */
+
+.voegtoe {
+    float: right;
+    display: inline-block;
+    padding: 0;
+    margin-right:15px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #bebebe;
+    border-radius: 3px;
+    box-shadow: #000 1px 1px 5px -4px;
+    transition: all .2s linear;
+}
+
+.voegtoe .heart {
+    display: inline-block;
+    padding: 0 10px;
+    text-align: center;
+    border: none;
+    color: #000;
+    transition: all .2s linear;
+}
+
+.voegtoe:focus {
+    outline:0;
+}
+
+.voegtoe:hover {
+    background: #fff;
+    border-color: rgb(229, 67, 67);
+}
+
+.voegtoe:hover .heart {
+    color: rgb(229, 67, 67);
+}
+
+/* When material is in wishlist the add button is colored */
+.voegtoe-active {
+    background: #fff;
+    border-color: rgb(229, 67, 67);
+}
+
+.voegtoe-active .heart {
+    color: rgb(229, 67, 67);
+}
+/* --- */
+
+.voegtoe .heart span {
+    line-height: 20px;
+}
+
+#details .voegtoe {
+    height: 40px;
+    margin: 15px 0 0 0;
+}
 
 /* Detail */
 
