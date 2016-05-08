@@ -258,11 +258,16 @@ textarea {
 
 #login {
     padding: 0;
-    background: #ffffff url('Images/login-bg.jpg') left no-repeat;
 }
 
 #login > .row {
     margin: 0;
+}
+
+#login .branding {
+    height: 100%;
+    background: #ffffff url('Images/login-bg.jpg') left no-repeat;
+    background-size: cover;
 }
 
 #login .hogent-lend-brand {

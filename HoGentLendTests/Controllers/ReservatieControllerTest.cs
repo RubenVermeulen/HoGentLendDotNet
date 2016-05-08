@@ -25,11 +25,16 @@ namespace HoGentLendTests.Controllers
         private Mock<IConfigWrapper> mockConfigWrapper;
 
         private ReservatiePartModel rpm;
-        private Materiaal m1;
+        private Materiaal m1, m2;
         private List<Groep> dgList;
         private Groep dg1;
         private List<Groep> lgListAardrijkskunde;
         private Groep lg2;
+
+        private Reservatie r1, r2, r3;
+        private ReservatieViewModel rvm;
+        private ReservatieLijn rl1, rl2, rl3;
+        private Gebruiker student, lector;
 
         [TestInitialize]
         public void SetupContext()
@@ -88,6 +93,57 @@ namespace HoGentLendTests.Controllers
 
             reservatieController = new ReservatieController(mockReservatieRepository.Object,
                 mockMateriaalRepository.Object, mockConfigWrapper.Object);
+
+            /* Construct ReservatieViewModels */
+
+            DateTime _11April2016 = new DateTime(2016, 4, 11);
+            DateTime _15April2016 = new DateTime(2016, 4, 15);
+
+            student = new Student("Offline", "Student", "offline.student@hogent.be");
+            lector = new Lector("Offline", "Lector", "offline.lector@hogent.be");
+
+            m2 = new Materiaal
+            {
+                Name = "Rekenmachine",
+                Description = "Reken er op los met deze grafische rekenmachine.",
+                ArticleCode = "abc456",
+                Price = 19.99,
+                Amount = 4,
+                AmountNotAvailable = 0,
+                IsLendable = true,
+                Location = "GSCHB 4.021"
+            };
+
+            r1 = new Reservatie(student, _11April2016, _15April2016);
+            r1.ReservatieLijnen = new List<ReservatieLijn>();
+            rl1 = new ReservatieLijn(2, _11April2016, _15April2016, m2, r1);
+            r1.ReservatieLijnen.Add(rl1);
+
+            r2 = new Reservatie(lector, _11April2016, _15April2016)
+            {
+                Reservatiemoment = _11April2016
+            };
+            r2.ReservatieLijnen = new List<ReservatieLijn>();
+            rl2 = (new ReservatieLijn(3, _11April2016, _15April2016, m2, r2));
+            r2.ReservatieLijnen.Add(rl2);
+
+            r3 = new Reservatie(student, _11April2016, _15April2016);
+            r3.ReservatieLijnen = new List<ReservatieLijn>();
+            rl3 = new ReservatieLijn(2, _11April2016, _15April2016, m1, r3);
+            r3.ReservatieLijnen.Add(rl3);
+
+
+            student.Reservaties.Add(r1);
+            lector.Reservaties.Add(r2);
+            student.Reservaties.Add(r3);
+
+            m1.ReservatieLijnen.Add(rl3);
+            m2.ReservatieLijnen.Add(rl1);
+            m2.ReservatieLijnen.Add(rl2);
+
+            rvm = new ReservatieViewModel(r1);
+
+
         }
 
         [TestMethod]
@@ -163,5 +219,34 @@ namespace HoGentLendTests.Controllers
 
             ViewResult result = reservatieController.Detail(g, 342) as ViewResult;
         }
+
+        [TestMethod]
+        public void ConstructReservatieViewModelsWithConflicts()
+        {
+            reservatieController.ConstructReservatieViewModels(r1, rvm, student);
+            Assert.IsNotNull(rvm.ReservatieLijnen);
+            Assert.AreEqual(rvm.ReservatieLijnen[0].AantalSlechtsBeschikbaar, 1);
+            Assert.IsTrue(rvm.Conflict);
+
+        }
+
+        [TestMethod]
+        public void ConstructReservatieViewModelsWithNoConflicts()
+        {
+            reservatieController.ConstructReservatieViewModels(r3, rvm, student);
+            Assert.IsNotNull(rvm.ReservatieLijnen);
+            Assert.AreEqual(rvm.ReservatieLijnen[0].AantalSlechtsBeschikbaar, 0);
+            Assert.IsFalse(rvm.Conflict);
+        }
+
+        [TestMethod]
+        public void ConstructReservatieViewModelsWithConflictsAsLector()
+        {
+            reservatieController.ConstructReservatieViewModels(r2, rvm, lector);
+            Assert.IsNotNull(rvm.ReservatieLijnen);
+            Assert.AreEqual(rvm.ReservatieLijnen[0].AantalSlechtsBeschikbaar, 0);
+            Assert.IsFalse(rvm.Conflict);
+        }
+
     }
 }
