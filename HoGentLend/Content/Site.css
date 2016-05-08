@@ -160,6 +160,9 @@ textarea {
     color: rgb(229, 67, 67);
 }
 
+
+
+
 /* When material is in wishlist the add button is colored */
 .voegtoe-active {
     background: #fff;
@@ -178,7 +181,12 @@ textarea {
 #details .voegtoe {
     height: 40px;
     margin: 15px 0 0 0;
+}   
+
+.heart .glyphicon {
+    top: 0;
 }
+
 
 /* Detail */
 
@@ -361,6 +369,13 @@ textarea {
 @media (min-width : 1200px) {
     #catalog .catalog-item p {
         height: 40px;
+    }
+}
+
+@media (min-width : 400px) {
+    .heart .glyphicon {
+        left: -1px;
+        top: 1px;
     }
 }
 
