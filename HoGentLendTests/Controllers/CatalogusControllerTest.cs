@@ -117,6 +117,42 @@ namespace HoGentLendTests.Controllers
         }
 
         [TestMethod]
+        public void IndexViewBagDoelgroepId()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(lector, "", ID_KLEUTERONDERWIJS, ID_WISKUNDE) as ViewResult;
+
+            var DoelgroepId= result.ViewBag.DoelgroepId;
+
+            Assert.AreEqual(ID_KLEUTERONDERWIJS, DoelgroepId);
+        }
+
+        [TestMethod]
+        public void IndexViewBagLeergebiedId()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(lector, "", ID_KLEUTERONDERWIJS, ID_WISKUNDE) as ViewResult;
+
+            var LeergebiedId = result.ViewBag.LeergebiedId;
+
+            Assert.AreEqual(ID_WISKUNDE, LeergebiedId);
+        }
+
+        [TestMethod]
+        public void IndexViewBagFilter()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(lector, "telraam", ID_KLEUTERONDERWIJS, ID_WISKUNDE) as ViewResult;
+
+            var filter = result.ViewBag.filter;
+
+            Assert.AreEqual("telraam", filter);
+        }
+
+        [TestMethod]
         public void DetailReturnsMaterial()
         {
             ViewResult result = controller.Detail(student, 1) as ViewResult;
@@ -141,7 +177,7 @@ namespace HoGentLendTests.Controllers
             ViewResult result = controller.Detail(student, 1) as ViewResult;
 
             var lendingPeriod = result.ViewBag.lendingPeriod;
-            
+
             Assert.AreEqual(1, lendingPeriod);
         }
 

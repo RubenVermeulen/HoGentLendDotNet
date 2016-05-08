@@ -214,13 +214,34 @@ namespace HoGentLendTests.Controllers
             Assert.AreEqual("De reservatie is succesvol verwijderd.", result.TempData.Peek("msg"));
         }
 
+        
+
         [TestMethod]
-        public void DetailReservationsDoesntFail()
+        public void DetailViewBagOphaalTijd()
         {
             Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
 
             ViewResult result = reservatieController.Detail(g, 342) as ViewResult;
+
+            var ophaalTijd = result.ViewBag.ophaalTijd;
+
+
+            Assert.AreEqual("10:30", ophaalTijd);
         }
+
+        [TestMethod]
+        public void DetailViewBagIndienTijd()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = reservatieController.Detail(g, 342) as ViewResult;
+
+            var indienTijd = result.ViewBag.indienTijd;
+
+
+            Assert.AreEqual("17:30", indienTijd);
+        }
+
 
         [TestMethod]
         public void RemoveReservationLineSavesAndReturnsMessage()
