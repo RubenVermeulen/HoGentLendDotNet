@@ -81,7 +81,20 @@ namespace HoGentLend.Controllers
                 {
                     int days = i * 7 * config.LendingPeriod;
 
-                    if (rl.OphaalMoment <= DateTime.Today.AddDays(days) && rl.IndienMoment >= DateTime.Today.AddDays(days))
+                    DateTime dateTime = DateTime.Today.AddDays(days);
+
+                    // Calculate last monday
+                    int delta = DayOfWeek.Monday - DateTime.Now.DayOfWeek;
+
+                    if (delta > 0)
+                        delta -= 7;
+
+                    DateTime startOfWeek = DateTime.Now.AddDays(delta + i * 7 * config.LendingPeriod);
+
+                    if (
+                        (rl.OphaalMoment <= startOfWeek && rl.IndienMoment >= startOfWeek) || 
+                        (rl.OphaalMoment <= startOfWeek && rl.OphaalMoment > startOfWeek.AddDays(7 * config.LendingPeriod))
+                        )
                     {
                         chartList[i] = chartList[i] + rl.Amount;
                     }
