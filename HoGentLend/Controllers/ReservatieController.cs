@@ -17,12 +17,14 @@ namespace HoGentLend.Controllers
     {
         private IReservatieRepository reservatieRepository;
         private IMateriaalRepository materiaalRepository;
+        private IConfigWrapper configWrapper;
 
         public ReservatieController(IReservatieRepository reservatieRepository,
-            IMateriaalRepository materiaalRepository)
+            IMateriaalRepository materiaalRepository, IConfigWrapper configWrapper)
         {
             this.reservatieRepository = reservatieRepository;
             this.materiaalRepository = materiaalRepository;
+            this.configWrapper = configWrapper;
         }
 
         // GET: Reservatie
@@ -53,10 +55,10 @@ namespace HoGentLend.Controllers
         public ActionResult Add(Gebruiker gebruiker, List<ReservatiePartModel> reservatiepartmodels,
             DateTime? ophaalDatum)
         {
-            double weeks = 1; // dit zal later nog uit de database gehaald worden
-            // TODO  zorgen dat ophaaldatum en indiendatum ook de uren hebben van uit de config
+            Config c = configWrapper.GetConfig();
+            int aantalDagen = c.LendingPeriod;
 
-            
+
             var materialenTeReserveren = new Dictionary<Materiaal, int>();
             var x = 0;
             foreach (ReservatiePartModel rpm in reservatiepartmodels)
@@ -81,7 +83,7 @@ namespace HoGentLend.Controllers
                     throw new ArgumentException("Er moet minstens 1 materiaal zijn waarbij het aantal groter is dan 0.");
                 }
 
-                DateTime indienDatum = ophaalDatum.Value.AddDays(7 * weeks);
+                DateTime indienDatum = ophaalDatum.Value.AddDays(aantalDagen);
                 gebruiker.AddReservation(materialenTeReserveren, ophaalDatum.Value, indienDatum, DateTime.Now,
                     reservatieRepository.FindAll());
                 reservatieRepository.SaveChanges();
