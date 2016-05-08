@@ -19,7 +19,7 @@ namespace HoGentLend.Models.Domain
         public void AddMaterial(Materiaal material)
         {
             if (material != null && Materials.FirstOrDefault(m => m.Name == material.Name) != null)
-                throw new ArgumentException("Deze verlanglijst heeft al een materiaal met dezelfde naam");
+                throw new ArgumentException("Het materiaal zit al in je verlanglijstje.");
             Materials.Add(material);
         }
 
@@ -30,7 +30,7 @@ namespace HoGentLend.Models.Domain
                 throw new ArgumentException(string.Format("Het materiaal is niet beschikbaar en kan dus niet verwijderd worden."));
             }
             if (!Materials.Contains(material))
-                throw new ArgumentException(string.Format("De verlanglijst bevat het materiaal {0} niet.", material.Name));
+                throw new ArgumentException(string.Format("Je verlanglijstje bevat het materiaal {0} niet.", material.Name));
             Materials.Remove(material);
         }
 

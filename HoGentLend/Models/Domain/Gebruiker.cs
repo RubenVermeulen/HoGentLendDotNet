@@ -44,7 +44,7 @@ namespace HoGentLend.Models.Domain
         {
             if (mat == null || !CanSeeMaterial(mat))
             {
-                throw new ArgumentException("Het materiaal dat u wenste toe te voegen aan uw verlanglijst is niet beschikbaar.");
+                throw new ArgumentException("Het materiaal dat je wenste toe te voegen aan je verlanglijstje is niet beschikbaar.");
             }
             WishList.AddMaterial(mat);
         }
@@ -53,7 +53,7 @@ namespace HoGentLend.Models.Domain
         {
             if (mat == null)
             {
-                throw new ArgumentException("Het materiaal dat u wenste te verwijderen uit uw verlanglijst is niet beschikbaar.");
+                throw new ArgumentException("Het materiaal dat je wenste te verwijderen uit je verlanglijstje is niet beschikbaar.");
             }
             WishList.RemoveMaterial(mat);
         }

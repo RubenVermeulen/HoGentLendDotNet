@@ -253,6 +253,27 @@
 {
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script>
+        // Ajax Post Call Wishlist
+        $('button.reserveer').click(function (e) {
+            var button = $(this);
+            var id = button.attr('id');
+
+            $.post("/Verlanglijst/Add", {id: id}, function(data) {
+                if (data.status === 'success') {
+                    button.addClass('reserveer-active');
+                    button.attr('disabled', 'disabled');
+
+                    var success = $("#success");
+                    success.html(data.message);
+                    success.slideDown();
+
+                    setTimeout(function() {
+                        success.slideUp();
+                    }, 3500);
+                }
+            });
+        });
+
         // Graph
         $(function () {
             var week = new Date(new Date().getTime()),
