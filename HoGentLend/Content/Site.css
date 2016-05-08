@@ -265,7 +265,8 @@ textarea {
 }
 
 #login .branding {
-    height: 100%;
+    position: fixed;
+    min-height: 100%;
     background: #ffffff url('Images/login-bg.jpg') left no-repeat;
     background-size: cover;
 }
@@ -410,6 +411,12 @@ textarea {
     #catalog .voegtoe{
         font-size: 0.8em;
     }
+
+    #login .login-aside {
+    padding-top: 30px;
+    padding-left: 15px;
+    background: #ffffff;
+}
 
 }
 
