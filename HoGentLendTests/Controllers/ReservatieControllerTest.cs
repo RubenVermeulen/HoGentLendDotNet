@@ -143,6 +143,8 @@ namespace HoGentLendTests.Controllers
 
             rvm = new ReservatieViewModel(r1);
 
+            mockReservatieRepository.Setup(r => r.FindBy(456)).Returns(r1);
+
 
         }
 
@@ -218,6 +220,25 @@ namespace HoGentLendTests.Controllers
             Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
 
             ViewResult result = reservatieController.Detail(g, 342) as ViewResult;
+        }
+
+        [TestMethod]
+        public void RemoveReservationLineSavesAndReturnsMessage()
+        {
+            reservatieController.RemoveReservationLine(student, 456, (int)rl1.Id);
+
+            Assert.AreEqual(r1.ReservatieLijnen.Count, 0);
+            mockReservatieRepository.Verify(m => m.SaveChanges(), Times.Once);
+            Assert.IsTrue(reservatieController.TempData["msg"] != null);
+        }
+
+        [TestMethod]
+        public void RemoveReservationNoSuchReservationLine()
+        {
+            reservatieController.RemoveReservationLine(student, 456, 117);
+
+            Assert.AreEqual(r1.ReservatieLijnen.Count, 1);
+            Assert.IsTrue(reservatieController.TempData["err"] != null);
         }
 
         [TestMethod]

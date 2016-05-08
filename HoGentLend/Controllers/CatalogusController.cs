@@ -66,7 +66,9 @@ namespace HoGentLend.Controllers
             if (m == null)
                 return HttpNotFound();
 
-            List<ReservatieLijn> reservatieLijnen = m.ReservatieLijnen;
+            List<ReservatieLijn> reservatieLijnen = m.ReservatieLijnen
+                .Where(r => (r.IndienMoment >= DateTime.Today ))
+                .ToList();
 
             long convertId = Convert.ToInt64(id);
 
