@@ -61,8 +61,65 @@ namespace HoGentLend.Controllers
             DateTime? ophaalDatum)
         {
             Config c = configWrapper.GetConfig();
-            int aantalDagen = c.LendingPeriod;
+            int aantalDagen;
+            int indienDag;
+            int ophaalDag;
+            int verschilDagen;
 
+
+            if (c.Indiendag.Equals("dinsdag"))
+            {
+                indienDag = 1;
+            }
+            else if (c.Indiendag.Equals("woensdag"))
+            {
+                indienDag = 2;
+            }
+            else if (c.Indiendag.Equals("donderdag"))
+            {
+                indienDag = 3;
+            }
+            else if (c.Indiendag.Equals("vrijdag"))
+            {
+                indienDag = 4;
+            }
+            else {
+                indienDag = 0;
+            }
+
+            if (c.Ophaaldag.Equals("maandag"))
+            {
+                ophaalDag = 0;
+            }
+            else if (c.Ophaaldag.Equals("dinsdag"))
+            {
+                ophaalDag = 1;
+            }
+            else if (c.Ophaaldag.Equals("woensdag"))
+            {
+                ophaalDag = 2;
+            }
+            else if (c.Ophaaldag.Equals("donderdag"))
+            {
+                ophaalDag = 3;
+            }
+            else
+            {
+                ophaalDag = 4;
+            }
+
+            verschilDagen = ophaalDag - indienDag;
+
+            if (verschilDagen == 0) {
+                aantalDagen = c.LendingPeriod * 7;
+            }
+            else if (c.LendingPeriod == 1)
+            {
+                aantalDagen = verschilDagen;
+            }
+            else {
+                aantalDagen = (c.LendingPeriod - 1) * 7 + verschilDagen;
+            }
 
             var materialenTeReserveren = new Dictionary<Materiaal, int>();
             var x = 0;
