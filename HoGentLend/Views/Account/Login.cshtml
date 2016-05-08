@@ -20,7 +20,7 @@
 
 <div class="row">
     <div class="col-md-8 col-sm-5 hidden-xs branding"></div>
-    <div class="col-md-4 col-sm-5 login-aside">
+    <div class="col-md-4 col-sm-5 col-md-offset-8 col-sm-offset-5 login-aside">
         @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
         {
             <img src="~/Content/Images/logo.png" alt="HoGent Logo"/>
