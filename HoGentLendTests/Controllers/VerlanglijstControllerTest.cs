@@ -36,7 +36,7 @@ namespace HoGentLendTests.Controllers
             var email = "Firstname.lastname@hogent.be";
             this.student = new Student(firstName, lastName, email);
             this.lector = new Lector(firstName, lastName, email);
-            
+
             mockMateriaalRepository = new Mock<IMateriaalRepository>();
             mockConfigWrapper = new Mock<IConfigWrapper>();
 
@@ -45,7 +45,7 @@ namespace HoGentLendTests.Controllers
             {
                 Indiendag = "vrijdag",
                 Ophaaldag = "maandag",
-                Indientijd = new DateTime(1,1,1,17,30,0),
+                Indientijd = new DateTime(1, 1, 1, 17, 30, 0),
                 Ophaaltijd = new DateTime(1, 1, 1, 10, 30, 0),
                 LendingPeriod = 1
             });
@@ -86,6 +86,66 @@ namespace HoGentLendTests.Controllers
             Assert.AreEqual("vrijdag", vb.indienDag);
             Assert.AreEqual(0, vb.aantalWeken);
             Assert.AreEqual(DateTime.Now.ToString("dd/MM/yyyy"), vb.vandaag);
+        }
+
+        [TestMethod]
+        public void IndexViewBagOphaalDag()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(g) as ViewResult;
+
+            var ophaalDag = result.ViewBag.ophaalDag;
+
+            Assert.AreEqual("maandag", ophaalDag);
+        }
+
+        [TestMethod]
+        public void IndexViewBagIndienDag()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(g) as ViewResult;
+
+            var indienDag = result.ViewBag.indienDag;
+
+            Assert.AreEqual("vrijdag", indienDag);
+        }
+
+        [TestMethod]
+        public void IndexViewBagAantalWeken()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(g) as ViewResult;
+
+            var aantalWeken = result.ViewBag.aantalWeken;
+
+            Assert.AreEqual(0, aantalWeken);
+        }
+
+        [TestMethod]
+        public void IndexViewBagOphaalTijd()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(g) as ViewResult;
+
+            var ophaalTijd = result.ViewBag.ophaalTijd;
+
+            Assert.AreEqual("10:30", ophaalTijd);
+        }
+
+        [TestMethod]
+        public void IndexViewBagIndienTijd()
+        {
+            Gebruiker g = ctx.GebruikerList.First(u => u.Email.Equals("ruben@hogent.be"));
+
+            ViewResult result = controller.Index(g) as ViewResult;
+
+            var indienTijd = result.ViewBag.indienTijd;
+
+            Assert.AreEqual("17:30", indienTijd);
         }
 
         [TestMethod]
@@ -170,7 +230,7 @@ namespace HoGentLendTests.Controllers
             JsonResult result = controller.RemovePost(student, WERELDBOL_ID);
             var jsonData = result.Data.GetType().GetProperty("status");
             var propertyStatus = jsonData.GetValue(result.Data, null);
-            
+
 
             Assert.AreEqual(0, student.WishList.Materials.Count);
             mockMateriaalRepository.Verify(m => m.SaveChanges(), Times.Once);

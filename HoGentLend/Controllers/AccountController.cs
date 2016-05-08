@@ -17,7 +17,6 @@ using System.Collections.Generic;
 
 namespace HoGentLend.Controllers
 {
-    //GET PRANKED BY BERKONKRVOS
     [Authorize]
     public class AccountController : Controller
     {
