@@ -161,8 +161,6 @@ textarea {
 }
 
 
-
-
 /* When material is in wishlist the add button is colored */
 .voegtoe-active {
     background: #fff;
@@ -185,6 +183,10 @@ textarea {
 
 .heart .glyphicon {
     top: 0;
+}
+
+.heart {
+    width: 100%;
 }
 
 
