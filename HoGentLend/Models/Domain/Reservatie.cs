@@ -48,7 +48,7 @@ namespace HoGentLend.Models.Domain
             this.Indienmoment = indienMoment;
 
             this.Opgehaald = false;
-            this.Reservatiemoment = DateTime.Now;
+            this.Reservatiemoment = DateTime.UtcNow.ToLocalTime();
         }
 
         public void AddReservationLine(Materiaal materiaal, int amount, DateTime ophaalDatum, DateTime indienDatum)
