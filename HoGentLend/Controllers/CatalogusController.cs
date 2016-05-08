@@ -98,7 +98,7 @@ namespace HoGentLend.Controllers
             ViewBag.chartList = chartList;
             ViewBag.lendingPeriod = config.LendingPeriod;
             ViewBag.reservaties = reservaties;
-            ViewBag.InWishlist = gebruiker.WishList.Exists(m.Id);
+            ViewBag.InWishlist = gebruiker.WishList.Contains(m);
 
             return View(new MateriaalViewModel(m));
         }

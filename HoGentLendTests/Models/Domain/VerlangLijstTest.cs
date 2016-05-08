@@ -20,6 +20,7 @@ namespace HoGentLendTests.Models.Domain
             m1 = new Materiaal();
             m1.Name = "Wereldbol";
             m1.Amount = 3;
+
             m2 = new Materiaal();
             m2.Name = "Rekenmachine";
             m2.Amount = 5;
@@ -63,7 +64,23 @@ namespace HoGentLendTests.Models.Domain
             wishList.RemoveMaterial(m3);
         }
 
+        [TestMethod]
+        public void TestContainsReturnsTrueForExistingItem()
+        {
+            Assert.IsTrue(wishList.Contains(m1));
+        }
 
+        [TestMethod]
+        public void TestContainsReturnsFalseForExistingItem()
+        {
 
+            Assert.IsFalse(wishList.Contains(m3));
+        }
+        [TestMethod]
+        public void TestContainsReturnsFalseForNull()
+        {
+
+            Assert.IsFalse(wishList.Contains(null));
+        }
     }
 }
