@@ -56,9 +56,7 @@ namespace HoGentLendTests.Controllers
             mockMateriaalRepository
                 .Setup(m => m.FindByFilter("", ID_KLEUTERONDERWIJS, ID_WISKUNDE))
                 .Returns(ctx.MateriaalList
-                    .Where(mat => mat.Doelgroepen.Any(d => d.Name.Equals("Kleuteronderwijs")))
-                    .Where(mat => mat.Leergebieden.Any(d => d.Name.Equals("Wiskunde")))
-                );
+                    .Where(mat => mat.Name.Equals("Rekenmachine")));
 
             controller = new CatalogusController(mockMateriaalRepository.Object, mockGroepRepository.Object, mockReservatieRepository.Object, mockConfigWrapper.Object);
         }
