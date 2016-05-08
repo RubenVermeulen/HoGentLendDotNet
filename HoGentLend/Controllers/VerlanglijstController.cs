@@ -31,7 +31,7 @@ namespace HoGentLend.Controllers
             Config c = configWrapper.GetConfig();
             ViewBag.ophaalDag = c.Ophaaldag;
             ViewBag.indienDag = c.Indiendag;
-            ViewBag.aantalWeken = c.LendingPeriod;
+            ViewBag.aantalWeken = c.LendingPeriod - 1;
             ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
             ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
             ViewBag.vandaag = DateTime.Now.ToString("dd/MM/yyyy");
