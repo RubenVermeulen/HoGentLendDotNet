@@ -115,6 +115,65 @@ namespace HoGentLend.Controllers
             return RedirectToAction("Index");
         }
 
+        /**
+         // POST: Add
+        [HttpPost]
+        public ActionResult Add(Gebruiker gebruiker, List<ReservatiePartModel> reservatiepartmodels,
+            int dag = 1, int maand = 1, int jaar = 1)
+        {
+            Config c = configWrapper.GetConfig();
+            DateTime ophaalDatum = new DateTime(jaar, maand, dag);
+            
+
+            int aantalDagen;
+
+            var dayToNr = new Dictionary<string, int>();
+            dayToNr.Add("maandag", 1);
+            dayToNr.Add("dinsdag", 2);
+            dayToNr.Add("woensdag", 3);
+            dayToNr.Add("donderdag", 4);
+            dayToNr.Add("vrijdag", 5);
+            dayToNr.Add("zaterdag", 6);
+            dayToNr.Add("zondag", 7);
+
+            aantalDagen = Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(dayToNr[c.Indiendag],
+                dayToNr[c.Ophaaldag], c.LendingPeriod);
+
+            var materialenTeReserveren = new Dictionary<Materiaal, int>();
+            var x = 0;
+            foreach (ReservatiePartModel rpm in reservatiepartmodels)
+            {
+                if (rpm.Amount > 0)
+                {
+                    materialenTeReserveren.Add(materiaalRepository.FindBy(rpm.
+                    MateriaalId), rpm.Amount);
+                    x++;
+                }
+
+            }
+            try
+            {
+                if (x == 0)
+                {
+                    throw new ArgumentException("Er moet minstens 1 materiaal zijn waarbij het aantal groter is dan 0.");
+                }
+
+                DateTime indienDatum = ophaalDatum.AddDays(aantalDagen);
+                gebruiker.AddReservation(materialenTeReserveren, ophaalDatum, indienDatum, DateTime.Now,
+                    reservatieRepository.FindAll());
+                reservatieRepository.SaveChanges();
+                TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
+            }
+            catch (ArgumentException e)
+            {
+                TempData["err"] = e.Message;
+                return RedirectToAction("Index", "Verlanglijst");
+            }
+
+            return RedirectToAction("Index");
+        }
+    **/
+
         // POST: Remove
         [HttpPost]
         public ActionResult Remove(Gebruiker gebruiker, int reservatieId)
