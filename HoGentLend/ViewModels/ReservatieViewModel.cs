@@ -30,7 +30,7 @@ namespace HoGentLend.ViewModels
         public DateTime? Indienmoment { get; set; }
 
         [DisplayName("Reservatiemoment")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime? Reservatiemoment { get; set; }
 
         [DisplayName("Opgehaald")]
