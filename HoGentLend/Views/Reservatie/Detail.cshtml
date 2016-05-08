@@ -5,10 +5,9 @@
 }
 
 
-<div id="reservatiedetails" class="row">
-    <div class="page-header">
-        <h2>Reservatie @Html.DisplayFor(model => model.Ophaalmoment) tot @Html.DisplayFor(model => model.Indienmoment)</h2>
-    </div>
+<div id="reservatiedetails">
+
+    <h2>Reservatie @Html.DisplayFor(model => model.Ophaalmoment) tot @Html.DisplayFor(model => model.Indienmoment)</h2>
 
     <div>
         Status:
@@ -67,7 +66,7 @@
                             {
                                 <input type="hidden" name="reservatieId" value="@Model.Id"/>
                                 <input type="hidden" name="reservatieLineId" value="@item.Id"/>
-                                <button type="submit" class="btn btn-default">
+                                <button type="submit" class="btn btn-default" @(item.Opgehaald ? "disabled" : "")>
                                     Verwijder uit deze reservatie
                                 </button>
                             }

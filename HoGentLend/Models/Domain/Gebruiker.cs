@@ -123,6 +123,11 @@ namespace HoGentLend.Models.Domain
                 throw new ArgumentException("De reservatielijn is al verwijderd geweest.");
             }
 
+            if (reservatieLijn.Reservatie.Opgehaald)
+            {
+                throw new ArgumentException("De reservatie is al opgehaald. Je kan geen wijzigingen meer aanbrengen.");
+            }
+
             Reservatie r = reservatieLijn.Reservatie;
             reservatieLijn.Reservatie.ReservatieLijnen.Remove(reservatieLijn);
             reservatieRepository.RemoveReservationLine(reservatieLijn);
