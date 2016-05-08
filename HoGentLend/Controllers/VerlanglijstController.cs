@@ -47,7 +47,7 @@ namespace HoGentLend.Controllers
                 gebruiker.AddToWishList(mat);
                 materiaalRepository.SaveChanges();
 
-                return Json(new { status = "success", message = "Het materiaal " + mat.Name + " is toegevoegd aan je verlanglijst." });
+                return Json(new { status = "success", message = "Het materiaal " + mat.Name + " is toegevoegd aan je verlanglijstje." });
             }
             catch (ArgumentException e)
             {
@@ -64,7 +64,7 @@ namespace HoGentLend.Controllers
             {
                 gebruiker.WishList.RemoveMaterial(mat);
                 materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
-                TempData["msg"] = "Het materiaal " + mat.Name + " is verwijderd uit je verlanglijst.";
+                TempData["msg"] = "Het materiaal " + mat.Name + " is verwijderd uit je verlanglijstje.";
             }
             catch (ArgumentException e)
             {
