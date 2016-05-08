@@ -31,6 +31,17 @@ namespace HoGentLend.ViewModels
                     DescriptionShort = Description;
                 }
             }
+            if (Name != null)
+            {
+                if (Name.Length > 50)
+                {
+                    ShortName = Name.Substring(0, 50) + "...";
+                }
+                else
+                {
+                    ShortName = Name;
+                }
+            }
 
             ArticleCode = m.ArticleCode;
             Price = m.Price;
@@ -85,6 +96,9 @@ namespace HoGentLend.ViewModels
 
         [DisplayName("E-mailadres firma")]
         public string FirmaEmail { get; private set; }
+
+        [DisplayName("Naam")]
+        public string ShortName { get; private set; }
 
         public string PhotoBase64 { get; private set; }
         public bool IsInWishList { get; set; }
