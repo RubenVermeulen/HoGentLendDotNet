@@ -71,75 +71,90 @@
 
         <hr/>
 
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
-                @* Amount *@
-                <p>
-                    <strong>@Html.DisplayNameFor(model => model.Amount)</strong>
-                </p>
-                <p>@(Model.Amount - Model.AmountNotAvailable)</p>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                @* Location *@
-                <p>
-                    <strong>@Html.DisplayNameFor(model => model.Location)</strong>
-                </p>
-                <p>
-                    @if (!string.IsNullOrEmpty(Model.Location))
-            {
-                        @Html.DisplayFor(model => model.Location)
-                    }
-                    else
-                    {
-                        @("Geen locatie")
-                    }
-                </p>
-            </div>
-
-
-            <div class="col-md-6 col-sm-6">
-                @* Doelgroepen *@
-                <p>
-                    <strong>@Html.DisplayNameFor(model => model.Doelgroepen)</strong>
-                </p>
-                <p>
-                    @if (Model.Doelgroepen != null && Model.Doelgroepen.Count > 0)
-            {
-                foreach (string groep in Model.Doelgroepen)
-                {
-                            @groep
-                            <br />
-                        }
-                    }
-                    else
-                    {
-                        @("Geen doelgroepen")
-                    }
-                </p>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                @* Leergebieden *@
-                <p>
-                    <strong>@Html.DisplayNameFor(model => model.Leergebieden)</strong>
-                </p>
-                <p>
-                    @if (Model.Leergebieden != null && Model.Leergebieden.Count > 0)
-            {
-                foreach (string groep in Model.Leergebieden)
-                {
-                            @groep
-                            <br />
-                        }
-                    }
-                    else
-                    {
-                        @("Geen leergebieden")
-                    }
-
-
-                </p>
-            </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            @* Is Lendable *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.IsLendable)</strong>
+            </p>
+            <p>@(Model.IsLendable ? "Uitleenbaar" : "Niet uitleenbaar")</p>
         </div>
+        <div class="col-md-6 col-sm-6">
+            @* Amount *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.Amount)</strong>
+            </p>
+            <p>@Model.Amount</p>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            @* Amount Not Available *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.AmountNotAvailable)</strong>
+            </p>
+            <p>@Model.AmountNotAvailable</p>
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+            @* Location *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.Location)</strong>
+            </p>
+            <p>
+                @if (!string.IsNullOrEmpty(Model.Location))
+                {
+                    @Html.DisplayFor(model => model.Location)
+                }
+                else
+                {
+                    @("Geen locatie")
+                }
+            </p>
+        </div>
+
+
+        <div class="col-md-6 col-sm-6">
+            @* Doelgroepen *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.Doelgroepen)</strong>
+            </p>
+            <p>
+                @if (Model.Doelgroepen != null && Model.Doelgroepen.Count > 0)
+                {
+                    foreach (string groep in Model.Doelgroepen)
+                    {
+                        @groep
+                        <br/>
+                    }
+                }
+                else
+                {
+                    @("Geen doelgroepen")
+                }
+            </p>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            @* Leergebieden *@
+            <p>
+                <strong>@Html.DisplayNameFor(model => model.Leergebieden)</strong>
+            </p>
+            <p>
+                @if (Model.Leergebieden != null && Model.Leergebieden.Count > 0)
+                {
+                    foreach (string groep in Model.Leergebieden)
+                    {
+                        @groep
+                        <br/>
+                    }
+                }
+                else
+                {
+                    @("Geen leergebieden")
+                }
+
+
+            </p>
+        </div>
+    </div>
         
 
         <hr/>
