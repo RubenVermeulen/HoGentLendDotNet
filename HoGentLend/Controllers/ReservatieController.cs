@@ -61,65 +61,20 @@ namespace HoGentLend.Controllers
             DateTime? ophaalDatum)
         {
             Config c = configWrapper.GetConfig();
+
             int aantalDagen;
-            int indienDag;
-            int ophaalDag;
-            int verschilDagen;
 
+            var dayToNr = new Dictionary<string, int>();
+            dayToNr.Add("maandag", 1);
+            dayToNr.Add("dinsdag", 2);
+            dayToNr.Add("woensdag", 3);
+            dayToNr.Add("donderdag", 4);
+            dayToNr.Add("vrijdag", 5);
+            dayToNr.Add("zaterdag", 6);
+            dayToNr.Add("zondag", 7);
 
-            if (c.Indiendag.Equals("dinsdag"))
-            {
-                indienDag = 1;
-            }
-            else if (c.Indiendag.Equals("woensdag"))
-            {
-                indienDag = 2;
-            }
-            else if (c.Indiendag.Equals("donderdag"))
-            {
-                indienDag = 3;
-            }
-            else if (c.Indiendag.Equals("vrijdag"))
-            {
-                indienDag = 4;
-            }
-            else {
-                indienDag = 0;
-            }
-
-            if (c.Ophaaldag.Equals("maandag"))
-            {
-                ophaalDag = 0;
-            }
-            else if (c.Ophaaldag.Equals("dinsdag"))
-            {
-                ophaalDag = 1;
-            }
-            else if (c.Ophaaldag.Equals("woensdag"))
-            {
-                ophaalDag = 2;
-            }
-            else if (c.Ophaaldag.Equals("donderdag"))
-            {
-                ophaalDag = 3;
-            }
-            else
-            {
-                ophaalDag = 4;
-            }
-
-            verschilDagen =indienDag-ophaalDag;
-
-            if (verschilDagen == 0) {
-                aantalDagen = c.LendingPeriod * 7;
-            }
-            else if (c.LendingPeriod == 1)
-            {
-                aantalDagen = verschilDagen;
-            }
-            else {
-                aantalDagen = (c.LendingPeriod - 1) * 7 + verschilDagen;
-            }
+            aantalDagen = Reservatie.CalculateAmountDaysOphaalDatumFromIndienDatum(dayToNr[c.Indiendag],
+                dayToNr[c.Ophaaldag], c.LendingPeriod);
 
             var materialenTeReserveren = new Dictionary<Materiaal, int>();
             var x = 0;

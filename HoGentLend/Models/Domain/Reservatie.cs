@@ -15,7 +15,7 @@ namespace HoGentLend.Models.Domain
         public DateTime? Indienmoment { get; private set; }
         public DateTime? Reservatiemoment { get; set; }
         public bool Opgehaald { get; set; }
-        public virtual List<ReservatieLijn> ReservatieLijnen  { get; set; }
+        public virtual List<ReservatieLijn> ReservatieLijnen { get; set; }
 
         private Reservatie()
         {
@@ -35,7 +35,7 @@ namespace HoGentLend.Models.Domain
             {
                 throw new ArgumentNullException("Een ophaalmoment is verplicht.");
             }
-            if(indienMoment == null)
+            if (indienMoment == null)
             {
                 throw new ArgumentNullException("Een indienmoment is verplicht.");
             }
@@ -55,6 +55,28 @@ namespace HoGentLend.Models.Domain
         {
             ReservatieLijn reservatieLijn = new ReservatieLijn(amount, ophaalDatum, indienDatum, materiaal, this);
             ReservatieLijnen.Add(reservatieLijn);
+        }
+
+        public static int CalculateAmountDaysOphaalDatumFromIndienDatum(int indienDag,
+            int aantalWeken, int ophaalDag)
+        {
+            int aantalDagen;
+            int verschilDagen;
+
+            verschilDagen = indienDag - ophaalDag;
+
+            if (verschilDagen == 0)
+            {
+                aantalDagen = aantalWeken* 7;
+            }
+            else if (aantalWeken == 1)
+            {
+                aantalDagen = verschilDagen;
+            }
+            else {
+                aantalDagen = (aantalWeken - 1) * 7 + verschilDagen;
+            }
+            return aantalDagen;
         }
     }
 }
