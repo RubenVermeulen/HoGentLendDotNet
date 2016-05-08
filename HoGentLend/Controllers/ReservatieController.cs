@@ -142,6 +142,10 @@ namespace HoGentLend.Controllers
             try
             {
                 ReservatieLijn rl = res.ReservatieLijnen.FirstOrDefault(rll => rll.Id == reservatieLineId);
+                if(rl == null)
+                {
+                    throw new ArgumentException("De reservatielijn is niet beschikbaar of mogelijk al verwijderd.");
+                }
                 String name = rl.Materiaal.Name;
 
                 gebruiker.RemoveReservationLijn(rl, reservatieRepository);
