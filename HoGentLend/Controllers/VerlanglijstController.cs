@@ -34,7 +34,8 @@ namespace HoGentLend.Controllers
             ViewBag.aantalWeken = c.LendingPeriod;
             ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
             ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
-            ViewBag.vandaag = DateTime.Now.ToString("dd/mm/yyyy");
+            // months +1 wants javascript telt van een maand eerder
+            ViewBag.vandaag = DateTime.Now.ToString("dd/MM/yyyy");
             return View("Index", materials);
         }
 

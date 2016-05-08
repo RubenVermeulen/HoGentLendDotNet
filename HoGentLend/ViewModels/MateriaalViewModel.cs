@@ -87,5 +87,6 @@ namespace HoGentLend.ViewModels
         public string FirmaEmail { get; private set; }
 
         public string PhotoBase64 { get; private set; }
+        public bool IsInWishList { get; set; }
     }
 }
