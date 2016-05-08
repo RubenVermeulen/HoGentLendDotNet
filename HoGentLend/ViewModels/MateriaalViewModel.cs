@@ -20,28 +20,8 @@ namespace HoGentLend.ViewModels
             Name = m.Name;
             Description = m.Description;
 
-            if (Description != null)
-            {
-                if (Description.Length > 50)
-                {
-                    DescriptionShort = Description.Substring(0, 50) + " ...";
-                }
-                else
-                {
-                    DescriptionShort = Description;
-                }
-            }
-            if (Name != null)
-            {
-                if (Name.Length > 50)
-                {
-                    ShortName = Name.Substring(0, 50) + "...";
-                }
-                else
-                {
-                    ShortName = Name;
-                }
-            }
+            DescriptionShort = ToShortString(Description, 50);
+            ShortName = ToShortString(Name, 50);
 
             ArticleCode = m.ArticleCode;
             Price = m.Price;
@@ -54,6 +34,16 @@ namespace HoGentLend.ViewModels
             FirmaName = m.Firma?.Name;
             FirmaEmail = m.Firma?.Email;
             PhotoBase64 = (m.PhotoBytes != null) ? Convert.ToBase64String(m.PhotoBytes) : null;
+        }
+
+        private string ToShortString(string str, int l)
+        {
+            if (str == null)
+                return null;
+            if (str.Length > l)
+                return str.Substring(0, l) + "...";
+            else
+                return str;
         }
 
         public long Id { get; private set; }
