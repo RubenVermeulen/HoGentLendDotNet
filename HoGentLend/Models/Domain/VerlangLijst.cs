@@ -34,14 +34,13 @@ namespace HoGentLend.Models.Domain
             Materials.Remove(material);
         }
 
-        public Materiaal FindBy(int materiaalId)
+        public bool Contains(Materiaal m)
         {
-            return Materials.FirstOrDefault(m => m.Id == materiaalId);
-        }
-
-        public bool Exists(long id)
-        {
-            return Materials.Any(m => m.Id == id);
+            if (m == null)
+            {
+                return false;
+            }
+            return Materials.Contains(m);
         }
     }
 }

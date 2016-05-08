@@ -31,14 +31,16 @@ namespace HoGentLend.Controllers
         {
             IEnumerable<MateriaalViewModel> materialen =
                 materiaalRepository.FindByFilter(filter, doelgroepId, leergebiedId)
-                .Select(m => new MateriaalViewModel(m));
+                .Select(m => new MateriaalViewModel(m)
+                {
+                    IsInWishList = gebruiker.WishList.Contains(m)
+                });
 
             ViewBag.Doelgroepen = GroepenSelectList(groepRepository.FindAllDoelGroepen());
             ViewBag.Leergebieden = GroepenSelectList(groepRepository.FindAllLeerGebieden());
             ViewBag.doelgroepId = doelgroepId;
             ViewBag.leergebiedId = leergebiedId;
             ViewBag.filter = filter;
-            ViewBag.verlanglijst = gebruiker.WishList;
 
             if (gebruiker.CanSeeAllMaterials()) // If lector return all materialen
             {
@@ -98,7 +100,7 @@ namespace HoGentLend.Controllers
             ViewBag.chartList = chartList;
             ViewBag.lendingPeriod = config.LendingPeriod;
             ViewBag.reservaties = reservaties;
-            ViewBag.InWishlist = gebruiker.WishList.Exists(m.Id);
+            ViewBag.InWishlist = gebruiker.WishList.Contains(m);
 
             return View(new MateriaalViewModel(m));
         }

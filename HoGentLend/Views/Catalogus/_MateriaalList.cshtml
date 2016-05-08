@@ -39,7 +39,7 @@
                         </p>
 
                         <div class="clearfix">
-                            @if (ViewBag.verlanglijst.Exists(item.Id))
+                            @if (item.IsInWishList)
                             {
                                 <button id="@item.Id" class="voegtoe voegtoe-active">
                                     <div class="heart">
