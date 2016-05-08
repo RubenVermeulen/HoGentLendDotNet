@@ -120,8 +120,8 @@ namespace HoGentLend.Controllers
                             }
                             gebruikerRepo.Add(nieuweGebruiker);
                             gebruikerRepo.SaveChanges();
-                            SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
-                            return RedirectToAction("Index", "Catalogus");
+                            SignInManager.PasswordSignInAsync(model.UserId, PASSWORD_FILLER, model.RememberMe, shouldLockout: false);
+                            return RedirectToLocal(returnUrl);
                         }
                         AddErrors(registerResult);
                         return View(model);

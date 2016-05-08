@@ -110,7 +110,7 @@ namespace HoGentLendTests.Controllers
             controller.Login(CreateViewModel(NEW_VALID_USERNAME, NEW_VALID_PASSWORD), "");
             mockGebruikerRepository.Verify(m => m.Add(It.IsAny<Student>()), Times.Once);
             mockGebruikerRepository.Verify(m => m.SaveChanges(), Times.Once);
-            mockApplicationSignInManager.Verify(m => m.SignInAsync(It.IsAny<ApplicationUser>(), false, false), Times.Once);
+            mockApplicationSignInManager.Verify(m => m.PasswordSignInAsync(NEW_VALID_USERNAME, It.IsAny<string>(), false, false), Times.Exactly(2));
         }
         [TestMethod]
         public void POST_Login_NewValidLector_PersistsGebruikerAndSignsIn()
@@ -118,7 +118,7 @@ namespace HoGentLendTests.Controllers
             controller.Login(CreateViewModel(NEW_VALID_USERNAME_LECTOR, NEW_VALID_PASSWORD_LECTOR), "");
             mockGebruikerRepository.Verify(m => m.Add(It.IsAny<Lector>()), Times.Once);
             mockGebruikerRepository.Verify(m => m.SaveChanges(), Times.Once);
-            mockApplicationSignInManager.Verify(m => m.SignInAsync(It.IsAny<ApplicationUser>(), false, false), Times.Once);
+            mockApplicationSignInManager.Verify(m => m.PasswordSignInAsync(NEW_VALID_USERNAME_LECTOR, It.IsAny<string>(), false, false), Times.Exactly(2));
         }
         [TestMethod]
         public void POST_Login_NewValid_RedirectsToCatalogus()
