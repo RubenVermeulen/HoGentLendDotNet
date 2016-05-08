@@ -1,7 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+<ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="HoGentLend.Models.Domain.Materiaal">
-    <Position X="0.75" Y="5.25" Width="2.75" />
+    <Position X="8.75" Y="2.75" Width="1.75" />
+    <AssociationLine Name="Firma" Type="HoGentLend.Models.Domain.Firma" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="3.125" />
+        <Point X="8.262" Y="3.125" />
+        <Point X="8.262" Y="1.988" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Leergebieden" Type="HoGentLend.Models.Domain.Groep">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.211" Y="0.121" Height="0.182" Width="1.166" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAACAAAQAQAgAAACAAIAAASAAAAAAAAEAAAACACAAQQ=</HashCode>
       <FileName>Models\Domain\Materiaal.cs</FileName>
@@ -9,52 +21,61 @@
     <ShowAsAssociation>
       <Property Name="Firma" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="ReservatieLijnen" />
+      <Property Name="Doelgroepen" />
+      <Property Name="Leergebieden" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="HoGentLend.Models.Domain.Groep">
-    <Position X="4.75" Y="5.25" Width="2.5" />
+    <Position X="9" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAABAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Groep.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HoGentLend.Models.Domain.Firma">
-    <Position X="4.75" Y="7" Width="2.5" />
+    <Position X="7.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Firma.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HoGentLend.Models.Domain.Gebruiker">
-    <Position X="4.75" Y="8.75" Width="7.25" />
+    <Position X="4.75" Y="5" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AQACAEAAACAAAkgIAAAAgABBAAAAAAAAAAAAAgiAAAg=</HashCode>
       <FileName>Models\Domain\Gebruiker.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="WishList" />
+    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Reservaties" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="HoGentLend.Models.Domain.VerlangLijst">
-    <Position X="7.25" Y="0.5" Width="3.25" />
+    <Position X="8.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEACAAAAAAAAAAhAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <HashCode>AEACAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAgQAAA=</HashCode>
       <FileName>Models\Domain\VerlangLijst.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HoGentLend.Models.Domain.ReservatieLijn">
-    <Position X="12.5" Y="5.75" Width="2.75" />
+    <Position X="13.25" Y="6" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAACAAIBAAAAAAAAAAAQAAKAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAIBAAAAAAAAAAAQAAKAAAAAEAAIAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\ReservatieLijn.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Materiaal" />
+      <Property Name="Reservatie" />
     </ShowAsAssociation>
   </Class>
   <Class Name="HoGentLend.Models.Domain.Reservatie">
-    <Position X="12.5" Y="2" Width="2.75" />
+    <Position X="11.25" Y="0.5" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>AAECAAAIACAAAAAAAAAAAAAAAABAAAAAABAAAAAAAEQ=</HashCode>
+      <HashCode>AAECAAAIACAAAAAAAAAAAAACAABAAAAAABAAAAAAAEQ=</HashCode>
       <FileName>Models\Domain\Reservatie.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -62,45 +83,93 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="HoGentLend.Models.Domain.Config">
-    <Position X="1" Y="12.5" Width="2.5" />
+    <Position X="3.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAEAAAAAAAAAAAAAARAAAAEAAAAAEAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Config.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="HoGentLend.Models.Domain.HGLUtils">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\HGLUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HoGentLend.Models.Domain.Student">
+    <Position X="0.5" Y="5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAgAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Student.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HoGentLend.Models.Domain.Lector">
+    <Position X="0.5" Y="7" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAgAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Lector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="HoGentLend.Models.Domain.IRepository&lt;EntityType, IdType&gt;">
-    <Position X="0.5" Y="0.5" Width="3.25" />
+    <Position X="0.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>gAIAAAAAAAAAAAgAAAAQAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\IRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="HoGentLend.Models.Domain.IMateriaalRepository">
-    <Position X="0.5" Y="3.75" Width="4" />
+    <Position X="0.5" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\IMateriaalRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="HoGentLend.Models.Domain.IGroepRepository">
-    <Position X="4.75" Y="3.75" Width="2.75" />
+    <Position X="2.5" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\IGroepRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="HoGentLend.Models.Domain.IGebruikerRepository">
-    <Position X="7.75" Y="3.75" Width="2.75" />
+    <Position X="4.5" Y="3.25" Width="1.75" />
+    <InheritanceLine Type="HoGentLend.Models.Domain.IRepository&lt;EntityType, IdType&gt;" ManuallyRouted="true">
+      <Path>
+        <Point X="1.75" Y="2.373" />
+        <Point X="1.75" Y="3.132" />
+        <Point X="3.292" Y="3.132" Type="JumpStart" />
+        <Point X="3.458" Y="3.132" Type="JumpEnd" />
+        <Point X="5.375" Y="3.132" />
+        <Point X="5.375" Y="3.25" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\IGebruikerRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="HoGentLend.Models.Domain.IConfigWrapper">
-    <Position X="1" Y="10.75" Width="1.75" />
+    <Position X="5.25" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\IConfigWrapper.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HoGentLend.Models.Domain.IReservatieRepository">
+    <Position X="6.5" Y="3.25" Width="1.75" />
+    <InheritanceLine Type="HoGentLend.Models.Domain.IRepository&lt;EntityType, IdType&gt;" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2" Y="2.373" />
+        <Point X="2" Y="3.028" />
+        <Point X="3.292" Y="3.028" Type="JumpStart" />
+        <Point X="3.458" Y="3.028" Type="JumpEnd" />
+        <Point X="7.375" Y="3.028" />
+        <Point X="7.375" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\IReservatieRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
