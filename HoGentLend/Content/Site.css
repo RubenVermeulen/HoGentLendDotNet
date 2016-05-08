@@ -122,28 +122,6 @@ textarea {
     height: 60px;
 }
 
-@media (min-width : 1200px) {
-    #catalog .catalog-item p {
-        height: 40px;
-    }
-}
-
-@media (max-width : 992px) {
-    #catalog .catalog-item p {
-        height: 40px;
-    }
-}
-
-@media (max-width : 400px) {
-    #catalog .catalog-item p {
-        height: 60px;
-    }
-
-    #catalog .voegtoe{
-        font-size: 0.8em;
-    }
-
-}
 
 /* Add to wishlist button */
 
@@ -315,8 +293,8 @@ textarea {
 
 #wishlist .wishlist-item .wishlist-img {
     position: relative;
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     background: url("Images/default-placeholder.png") no-repeat center;
     background-size: contain;
 }
@@ -378,4 +356,34 @@ textarea {
     display: none;
     z-index: 100; 
     text-align: center; 
+}
+
+@media (min-width : 1200px) {
+    #catalog .catalog-item p {
+        height: 40px;
+    }
+}
+
+@media (max-width : 992px) {
+    #catalog .catalog-item p {
+        height: 40px;
+    }
+    .wishlist-item [class*="col-"] {
+        margin-bottom: 5px;
+    }
+    #wishlist .wishlist-item .wishlist-img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width : 400px) {
+    #catalog .catalog-item p {
+        height: 60px;
+    }
+
+    #catalog .voegtoe{
+        font-size: 0.8em;
+    }
+
 }

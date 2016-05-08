@@ -31,7 +31,7 @@
                 counter = counter + 1;
                 <div class="row wishlist-item">
                     <div class="col-md-12">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
 
                             <!-- IMAGE -->
                             @if (item.PhotoBase64 != null)
@@ -47,35 +47,27 @@
 
                         </div>
                         <div class="col-md-5">
-                            @Html.ActionLink(item.Name, "Detail", "Catalogus", new {id = item.Id}, null)
+                            @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-4 col-md-offset-2">
-                                            <label for="amount">Aantal</label>
-                                        </div>
-                                        <div class="col-md-6"   >
-                                            <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id"/>
-                                            <input type="number" id="amount" class="form-control" min="0" name="reservatiepartmodels[@counter].Amount" value="0"/>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="col-md-1">
+                                <label for="amount">Aantal</label>
+                        </div>
 
+                        <div class="col-md-1">
+                            <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id" />
+                            <input type="number" id="amount" class="form-control" min="0" name="reservatiepartmodels[@counter].Amount" value="0" />
 
-                            </div>
                         </div>
                         <div class="col-md-2">
                             @*<button type="submit" class="btn btn-default" name="bevestig" id="@(item.Id)">
                                     Verwijder uit verlanglijstje
                                 </button>*@
-                            @Html.ActionLink("Verwijder uit verlanglijstje", "Remove", "Verlanglijst", new {materiaalId = item.Id}, new {@class = "btn btn-default confirmation-delete", @data_name = item.Name})
+                            @Html.ActionLink("Verwijder uit verlanglijstje", "Remove", "Verlanglijst", new { materiaalId = item.Id }, new { @class = "btn btn-default confirmation-delete", @data_name = item.Name })
                         </div>
                     </div>
                 </div>
 
-                <hr/>
+                <hr />
             }
 
             <div class="row">
@@ -83,7 +75,7 @@
                     <div class="col-md-6 col-sm-6 padding-0">
                         <div class="form-group">
                             <label for="date">Ophaaldatum (om @ViewBag.ophaalTijd)</label>
-                            <input type="text" id="date" name="ophaalDatum" class="form-control" required/>
+                            <input type="text" id="date" name="ophaalDatum" class="form-control" required />
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6 padding-0">
@@ -113,7 +105,8 @@
                 <h4 class="modal-title">Bevestiging</h4>
             </div>
             <div class="modal-body">
-                <p>Je staat op het punt "<strong><span class="name"></span></strong>" uit je verlanglijstje te verwijderen. Ben je zeker?
+                <p>
+                    Je staat op het punt "<strong><span class="name"></span></strong>" uit je verlanglijstje te verwijderen. Ben je zeker?
                 </p>
             </div>
             <div class="modal-footer">
@@ -142,7 +135,7 @@
 
             e.preventDefault();
         });
-        
+
 
         // Ajax Post Call Wishlist
         $('button.reserveer').click(function (e) {
@@ -154,7 +147,7 @@
                     button.attr('disabled', 'disabled');
                     button.addClass('reserveer-active');
                     button.html('<span class="glyphicon glyphicon-heart"></span> In verlanglijstje');
-                    
+
                     var success = $("#success");
                     success.html(data.message);
                     success.slideDown();
@@ -165,7 +158,7 @@
                 }
             });
         });
-        
+
         // Date picker
         Date.prototype.addDays = function(days) {
             var dat = new Date(this.valueOf());
