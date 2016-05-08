@@ -62,10 +62,11 @@ namespace HoGentLend.Controllers
         public ActionResult Detail(Gebruiker gebruiker, int id)
         {
             Materiaal m = materiaalRepository.FindBy(id);
-            List<ReservatieLijn> reservatieLijnen = m.ReservatieLijnen;
-
+            
             if (m == null)
                 return HttpNotFound();
+
+            List<ReservatieLijn> reservatieLijnen = m.ReservatieLijnen;
 
             long convertId = Convert.ToInt64(id);
 

@@ -14,10 +14,25 @@ namespace HoGentLendTests.Controllers
         public IQueryable<Groep> DoelgroepList { get; set; }
         public IQueryable<Groep> LeergebiedList { get; set; }
 
+
         public Reservatie reservatie { get; set; }
+
+        public Config Config { get; set; }
 
         public DummyDataContext()
         {
+            /* Config */
+            DateTime _10u30 = new DateTime(2016, 4, 13).AddHours(10).AddMinutes(30);
+            DateTime _17u00 = new DateTime(2016, 4, 13).AddHours(17);
+
+            Config = new Config()
+            {
+                Indiendag = "maandag",
+                Ophaaldag = "vrijdag",
+                LendingPeriod = 1,
+                Indientijd = _10u30,
+                Ophaaltijd = _17u00
+            };
 
             /* Doelgroepen */
             Groep dg1 = new Groep
@@ -51,6 +66,7 @@ namespace HoGentLendTests.Controllers
             /* Materials */
             Materiaal m1 = new Materiaal
             {
+                Id = 1,
                 Name = "Wereldbol",
                 Amount = 10,
                 Doelgroepen = dgList,
@@ -60,6 +76,7 @@ namespace HoGentLendTests.Controllers
 
             Materiaal m2 = new Materiaal
             {
+                Id = 2,
                 Name = "Rekenmachine",
                 Amount = 2,
                 Doelgroepen = dgList,
@@ -69,6 +86,7 @@ namespace HoGentLendTests.Controllers
 
             Materiaal m3 = new Materiaal
             {
+                Id = 3,
                 Name = "Basketbal",
                 Amount = 3,
                 IsLendable = false
@@ -81,7 +99,7 @@ namespace HoGentLendTests.Controllers
             List<Materiaal> mList2 = (new Materiaal[] { m1, m2, m3 }).ToList(); /* all materials */
             MateriaalList = mList2.AsQueryable();
 
-            /* Whislists */
+            /* Wishlists */
             VerlangLijst l1 = new VerlangLijst
             {
                 Materials = mList
@@ -107,6 +125,11 @@ namespace HoGentLendTests.Controllers
 
             reservatie = rv;
             g1.Reservaties.Add(rv);
+
+            /* Reservatie lijnen */
+            ReservatieLijn rvl = new ReservatieLijn(5, DateTime.Now, DateTime.Now.AddDays(5), m1, rv);
+
+            m1.ReservatieLijnen = new List<ReservatieLijn>() {rvl};
         }
     }
 }
