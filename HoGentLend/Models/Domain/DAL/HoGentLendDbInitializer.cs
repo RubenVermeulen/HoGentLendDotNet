@@ -243,7 +243,7 @@ namespace HoGentLend.Models.DAL
                     Location = "GLEDE 1.011",
                     Firma = f1,
                     Doelgroepen = van3tot12,
-                    Leergebieden = leergebiedenSet2,
+                    Leergebieden = leergebiedenSet5,
                     PhotoBytes = new WebClient().DownloadData("https://s.s-bol.com/imgbase0/imagebase3/large/FC/8/5/4/0/9200000046170458.jpg"),
                 };
 
