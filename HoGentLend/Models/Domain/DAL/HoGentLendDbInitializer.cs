@@ -10,7 +10,7 @@ using HoGentLend.Models.Domain;
 
 namespace HoGentLend.Models.DAL
 {
-    public class HoGentLendDbInitializer : System.Data.Entity.CreateDatabaseIfNotExists<HoGentLendContext>
+    public class HoGentLendDbInitializer : System.Data.Entity.DropCreateDatabaseAlways<HoGentLendContext>
     {
         protected override void Seed(HoGentLendContext context)
         {
