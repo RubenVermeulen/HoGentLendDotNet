@@ -20,6 +20,8 @@ namespace HoGentLend.Models.Domain
         public virtual VerlangLijst WishList { get; private set; }
         public virtual List<Reservatie> Reservaties { get; private set; }
 
+        public bool IsBeheerder { get; set; }
+
         protected Gebruiker()
         {
             // default for entityframework

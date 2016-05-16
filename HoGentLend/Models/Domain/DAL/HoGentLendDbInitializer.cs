@@ -261,6 +261,10 @@ namespace HoGentLend.Models.DAL
 
                 Gebruiker g1 = new Student("Offline", "Student", "offline.student@hogent.be");
                 Gebruiker g2 = new Lector("Offline", "Lector", "offline.lector@hogent.be");
+                Gebruiker g3 = new Lector("Offline", "Lector", "tstpers456");
+
+                g3.IsBeheerder = true;
+
                 context.Users.Add(new ApplicationUser()
                 {
                     Id = "95bebdd6-39b7-4ea5-a3fb-996af68af2aa",
@@ -292,15 +296,16 @@ namespace HoGentLend.Models.DAL
 
                 context.Gebruikers.Add(g1);
                 context.Gebruikers.Add(g2);
+                context.Gebruikers.Add(g3);
 
-                DateTime _13April2016 = new DateTime(2016, 4, 13);
-                DateTime _20April2016 = new DateTime(2016, 4, 20);
+                DateTime _13April2016 = new DateTime(2016, 5, 23);
+                DateTime _20April2016 = new DateTime(2016, 5, 30);
 
                 DateTime _21April2016 = new DateTime(2016, 4, 21);
                 DateTime _28April2016 = new DateTime(2016, 4, 28);
 
-                DateTime _1April2016 = new DateTime(2016, 4, 1);
-                DateTime _8April2016 = new DateTime(2016, 4, 8);
+                DateTime _1April2016 = new DateTime(2016, 5, 16);
+                DateTime _8April2016 = new DateTime(2016, 5, 23);
 
                 Reservatie r1 = new Reservatie(g1, _13April2016, _20April2016);
                 r1.ReservatieLijnen = new List<ReservatieLijn>();

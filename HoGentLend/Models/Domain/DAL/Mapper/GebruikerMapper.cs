@@ -43,6 +43,9 @@ namespace HoGentLend.Models.DAL.Mapper
                 .IsOptional()
                 .HasMaxLength(255);
 
+            Property(g => g.IsBeheerder)
+                .HasColumnName("IS_BEHEERDER");
+
             // Relationships
             HasOptional(t => t.WishList)
                 .WithMany()
