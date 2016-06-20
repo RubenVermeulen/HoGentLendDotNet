@@ -262,6 +262,11 @@ namespace HoGentLend.Models.DAL
                 Gebruiker g1 = new Student("Offline", "Student", "offline.student@hogent.be");
                 Gebruiker g2 = new Lector("Offline", "Lector", "offline.lector@hogent.be");
                 Gebruiker g3 = new Lector("Offline", "Lector", "tstpers456");
+                Gebruiker g4 = new Lector("Hoofd", "Beheerder", "hoofdbeheerder")
+                {
+                    IsHoofdBeheerder = true,
+                    IsBeheerder = true
+                };
 
                 g3.IsBeheerder = true;
 
@@ -297,6 +302,7 @@ namespace HoGentLend.Models.DAL
                 context.Gebruikers.Add(g1);
                 context.Gebruikers.Add(g2);
                 context.Gebruikers.Add(g3);
+                context.Gebruikers.Add(g4);
 
                 DateTime _13April2016 = new DateTime(2016, 5, 23);
                 DateTime _20April2016 = new DateTime(2016, 5, 30);

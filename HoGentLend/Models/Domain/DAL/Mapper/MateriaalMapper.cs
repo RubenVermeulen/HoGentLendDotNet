@@ -75,7 +75,7 @@ namespace HoGentLend.Models.DAL.Mapper
                 .Map(m =>
                 {
                     m.MapLeftKey("materiaal_id");
-                    m.MapRightKey("groep_id");
+                    m.MapRightKey("doelgroep_id");
                     m.ToTable("materiaal_doelgroepen");
                 }
                 );
@@ -85,7 +85,7 @@ namespace HoGentLend.Models.DAL.Mapper
                 .Map(m =>
                 {
                     m.MapLeftKey("materiaal_id");
-                    m.MapRightKey("groep_id");
+                    m.MapRightKey("leergebied_id");
                     m.ToTable("materiaal_leergebieden");
                 }
                 );

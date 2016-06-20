@@ -28,7 +28,7 @@ namespace HoGentLend.Models.DAL.Mapper
                 .HasMaxLength(255);
 
             Property(g => g.IsLeerGebied)
-                .HasColumnName("ISLEERGEBIED")
+                .HasColumnName("ISLEERGROEP")
                 .HasColumnType("bit")
                 .IsOptional();
         }

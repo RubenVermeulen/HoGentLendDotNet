@@ -21,6 +21,7 @@ namespace HoGentLend.Models.Domain
         public virtual List<Reservatie> Reservaties { get; private set; }
 
         public bool IsBeheerder { get; set; }
+        public bool IsHoofdBeheerder { get; set; }
 
         protected Gebruiker()
         {

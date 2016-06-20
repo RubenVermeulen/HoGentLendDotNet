@@ -316,34 +316,34 @@ namespace HoGentLendTests.Models.Domain
         [ExpectedException(typeof(ArgumentException))]
         public void TestAddReservationTeReserverenMaterialenVerplicht()
         {
-            student.AddReservation(null, _13April2016, _20April2016, _1April2016, allReservations);
+            student.AddReservation(null, _13April2016, _20April2016, _1April2016);
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestAddReservationTeReserverenMaterialenNietLeeg()
         {
-            student.AddReservation(new Dictionary<Materiaal, int>(), _13April2016, _20April2016, _1April2016, allReservations);
+            student.AddReservation(new Dictionary<Materiaal, int>(), _13April2016, _20April2016, _1April2016);
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestAddReservationMateriaalNietGenoegBeschikbaarDoorAndereReservaties()
         {
             // m1 4 keer gereserveerd, maar 10 beschikbaar
-            student.AddReservation(CreateDic(m1, 7), _13April2016, _20April2016, _1April2016, allReservations);
+            student.AddReservation(CreateDic(m1, 7), _13April2016, _20April2016, _1April2016);
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestAddReservationMateriaalNietGenoegBeschikbaar()
         {
             // m6 niet gereserveerd, maar 15 beschikbaar
-            student.AddReservation(CreateDic(m6, 16), _13April2016, _20April2016, _1April2016, allReservations);
+            student.AddReservation(CreateDic(m6, 16), _13April2016, _20April2016, _1April2016);
         }
         [TestMethod]
         public void TestAddReservationKonTochToegevoegdWordenAlsLectorOmStudentTeOverlappen()
         {
             // m1 4 keer gereserveerd door studenten, maar 10 beschikbaar
             int beforeCount = lector.Reservaties.Count;
-            lector.AddReservation(CreateDic(m1, 10), _13April2016, _20April2016, _1April2016, allReservations);
+            lector.AddReservation(CreateDic(m1, 10), _13April2016, _20April2016, _1April2016);
             Assert.AreEqual(beforeCount + 1, lector.Reservaties.Count);
         }
         [TestMethod]
@@ -351,14 +351,14 @@ namespace HoGentLendTests.Models.Domain
         public void TestAddReservationLectoKanLectorNietOverlappen()
         {
             // m4 2 keer gereserveerd door lector, maar 15 beschikbaar
-            lector.AddReservation(CreateDic(m4, 13), _21April2016, _28April2016, _1April2016, allReservations);
+            lector.AddReservation(CreateDic(m4, 13), _21April2016, _28April2016, _1April2016);
         }
 
         [TestMethod]
         public void TestAddReservationLuktInWeekZonderOverlappingen()
         {
             int beforeCount = lector.Reservaties.Count;
-            lector.AddReservation(CreateDic(m4, 15), _13April2016, _21April2016, _1April2016, allReservations);
+            lector.AddReservation(CreateDic(m4, 15), _13April2016, _21April2016, _1April2016);
             Assert.AreEqual(beforeCount + 1, lector.Reservaties.Count);
         }
 
@@ -366,13 +366,13 @@ namespace HoGentLendTests.Models.Domain
         [ExpectedException(typeof(ArgumentException))]
         public void TestAddReservationNoLijnen()
         {
-            lector.AddReservation(CreateDic(), _21April2016, _28April2016, _1April2016, allReservations);
+            lector.AddReservation(CreateDic(), _21April2016, _28April2016, _1April2016);
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestAddReservationOphaalDatumBeforeToday()
         {
-            lector.AddReservation(CreateDic(m4, 15), _13April2016, _21April2016, _28April2016, allReservations);
+            lector.AddReservation(CreateDic(m4, 15), _13April2016, _21April2016, _28April2016);
         }
 
         private Dictionary<Materiaal, int> CreateDic(params Object[] objs)

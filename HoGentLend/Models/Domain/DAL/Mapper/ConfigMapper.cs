@@ -25,24 +25,24 @@ namespace HoGentLend.Models.Domain.DAL.Mapper
                 .IsOptional();
 
             Property(g => g.Indiendag)
-                .HasColumnName("INDIENDAG")
+                .HasColumnName("STANDAARDINDIENDAG")
                 .HasColumnType("varchar")
                 .IsOptional()
                 .HasMaxLength(255);
 
             Property(g => g.Ophaaldag)
-                .HasColumnName("OPHAALDAG")
+                .HasColumnName("STANDAARDOPHAALDAG")
                 .HasColumnType("varchar")
                 .IsOptional()
                 .HasMaxLength(255);
 
             Property(g => g.Indientijd)
-                .HasColumnName("INDIENTIJD")
+                .HasColumnName("STANDAARDINDIENTIJD")
                 .HasColumnType("datetime")
                 .IsOptional();
 
             Property(g => g.Ophaaltijd)
-                .HasColumnName("OPHAALTIJD")
+                .HasColumnName("STANDAARDOPHAALTIJD")
                 .HasColumnType("datetime")
                 .IsOptional();
         }
