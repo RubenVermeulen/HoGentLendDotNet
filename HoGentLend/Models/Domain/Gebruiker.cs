@@ -59,8 +59,7 @@ namespace HoGentLend.Models.Domain
         }
 
         public void AddReservation(Dictionary<Materiaal, int> teReserverenMaterialen,
-            DateTime ophaalDatum, DateTime indienDatum, DateTime today,
-            IQueryable<Reservatie> allReservations)
+            DateTime ophaalDatum, DateTime indienDatum, DateTime today)
         {
             if (teReserverenMaterialen == null || teReserverenMaterialen.Count == 0)
             {
@@ -76,7 +75,7 @@ namespace HoGentLend.Models.Domain
             {
                 Materiaal mat = entry.Key;
                 int amount = entry.Value;
-                long availableAmount = GetAmountAvailableForReservation(mat, allReservations, ophaalDatum, indienDatum);
+                long availableAmount = GetAmountAvailableForReservation(mat, ophaalDatum, indienDatum);
                 if (amount > availableAmount)
                 {
                     throw new ArgumentException(string.Format("Het materiaal {0} heeft nog maar {1} exemplaren beschikbaar.", mat.Name, availableAmount));
@@ -140,13 +139,11 @@ namespace HoGentLend.Models.Domain
             }
         }
 
-        private long GetAmountAvailableForReservation(Materiaal mat, IQueryable<Reservatie> allReservations,
+        private long GetAmountAvailableForReservation(Materiaal mat,
             DateTime ophaalDatum, DateTime indienDatum)
         {
-            IEnumerable<ReservatieLijn> reservationLinesWithMaterialThatOverlap = allReservations.SelectMany(
-                r => r.ReservatieLijnen.Where(rl => rl.Materiaal.Id == mat.Id)
-            ).ToList()
-            .Where(rl => rl.OphaalMoment < indienDatum && rl.IndienMoment > ophaalDatum);
+            IEnumerable<ReservatieLijn> reservationLinesWithMaterialThatOverlap = mat.ReservatieLijnen
+                .Where(rl => rl.OphaalMoment < indienDatum && rl.IndienMoment > ophaalDatum).ToList();
 
             long amountReserved = FilterReservatieLijnenDieOveruledKunnenWorden(reservationLinesWithMaterialThatOverlap).Select(rl => rl.Amount).Sum();
             long amountAvailable = mat.Amount - mat.AmountNotAvailable - amountReserved;

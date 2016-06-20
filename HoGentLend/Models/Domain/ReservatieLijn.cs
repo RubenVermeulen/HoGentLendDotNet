@@ -77,7 +77,6 @@ namespace HoGentLend.Models.Domain
                     foreach (var lijn in overlappendeLijnen)
                     {
                         Reservatie bijhorendeReservatie = lijn.Reservatie;
-                        System.Diagnostics.Debug.WriteLine("Reservatie van overlappende lijn" + ": " + bijhorendeReservatie);
                         if ((bijhorendeReservatie.Lener.CanSeeAllMaterials() ||
                             (bijhorendeReservatie.Reservatiemoment < this.Reservatie.Reservatiemoment)))
                         {
