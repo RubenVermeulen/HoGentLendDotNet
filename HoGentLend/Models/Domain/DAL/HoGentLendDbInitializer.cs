@@ -313,6 +313,9 @@ namespace HoGentLend.Models.DAL
                 DateTime _13Juni2016 = new DateTime(2016, 6, 13);
                 DateTime _17Juni2016 = new DateTime(2016, 6, 17);
 
+                DateTime _20Juni2016 = new DateTime(2016, 6, 20);
+                DateTime _24Juni2016 = new DateTime(2016, 6, 24);
+
                 Reservatie r1 = new Reservatie(g1, _11Juli2016, _15Juli2016);
                 r1.ReservatieLijnen = new List<ReservatieLijn>();
                 r1.ReservatieLijnen.Add(new ReservatieLijn(4, _11Juli2016, _15Juli2016, m5, r1));
@@ -340,10 +343,16 @@ namespace HoGentLend.Models.DAL
                 r4.ReservatieLijnen.Add(new ReservatieLijn(12, _18Juli2016, _22Juli2016, m4, r4));
                 r4.ReservatieLijnen.Add(new ReservatieLijn(7, _18Juli2016, _22Juli2016, m5, r4));
 
+                Reservatie r5 = new Reservatie(g2, _20Juni2016, _24Juni2016);
+                r5.ReservatieLijnen = new List<ReservatieLijn>();
+                r5.ReservatieLijnen.Add(new ReservatieLijn(1, _20Juni2016, _24Juni2016, m9, r5));
+                r5.ReservatieLijnen.Add(new ReservatieLijn(2, _20Juni2016, _24Juni2016, m5, r5));
+
                 context.Reservaties.Add(r1);
                 context.Reservaties.Add(r2);
                 context.Reservaties.Add(r3);
                 context.Reservaties.Add(r4);
+                context.Reservaties.Add(r5);
 
                 context.SaveChanges();
                 //base.Seed(context);
