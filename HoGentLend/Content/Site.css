@@ -312,12 +312,54 @@ textarea {
 
 #wishlist .wishlist-item .wishlist-img {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     background: url("Images/default-placeholder.png") no-repeat center;
     background-size: contain;
 }
 
+.wishlist-header,
+.wishlist-footer {
+    padding: 15px 20px; 
+    background: #f7f7f7; 
+    border: 1px solid #e8e8e8; 
+}
+
+.wishlist-header {
+    font-weight: bold; 
+    border-radius: 3px 3px 0 0;
+}
+
+.wishlist-footer {
+    border-radius: 0 0 3px 3px;
+}
+
+.wishlist-item {
+    padding: 20px; 
+    border: 1px solid #e8e8e8;
+}
+
+.wishlist-item:last-of-type {
+    border-width: 2px;
+}
+
+.wishlist-item .name {
+    font-size: 16px; 
+    padding-top: 21.5px;
+}
+
+.wishlist-item .amount,
+.wishlist-item .delete {
+    padding-top: 13px;
+}
+
+.wishlist-item .delete .btn:focus,
+.wishlist-item .delete .btn:hover,
+.wishlist-item .delete .btn:active {
+    background: #EE1F1F;
+    border-color: #CE1B1B;
+    color: #fff;
+}
 
 /* Reservation detail */
 
@@ -375,6 +417,14 @@ textarea {
     display: none;
     z-index: 100; 
     text-align: center; 
+}
+
+.btn {
+    transition: all .1s linear;
+}
+
+.full-width {
+    width: 100%;
 }
 
 @media (min-width : 1200px) {
