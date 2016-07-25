@@ -293,16 +293,6 @@ textarea {
     margin-bottom: 0;
 }
 
-#filter .filterbutton {
-    background: #009d7e;
-    border: 1px solid #00876C;
-    transition: background .2s linear;
-}
-
-#filter .filterbutton:hover {
-    background: #00876C;
-}
-
 #filter input, #filter select, #filter a {
     max-width: 100%;
     margin: 5px 0;
@@ -387,6 +377,24 @@ textarea {
     background-size: contain;
 }
 
+/* Button */
+
+.btn-primary {
+    background: #009d7e;
+    border: 1px solid #00876C;
+    -webkit-transition: background .2s linear;
+    -moz-transition: background .2s linear;
+    -ms-transition: background .2s linear;
+    -o-transition: background .2s linear;
+    transition: background .2s linear;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background: #00876C;
+    border: 1px solid #00876C;
+}
 
 /* Misc */
 

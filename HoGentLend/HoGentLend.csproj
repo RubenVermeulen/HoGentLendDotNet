@@ -264,8 +264,13 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\Domain\Domain Class Diagram.cd" />
     <Content Include="Controllers\Controller Class Diagram.cd" />
+    <None Include="Properties\PublishProfiles\hogent-lend-showcase - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\hogentlend-p2g02.pubxml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
