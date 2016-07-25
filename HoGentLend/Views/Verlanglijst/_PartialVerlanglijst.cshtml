@@ -1,0 +1,105 @@
+﻿@model IEnumerable<HoGentLend.ViewModels.MateriaalViewModel>
+
+@if (!Model.Any())
+{
+    <p>Er zit nog niets in je verlanglijstje.</p>
+}
+else
+{
+
+    <div class="wishlist-header">
+        <div class="row">
+            <div class="hidden-xs hidden-sm col-md-2 col-xs-4">Afbeelding</div>
+            <div class="hidden-xs hidden-sm col-lg-8 col-md-7 col-xs-4">Materiaal</div>
+            <div class="hidden-xs hidden-sm col-lg-2 col-md-3 col-xs-4">Aantal</div>
+            <div class="col-xs-12 hidden-md hidden-lg">Verlanglijstje</div>
+        </div>
+    </div>
+
+
+    using (Html.BeginForm("Add", "Reservatie", FormMethod.Post))
+    {
+        int counter = -1;
+        foreach (var item in Model)
+        {
+            counter = counter + 1;
+            <div class="wishlist-item">
+                <div class="row ">
+                    <div class="col-md-2">
+
+                        <!-- IMAGE -->
+                        @if (item.PhotoBase64 != null)
+                        {
+                            <div class="wishlist-img" style="background-image: url(data:image/png;base64,@item.PhotoBase64)">
+                                <a href="data:image/png;base64,@item.PhotoBase64"></a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="wishlist-img"></div>
+                        }
+
+                    </div>
+                    <div class="col-lg-8 col-md-7 name">
+                        @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
+                    </div>
+
+                    <div class="col-lg-1 col-md-2 amount">
+                        <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id" />
+                        <input type="number" id="amount" class="form-control" min="0" name="reservatiepartmodels[@counter].Amount" value="0" />
+
+                    </div>
+                    <div class="col-md-1 delete">
+                        <button class="btn btn-default confirmation-delete" data-id="@item.Id" data-name="@item.Name" title="Verwijderen">
+                            <span class='glyphicon glyphicon-trash'></span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+        <div class="wishlist-footer">
+            <div class="row hidden-xs">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="date">Ophaaldatum (om @ViewBag.ophaalTijd)</label>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label>Indiendatum (om @ViewBag.indienTijd)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="date" class="hidden-sm hidden-md hidden-lg">Ophaaldatum (om @ViewBag.ophaalTijd)</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                            <input type="text" id="date" name="ophaalDatum" class="form-control" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 col-md-6">
+                    <div class="form-group">
+                        <label class="hidden-sm hidden-md hidden-lg">Indiendatum (om @ViewBag.indienTijd)</label>
+                        <p id="indienDatum">-</p>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-2">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary form-control" name="bevestig" value="-1">
+                            Reserveren
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+}

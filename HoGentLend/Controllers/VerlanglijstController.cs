@@ -29,12 +29,19 @@ namespace HoGentLend.Controllers
                 .ToList()
                 .Select(m => new MateriaalViewModel(m));
             Config c = configWrapper.GetConfig();
+
             ViewBag.ophaalDag = c.Ophaaldag;
             ViewBag.indienDag = c.Indiendag;
             ViewBag.aantalWeken = c.LendingPeriod - 1;
             ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
             ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
             ViewBag.vandaag = DateTime.Now.ToString("dd/MM/yyyy");
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_PartialVerlanglijst", materials);
+            }
+
             return View("Index", materials);
         }
 
@@ -55,24 +62,6 @@ namespace HoGentLend.Controllers
             }
         }
 
-        // POST: Remove
-        //[HttpPost]
-        public ActionResult Remove(Gebruiker gebruiker, int materiaalId)
-        {
-            Materiaal mat = materiaalRepository.FindBy(materiaalId);
-            try
-            {
-                gebruiker.WishList.RemoveMaterial(mat);
-                materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
-                TempData["msg"] = "Het materiaal " + mat.Name + " is verwijderd uit je verlanglijstje.";
-            }
-            catch (ArgumentException e)
-            {
-                TempData["err"] = e.Message;
-            }
-            return RedirectToAction("Index");
-        }
-
         [HttpPost]
         [ActionName("Remove")]
         public JsonResult RemovePost(Gebruiker gebruiker, int id)
@@ -81,7 +70,7 @@ namespace HoGentLend.Controllers
             try
             {
                 gebruiker.WishList.RemoveMaterial(mat);
-                materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezeflde context
+                materiaalRepository.SaveChanges(); // dit zal ook de gebruiker veranderingen opslaan want het is overal dezelfde context
                 return Json(new { status = "success", message = "Het materiaal " + mat.Name + " is verwijderd uit je verlanglijstje." });
 
             }
