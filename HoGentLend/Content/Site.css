@@ -291,6 +291,29 @@
     margin: 5px 0;
 }
 
+/* List */
+
+.list-header,
+.list-footer {
+    padding: 15px 20px; 
+    background: #f7f7f7; 
+    border: 1px solid #e8e8e8; 
+    font-weight: bold; 
+}
+
+.list-header {
+    border-radius: 3px 3px 0 0;
+}
+
+.list-footer {
+    border-radius: 0 0 3px 3px;
+}
+
+.list-item {
+    padding: 20px; 
+    border: 1px solid #e8e8e8;
+}
+
 /* Wishlist */
 
 #wishlist .wishlist-item .wishlist-img {
@@ -301,31 +324,6 @@
     background-size: contain;
 }
 
-.wishlist-header,
-.wishlist-footer {
-    padding: 15px 20px; 
-    background: #f7f7f7; 
-    border: 1px solid #e8e8e8; 
-}
-
-.wishlist-header {
-    font-weight: bold; 
-    border-radius: 3px 3px 0 0;
-}
-
-.wishlist-footer {
-    border-radius: 0 0 3px 3px;
-}
-
-.wishlist-item {
-    padding: 20px; 
-    border: 1px solid #e8e8e8;
-}
-
-.wishlist-item:last-of-type {
-    border-width: 2px;
-}
-
 .wishlist-item .name {
     font-size: 16px; 
     padding-top: 21.5px;
@@ -333,6 +331,11 @@
 
 .wishlist-item .amount input {
     text-align: center;
+}
+
+.wishlist-item .amount .min,
+.wishlist-item .amount .plus {
+    cursor: pointer;
 }
 
 .wishlist-item .amount,
@@ -346,6 +349,54 @@
     background: #EE1F1F;
     border-color: #CE1B1B;
     color: #fff;
+}
+
+/* Reveservation list */
+
+.reservation-item .text {
+    padding-top: 7px;
+}
+
+.reservation-item .status {
+    padding-top: 4px;
+}
+
+.reservation-item .status .status-success,
+.reservation-item .status .status-alert,
+.reservation-item .status .status-danger {
+    display: inline-block; 
+    padding: 3px 8px; 
+    border-radius: 3px;
+    color: #fff;
+}
+
+.reservation-item .status .status-success {
+    background: #4BD22C; 
+}
+
+.reservation-item .status .status-alert {
+    background: #EBBD32; 
+}
+
+.reservation-item .status .status-danger { 
+    background: #EE1F1F; 
+}
+
+.reservation-item .delete button.btn:focus,
+.reservation-item .delete button.btn:hover,
+.reservation-item .delete button.btn:active {
+    background: #EE1F1F;
+    border-color: #CE1B1B;
+    color: #fff;
+}
+
+.reservation-item form {
+    display: inline-block;
+}
+
+.reservation-item .subtitle {
+    margin-top: 5px;
+    font-weight: bold;
 }
 
 /* Reservation detail */
