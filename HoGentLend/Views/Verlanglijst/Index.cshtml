@@ -44,6 +44,25 @@
 @section scripts
 {
     <script>
+        // Raise or lower amount
+        $('.min').click(function() {
+            var id = $(this).attr('data-id');
+
+            var value = $('#' + id).val();
+
+            if (value > 0) {
+                $('#' + id).val(--value);
+            }
+        });
+
+        $('.plus').click(function() {
+            var id = $(this).attr('data-id');
+
+            var value = $('#' + id).val();
+
+            $('#' + id).val(++value);
+        });
+
         // Confirmation Delete
         $('#wishlist').on('click', '.confirmation-delete', function(e) {
             var button = $(this);

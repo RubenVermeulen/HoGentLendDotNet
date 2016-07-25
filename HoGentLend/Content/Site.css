@@ -16,13 +16,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 /* Menu bar*/
 
 .navbar-inverse {
@@ -336,6 +329,10 @@ textarea {
 .wishlist-item .name {
     font-size: 16px; 
     padding-top: 21.5px;
+}
+
+.wishlist-item .amount input {
+    text-align: center;
 }
 
 .wishlist-item .amount,

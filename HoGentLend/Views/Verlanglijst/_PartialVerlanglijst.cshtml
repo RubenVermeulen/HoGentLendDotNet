@@ -10,8 +10,8 @@ else
     <div class="wishlist-header">
         <div class="row">
             <div class="hidden-xs hidden-sm col-md-2 col-xs-4">Afbeelding</div>
-            <div class="hidden-xs hidden-sm col-lg-8 col-md-7 col-xs-4">Materiaal</div>
-            <div class="hidden-xs hidden-sm col-lg-2 col-md-3 col-xs-4">Aantal</div>
+            <div class="hidden-xs hidden-sm col-lg-7 col-md-6 col-xs-4">Materiaal</div>
+            <div class="hidden-xs hidden-sm col-lg-3 col-md-4 col-xs-4">Aantal</div>
             <div class="col-xs-12 hidden-md hidden-lg">Verlanglijstje</div>
         </div>
     </div>
@@ -40,14 +40,24 @@ else
                         }
 
                     </div>
-                    <div class="col-lg-8 col-md-7 name">
+                    <div class="col-lg-7 col-md-6 name">
                         @Html.ActionLink(item.Name, "Detail", "Catalogus", new { id = item.Id }, null)
                     </div>
 
-                    <div class="col-lg-1 col-md-2 amount">
-                        <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id" />
-                        <input type="number" id="amount" class="form-control" min="0" name="reservatiepartmodels[@counter].Amount" value="0" />
+                    <div class="col-lg-2 col-md-3 amount">
+                        <input type="hidden" name="reservatiepartmodels[@counter].MateriaalId" value="@item.Id"/>
 
+                        <div class="input-group">
+                            <div class="input-group-addon min" data-id="amount_@item.Id">
+                                <span class="glyphicon glyphicon-minus" ></span> 
+                            </div>
+
+                            <input type="text" id="amount_@item.Id" class="form-control" min="0" name="reservatiepartmodels[@counter].Amount" value="0"/>
+                            
+                            <div class="input-group-addon plus" data-id="amount_@item.Id">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-1 delete">
                         <button class="btn btn-default confirmation-delete" data-id="@item.Id" data-name="@item.Name" title="Verwijderen">
