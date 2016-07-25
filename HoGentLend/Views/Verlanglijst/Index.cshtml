@@ -45,7 +45,7 @@
 {
     <script>
         // Raise or lower amount
-        $('.min').click(function() {
+        $('#wishlist').on('click', '.min', function() {
             var id = $(this).attr('data-id');
 
             var value = $('#' + id).val();
@@ -55,7 +55,7 @@
             }
         });
 
-        $('.plus').click(function() {
+        $('#wishlist').on('click', '.plus', function() {
             var id = $(this).attr('data-id');
 
             var value = $('#' + id).val();
