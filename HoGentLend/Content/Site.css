@@ -314,6 +314,22 @@
     border: 1px solid #e8e8e8;
 }
 
+.list-img {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: url("Images/default-placeholder.png") no-repeat center;
+    background-size: contain;
+}
+
+.list-text {
+    padding-top: 17px;
+}
+
+.list-item .delete {
+    padding-top: 8px;
+}
+
 /* Wishlist */
 
 #wishlist .wishlist-item .wishlist-img {
@@ -361,27 +377,6 @@
     padding-top: 4px;
 }
 
-.reservation-item .status .status-success,
-.reservation-item .status .status-alert,
-.reservation-item .status .status-danger {
-    display: inline-block; 
-    padding: 3px 8px; 
-    border-radius: 3px;
-    color: #fff;
-}
-
-.reservation-item .status .status-success {
-    background: #4BD22C; 
-}
-
-.reservation-item .status .status-alert {
-    background: #EBBD32; 
-}
-
-.reservation-item .status .status-danger { 
-    background: #EE1F1F; 
-}
-
 .reservation-item .delete button.btn:focus,
 .reservation-item .delete button.btn:hover,
 .reservation-item .delete button.btn:active {
@@ -397,6 +392,33 @@
 .reservation-item .subtitle {
     margin-top: 5px;
     font-weight: bold;
+}
+
+.reservation-item .delete {
+    padding-top: 0;
+}
+
+/* Status */
+
+.status-success,
+.status-warning,
+.status-danger {
+    display: inline-block; 
+    padding: 3px 8px; 
+    border-radius: 3px;
+    color: #fff;
+}
+
+.status-success {
+    background: #4BD22C; 
+}
+
+.status-warning {
+    background: #EBBD32; 
+}
+
+.status-danger { 
+    background: #EE1F1F; 
 }
 
 /* Reservation detail */
