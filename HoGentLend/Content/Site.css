@@ -367,6 +367,10 @@
     color: #fff;
 }
 
+.wishlist-footer {
+    font-weight: normal;
+}
+
 /* Reveservation list */
 
 .reservation-item .text {

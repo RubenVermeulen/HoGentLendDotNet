@@ -103,7 +103,7 @@ namespace HoGentLend.Controllers
                 DateTime indienDatum = ophaalDatum.Value.AddDays(aantalDagen);
                 gebruiker.AddReservation(materialenTeReserveren, ophaalDatum.Value, indienDatum, DateTime.UtcNow.ToLocalTime());
                 reservatieRepository.SaveChanges();
-                TempData["msg"] = "De reservatie  is toegevoegd aan uw verlanglijst.";
+                TempData["msg"] = "De reservatie  is succesvol aangemaakt.";
             }
             catch (ArgumentException e)
             {

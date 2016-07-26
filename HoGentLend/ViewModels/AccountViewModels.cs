@@ -5,17 +5,14 @@ namespace HoGentLend.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Gelieve uw gebruikersnaam in te vullen")]
-        [Display(Name = "Gebruikersnaam")]
+        [Required(ErrorMessage = "Gelieve je e-mailadres in te vullen")]
+        [Display(Name = "E-mailadres")]
         public string UserId { get; set; }
 
-        [Required(ErrorMessage = "Gelieve uw wachtwoord in te vullen")]
+        [Required(ErrorMessage = "Gelieve je wachtwoord in te vullen")]
         [DataType(DataType.Password)]
         [Display(Name = "Wachtwoord")]
         public string Password { get; set; }
-
-        [Display(Name = "Onthoud mij?")]
-        public bool RememberMe { get; set; }
     }
 
 }
