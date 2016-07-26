@@ -330,6 +330,14 @@
     padding-top: 8px;
 }
 
+.list-item .delete button.btn:focus,
+.list-item .delete button.btn:hover,
+.list-item .delete button.btn:active {
+    background: #EE1F1F;
+    border-color: #CE1B1B;
+    color: #fff;
+}
+
 /* Wishlist */
 
 #wishlist .wishlist-item .wishlist-img {
@@ -359,14 +367,6 @@
     padding-top: 13px;
 }
 
-.wishlist-item .delete .btn:focus,
-.wishlist-item .delete .btn:hover,
-.wishlist-item .delete .btn:active {
-    background: #EE1F1F;
-    border-color: #CE1B1B;
-    color: #fff;
-}
-
 .wishlist-footer {
     font-weight: normal;
 }
@@ -379,14 +379,6 @@
 
 .reservation-item .status {
     padding-top: 4px;
-}
-
-.reservation-item .delete button.btn:focus,
-.reservation-item .delete button.btn:hover,
-.reservation-item .delete button.btn:active {
-    background: #EE1F1F;
-    border-color: #CE1B1B;
-    color: #fff;
 }
 
 .reservation-item form {
