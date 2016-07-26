@@ -14,7 +14,7 @@ namespace HoGentLend.Models.Domain.HoGentApi
         public string Base64Foto { get; set; }
         public string Type { get; set; }
 
-        public bool IsCompleetResult()
+        public bool IsValid()
         {
             return IsValidString(LastName)
                 && IsValidString(FirstName)
@@ -24,7 +24,7 @@ namespace HoGentLend.Models.Domain.HoGentApi
 
         private bool IsValidString(string str)
         {
-            return str != null && str.Length > 0;
+            return ! string.IsNullOrEmpty(str);
         }
     }
 }

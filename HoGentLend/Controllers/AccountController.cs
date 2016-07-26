@@ -24,8 +24,8 @@ namespace HoGentLend.Controllers
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private IGebruikerRepository gebruikerRepo;
-        private IHoGentApiLookupProvider hoGentApiLookupProvider;
+        private readonly IGebruikerRepository gebruikerRepo;
+        private readonly IHoGentApiLookupProvider hoGentApiLookupProvider;
 
         public ApplicationSignInManager SignInManager
         {
@@ -81,20 +81,21 @@ namespace HoGentLend.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if ( ! ModelState.IsValid)
             {
                 return View(model);
             }
 
-
             var lookupResult = hoGentApiLookupProvider.Lookup(model.UserId, model.Password);
-            if (!lookupResult.IsCompleetResult())
+
+            if ( ! lookupResult.IsValid())
             {
                 ModelState.AddModelError("", "De gebruikersnaam of wachtwoord zijn niet geldig.");
                 return View(model);
             }
 
-            var result = SignInManager.PasswordSignInAsync(model.UserId, PASSWORD_FILLER, model.RememberMe, shouldLockout: false).Result;
+            var result = SignInManager.PasswordSignInAsync(model.UserId, PASSWORD_FILLER, false, shouldLockout: false).Result;
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -102,12 +103,15 @@ namespace HoGentLend.Controllers
                 case SignInStatus.Failure:
                     try
                     {
-                        var newUser = new ApplicationUser { UserName = model.UserId, Email = lookupResult.Email };
+                        var newUser = new ApplicationUser { UserName = model.UserId.ToLower(), Email = lookupResult.Email };
                         var registerResult = UserManager.CreateAsync(newUser, PASSWORD_FILLER).Result;
+
                         if (registerResult.Succeeded)
                         {
-                            var isLector = (lookupResult.Type == "personeel");
+                            var isLector = (lookupResult.Type.Equals("personeel"));
+
                             Gebruiker nieuweGebruiker;
+
                             if (isLector)
                             {
                                 nieuweGebruiker = new Lector(lookupResult.FirstName,
@@ -118,21 +122,26 @@ namespace HoGentLend.Controllers
                                 nieuweGebruiker = new Student(lookupResult.FirstName,
                                     lookupResult.LastName, lookupResult.Email);
                             }
+
                             gebruikerRepo.Add(nieuweGebruiker);
                             gebruikerRepo.SaveChanges();
-                            SignInManager.PasswordSignInAsync(model.UserId, PASSWORD_FILLER, model.RememberMe, shouldLockout: false);
+
+                            // Can't use .Result without storing the result in a variable
+                            // Has to be this way otherwise the user has to login twice
+                            result = SignInManager.PasswordSignInAsync(model.UserId, PASSWORD_FILLER, false, shouldLockout: false).Result;
+
                             return RedirectToLocal(returnUrl);
                         }
+
                         AddErrors(registerResult);
                         return View(model);
-
                     }
-                    catch (HttpRequestException e)
+                    catch (HttpRequestException)
                     {
                         ModelState.AddModelError("", "Er ging iets mis tijdens het contacteren van de HoGent servers.");
                         return View(model);
                     }
-                    catch (ArgumentException e)
+                    catch (ArgumentException)
                     {
                         ModelState.AddModelError("", "De gebruikersnaam en het passwoord zijn verplicht in te vullen.");
                         return View(model);
