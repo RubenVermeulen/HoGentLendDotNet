@@ -45,11 +45,6 @@ namespace HoGentLend.Controllers
 
             };
 
-            Config c = configWrapper.GetConfig();
-
-            ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
-            ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
-
             reservatiesGesorteerd = reservaties.OrderBy(o => o.Ophaalmoment).ToList();
 
             return View(reservatiesGesorteerd);
@@ -101,7 +96,12 @@ namespace HoGentLend.Controllers
                 }
 
                 DateTime indienDatum = ophaalDatum.Value.AddDays(aantalDagen);
-                gebruiker.AddReservation(materialenTeReserveren, ophaalDatum.Value, indienDatum, DateTime.UtcNow.ToLocalTime());
+
+                // Date and time
+                var ophaalMoment = ophaalDatum.Value.AddHours(c.Ophaaltijd.Hour).AddMinutes(c.Ophaaltijd.Minute);
+                var indienMoment = indienDatum.AddHours(c.Indientijd.Hour).AddMinutes(c.Indientijd.Minute);
+
+                gebruiker.AddReservation(materialenTeReserveren, ophaalMoment, indienMoment, DateTime.UtcNow.ToLocalTime());
                 reservatieRepository.SaveChanges();
                 TempData["msg"] = "De reservatie  is succesvol aangemaakt.";
             }
@@ -228,11 +228,6 @@ namespace HoGentLend.Controllers
             ReservatieViewModel rv = new ReservatieViewModel(r);
 
             ConstructReservatieViewModels(r, rv, gebruiker);
-
-            Config c = configWrapper.GetConfig();
-
-            ViewBag.ophaalTijd = c.Ophaaltijd.ToString("HH:mm");
-            ViewBag.indienTijd = c.Indientijd.ToString("HH:mm");
 
             return View(rv);
         }

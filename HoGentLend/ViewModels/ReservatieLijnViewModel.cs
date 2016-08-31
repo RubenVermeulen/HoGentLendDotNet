@@ -16,11 +16,11 @@ namespace HoGentLend.ViewModels
         public long Amount { get; set; }
 
         [DisplayName("Indiendmoment")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime? IndienMoment { get; set; }
 
         [DisplayName("Ophaalmoment")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime? OphaalMoment { get; set; }
 
         [DisplayName("Materiaal")]

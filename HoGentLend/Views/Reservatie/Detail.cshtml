@@ -10,6 +10,12 @@
     <h2>Reservatie @Html.DisplayFor(model => model.Ophaalmoment) tot @Html.DisplayFor(model => model.Indienmoment)</h2>
 
     <hr/>
+
+    <div>
+        <a href="@Url.Action("Index", "Reservatie")" class="btn btn-primary">&larr; Terug naar reservaties</a>
+    </div>
+
+    <hr/>
     <div class="row">
         <div class="col-xs-6"><p><strong>Status</strong></p></div>
         <div class="col-xs-6"><p><strong>Gereserveerd op</strong></p></div>
@@ -35,11 +41,6 @@
     </div>
 
     <hr/>
-
-    <div>
-        <a href="@Url.Action("Index", "Reservatie")" class="btn btn-primary">Terug naar reservaties</a>
-        <br/><br/>
-    </div>
 
     <div id="reservationlist">
 
@@ -86,12 +87,12 @@
 
                         <div class="col-xs-12 hidden-md hidden-lg subtitle">Ophaalmoment</div>
                         <div class="col-md-2 list-text">
-                            @Html.DisplayFor(model => item.OphaalMoment) @ViewBag.ophaalTijd
+                            @Html.DisplayFor(model => item.OphaalMoment)
                         </div>
 
                         <div class="col-xs-12 hidden-md hidden-lg subtitle">Indienmoment</div>
                         <div class="col-md-2 list-text">
-                            @Html.DisplayFor(model => item.IndienMoment) @ViewBag.indienTijd
+                            @Html.DisplayFor(model => item.IndienMoment)
                         </div>
 
                     <div class="col-md-1 delete">
@@ -146,10 +147,6 @@
         </div>
 
     </div>
-</div>
-<div>
-    <br/>
-    <a href="@Url.Action("Index", "Reservatie")" class="btn btn-primary">Terug naar reservaties</a>
 </div>
 
 <!-- Modal box -->

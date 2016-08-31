@@ -22,11 +22,11 @@ namespace HoGentLend.ViewModels
         public string LenerEmail { get; set; }
 
         [DisplayName("Ophaalmoment")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime? Ophaalmoment { get; set; }
 
         [DisplayName("Indienmoment")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
         public DateTime? Indienmoment { get; set; }
 
         [DisplayName("Reservatiemoment")]
