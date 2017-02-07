@@ -10,7 +10,7 @@ This as a web application. It functions as the students portal. Students can mak
 
 ## Team members
 
-Xander Berkein
-Sven Dedeene
-Alexander Van Damme
-Ruben Vermeulen
+- Xander Berkein
+- Sven Dedeene
+- Alexander Van Damme
+- Ruben Vermeulen
